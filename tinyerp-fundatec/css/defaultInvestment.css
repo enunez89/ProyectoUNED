@@ -1,0 +1,100 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/06/2017, 08:58:43 AM
+    Author     : dimendez
+
+/*CSS table Certificate*/
+.tableCont2{
+/*    background:#fff; */
+/*    height: 85vh; */
+/*    border-radius: 20px;*/
+}
+.chartMsg{
+    font-size: 14pt; 
+    color: #5c3412;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+.newVarDataS{
+    margin-bottom: 30px!important;
+}
+.tableContratacion2{
+/*    height: 60vh;
+    max-height: 60vh;
+    overflow-y:auto;
+    overflow-x:hidden;*/
+}
+.cellTableContart{
+    text-align: center;
+}
+.iconTableCE2{
+    width:40px;
+    margin-top: -5px;
+}
+.cellTableContart{
+    text-align: center;
+}
+.iconTableCES{
+    width:70px;
+    margin-top: 3px;
+}
+.iconTableCEven{
+    width:30px;
+    margin-top: -5px;
+}
+
+/*CSS Modals*/
+.headersColor{
+    color:#337ab7;
+}
+.modalContDV3{
+    background: #f3f3f3!important;
+    height: 49vh!important;
+    min-height: 45vh!important;
+    max-height: 49vh!important;
+    margin: 10px!important; 
+    overflow-y: auto!important;
+}
+.modalContDV2{
+    background: #f3f3f3!important;
+    height: 70vh!important;
+    min-height: 70vh!important;
+    max-height: 70vh!important;
+    margin: 10px!important; 
+    overflow-y: auto!important;
+}
+.modalContDV{ /*investment modal*/
+    background: #f3f3f3!important;
+    max-height: 65vh!important;
+    margin: 10px!important; 
+    overflow-y: auto!important;
+}
+.paddTabCont{
+    padding: 15px;
+}
+.textAreaNoResz{
+    resize: none;
+}
+.btnAddDetail{
+    margin-bottom: 15px!important;
+}
+.noDisplay{
+    display: none!important;
+}
+.prueba{
+    border: solid red;
+}
+.listContentAcc{
+    max-height: 40vh!important;
+    overflow-y: auto;
+}
+/*CSS IMAGENES*/
+.itemDeleteImg{
+	width: 25px;
+}
+.daterangepicker{z-index:1151 !important;}
+

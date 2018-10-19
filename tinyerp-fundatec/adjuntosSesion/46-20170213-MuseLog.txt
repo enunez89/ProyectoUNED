@@ -1,0 +1,42 @@
+Logging in build 2017.0.0.149 started at: Thu Nov 17 11:30:14 2016
+========================================
+
+==========
+Logging ended at: Thu Nov 17 11:30:37 2016
+
+Logging in build 2017.0.0.149 started at: Thu Nov 17 11:37:31 2016
+========================================
+
+==========
+Logging ended at: Thu Nov 17 11:37:33 2016
+
+Logging in build 2017.0.0.149 started at: Thu Nov 17 11:37:40 2016
+========================================
+[00:00:39.328] 11:38:20.449 | Error - IMS : No AdobeID signed in
+[00:01:20.419] 11:39:01.533 | quitWithUI:Quitting Application. Called by: 
+[00:01:20.419] 11:39:01.534 | Quitting Application after 1.1 minutes. Called by: 
+[00:01:22.603] Logging shutdown normally
+
+==========
+Logging ended at: Thu Nov 17 11:39:04 2016
+
+Logging in build 2017.0.0.149 started at: Thu Nov 17 11:40:10 2016
+========================================
+[00:00:15.584] 11:40:26.428 | Error - IMS : IMSLib not loaded
+[00:02:02.835] 11:42:13.684 | quitWithUI:Quitting Application. Called by: 
+[00:02:02.835] 11:42:13.686 | Quitting Application after 2 minutes. Called by: 
+[00:02:04.660] Logging shutdown normally
+
+==========
+Logging ended at: Thu Nov 17 11:42:15 2016
+
+Logging in build 2017.0.0.149 started at: Fri Jan 20 07:56:53 2017
+========================================
+[00:00:17.176] 07:57:13.055 | Error - IMS : IMSLib not loaded
+[00:01:54.739] 07:58:50.618 | quitWithUI:Quitting Application. Called by: 
+[00:01:55.253] 07:58:51.137 | Quitting Application after 1.8 minutes. Called by: 
+[00:01:57.562] Logging shutdown normally
+
+==========
+Logging ended at: Fri Jan 20 07:58:53 2017
+

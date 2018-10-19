@@ -1,0 +1,162 @@
+body{
+	margin: 0px;
+	padding: 0px;
+
+	background: rgba(237,237,237,1);
+	background: -moz-linear-gradient(left, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 48%, rgba(255,255,255,1) 64%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(237,237,237,1)), color-stop(48%, rgba(246,246,246,1)), color-stop(64%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(left, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 48%, rgba(255,255,255,1) 64%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(left, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 48%, rgba(255,255,255,1) 64%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(left, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 48%, rgba(255,255,255,1) 64%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to right, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 48%, rgba(255,255,255,1) 64%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=1 );
+
+  
+    font-family: 'Roboto', sans-serif;
+}
+.content-header{
+	background: #05407D;
+}
+.header{
+	width:100%;
+	height: auto;
+	padding: 10px;
+}
+.main-content{
+	background: #ffffff;
+	min-height: 90vh;	
+	border: solid 1px #cccccc;
+	border-top: 0px;
+	border-right:0px;
+	border-bottom: 0px;
+	margin: 0px;
+	padding: 20px;
+	overflow: hidden;
+}
+.logo{
+	width: 200px;
+}
+.pull-right{
+	text-align: right;
+}
+.navbar-header{
+	background: #fff;
+}
+.nav{
+	
+	border: none;
+	padding: 5px;
+}
+.navbar-default{
+	border: none;
+	background:transparent;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active {
+background:transparent;	
+}
+.nav li a{
+	
+	padding-left: 3px;
+	color: #3572b0!important;
+}
+.nav li img{
+	padding-right:5px;
+}
+.nav li:hover, .nav li:active{
+	background: #e7e7e7;
+}
+.active team{
+	background: blue;
+}
+#text-search{
+	background: #10314f;
+	border: none;
+	color: #fff;
+	min-width: 70%;
+}
+.lbusername{
+	color: #fff;
+
+}
+#btn-new-session{
+	background: #05407D;
+	color: #fff;
+}
+.img40{	
+	width: 32px;
+    height:32px;
+	border-radius: 100px;
+	background: #FFF none repeat scroll 0% 0%;
+}
+ .img-menu-top{
+ 	cursor: pointer;
+ }
+.logoBlue{
+	padding: 10px;
+	width: 200px;
+	display: none;
+}
+.pointer{
+
+	cursor: pointer;
+}
+#menuuser .dropdown-header{
+	text-align: center;
+
+}
+#menuuser {
+	text-align: center;
+}
+#menuuser .dropdown-header img{
+	width: 100px;
+	height: 100px;
+	border-radius: 100px;
+}
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  /*.sidebar-nav .navbar ul:not{
+    display: block;
+  }*/
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+ @media all and (max-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 1024px), only screen and (min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min-resolution: 192dpi) and (max-width: 1024px), only screen and (min-resolution: 2dppx) and (max-width: 1024px) {
+ body{
+ 	background: #fff;
+ }
+ #content-rigth{
+ 	display: block;
+ }
+ .img-menu-top{
+ 	display: none;
+ }
+ .logo{
+ 	display: none;
+ }
+ .logoBlue{
+ 	display: block;
+ }
+ .lbusername{
+ 	display: none;
+ }
+ .main-content{
+ 	border: none;
+ }
+ .form-inline input{
+ 	margin: 2px;
+ }
+}

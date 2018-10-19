@@ -1,0 +1,128 @@
+
+/* 
+    Created on : 29/05/2018, 02:20:42 PM
+    Author     : Yendry Arrieta
+*/
+
+
+/*-------------------- CONTENIDO DE PÁGINA ---------------------------*/
+
+
+    #cajaTexto {
+        border: lightgray solid 1px;
+        border-radius: 10px;
+        background-color: #fff;
+        display: inline-block;
+        margin: 1%;
+        width: 170px;
+        height: 150px;
+        -webkit-box-flex: 1;
+        box-flex: 1;
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+    }
+
+
+#cajaTexto{
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 1000px){
+
+    .col-md-4 {
+        border: lightgray solid 1px;
+        border-radius: 10px;
+        box-shadow: 4px 4px 4px lightgray;
+        background-color: #fff;
+        display: inline-block;
+        width: 100%;
+        margin-top: 4%;
+    }
+}
+
+.col-md-4 {
+    vertical-align: top;
+}
+
+@media only screen and (max-width: 1239px) and (min-width: 800px){
+    .container{
+        -webkit-box-align: start;
+        box-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+}
+
+div{
+    display: block;
+}
+
+.name-page{
+    display: table;
+    font-weight: normal;
+    height: 20px;
+    line-height: 25px;
+    margin: 0;
+    margin-top: 10%;
+    width: 100%;
+}
+
+.page-name{
+    color: #337ab7;
+    display: table-cell;
+    font-size: 60%;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 350px){
+    .page-name{
+        font-size: 37%;
+    }
+}
+
+.infopages{
+    width:95%;
+    height:20px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis; 
+}
+
+.infopages .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: lightgrey;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    white-space: pre-wrap;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1; 
+    left: 20%;
+    top: 60%;
+}
+
+.infopages:hover .tooltiptext {
+    visibility: visible;
+}
+
+@media only screen and (max-width: 1500px) and (min-width: 800px){
+    .ingresa {
+        position: absolute;
+        bottom: 3%;
+        right: 0;
+        margin-right: 4%;
+
+    }
+}
+

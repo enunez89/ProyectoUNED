@@ -1,0 +1,37 @@
+body{
+	background: #fff;
+	margin: 0px;
+	padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+.logo{
+	padding-top: 40px;
+	border-bottom: 1px solid #CCCCCC;
+	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+}
+.logo img{
+	padding: 0px 0px 30px 0px;	
+	width: 70%;
+}
+.form-login{
+	padding:15px 0px 25px 0px;
+	border-bottom: 1px solid #CCCCCC;
+	width: 100%;
+}
+.title{
+	color: #737373;
+	text-align: center;
+}
+.footer ul li{
+display: inline-block;
+padding: 5px;
+}
+.footer{
+	padding: 10px;
+}
+.footer ul li a{
+	color: #99A3AA;
+	text-decoration: none;
+}

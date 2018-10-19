@@ -1,0 +1,88 @@
+* {
+font-family: 'Roboto', sans-serif !important;
+font-size: 16px;
+}
+
+#header {
+   background:#FFF; 
+}
+#desc {
+    /*background:#05407D;*/
+    background: linear-gradient(#05407D, #0B0B3B);
+    color:#FFF;
+
+}
+.card-img-top {
+    width:125px;
+    
+    margin:auto;
+    padding-top:10px;
+}
+
+.menu {
+    text-align:center;
+}
+
+.menu :hover {
+    cursor: pointer;
+    
+}
+
+.card-img-top {
+    display:block;
+}
+.title-1 {
+    margin-top:15px;
+}
+.card-deck-wrapper {
+    margin-top:20px;
+    width:100%;
+    margin-bottom:20px;
+}
+.op {
+    margin:auto;
+}
+a {
+    color:black;
+}
+#body-menu {
+    width:90%;
+    margin-left:5%;
+    background-color:#FFF;
+}
+#footer {
+    background: linear-gradient(#05407D, #0B0B3B);
+    color:#FFF;    
+}
+.imglogo {
+margin-top:40px;
+margin-bottom:30px;
+height:40px;
+width:auto;
+}
+
+.paragraph {
+    padding:40px 10px 40px 0px; 
+    text-align:left !important;
+    font-size:18px !important;
+}
+.card :hover{
+    cursor: pointer;    
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.flex-container > div {
+  border: 1px solid #dfdfdf;
+  border-radius: 0.5rem;
+  width: 200px;
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-right: 20px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}

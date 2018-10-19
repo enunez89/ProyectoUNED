@@ -1,0 +1,28 @@
+﻿.alertify-notifier .ajs-message.ajs-success,.alertify-notifier .ajs-message.ajs-error,alertify-notifier .ajs-message.ajs-warning {
+box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+text-shadow:none;
+}
+.alertify-notifier .ajs-message.ajs-error {
+    background:#BA2D2D;
+    text-shadow:none;
+    border-radius: 2px;
+    border: 1px solid #470404;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.alertify-notifier .ajs-message.ajs-success {
+background:#E8F7ED;
+color:#222;
+border: 1px solid #30B661;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.alertify-notifier .ajs-message.ajs-warning {
+background:#f9edbe;
+border: 1px solid #f0c36d;
+color: #222;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.ajs-header {
+display:none;
+}

@@ -1,0 +1,152 @@
+/* 
+    Created on : 23/07/2016, 04:37:25 PM
+    Author     : jobregon
+*/
+
+#tableActas .nameUser{
+    color:#666;
+    font-style:italic;
+}
+
+.contentEditor{
+    background: #EEEEEE;
+    overflow: hidden;
+    margin-bottom: 40px;
+    padding: 10px;
+} 
+
+.contentEditor .contenteditable{
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 20px;
+} 
+.content-folders{
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: row;
+    flex-direction: row; 
+
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;          
+}
+.folder{
+    cursor: pointer;       
+    margin: 10px 15px 10px 0px;      
+}
+.folder ul{
+    padding: 0px;
+}
+.folder ul li{
+
+    list-style: none;
+    text-align: center;
+}
+.folder .imgfolder{
+    width: 64px;
+    height: 64px;
+    background-image: url(../img/folder.png);
+}
+.headerActa .title{
+    font-size: 1.3em;
+}
+.headerActa{
+    border-bottom: solid 1px #CCCCCC;
+}
+.center-block{
+    text-align: center;
+}
+.headerActa button{    
+    margin:  1px;
+}
+.contentPdf{
+    height: 70vh;
+    background: #EEEEEE;
+    padding: 10px;
+    
+}
+.borderless tr th {
+     border: 0 !important;
+}
+.colorGray{
+    color:#666;
+}
+.state .link{
+padding: 8px 10px 10px 10px;
+}
+.state header{
+	padding: 8px 10px 0px 10px;
+	font-weight:bold;
+}
+.tablero section{
+    background: #E2E4E6;
+                    width:auto;
+	margin: 2px;
+	border-radius: 3px;
+        border:solid 1px #E3E3E3;
+	padding: 20px 10px;
+}
+.content-input-group{
+    margin-top:  15px;
+    padding-left: 15px;
+}
+.task{
+	border-radius: 3px;
+	padding: 8px 8px 8px;
+	background: #FFF;
+	margin-bottom: 6px;
+	flex-grow:1;
+	cursor:pointer;
+   /*     
+-webkit-box-shadow: 10px 11px 5px -11px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 11px 5px -11px rgba(0,0,0,0.75);
+box-shadow: 10px 11px 5px -11px rgba(0,0,0,0.75);*/
+
+}
+.btnEdittask{
+    opacity: 0;
+}
+.tablero ol {
+    padding-left: 15px;
+}
+.task label{
+    cursor:pointer;
+}
+.task:hover{
+    
+    opacity: 1;
+}
+.task label{
+    font-weight: normal;
+}
+.task:last-of-type{
+	margin-bottom: 0px;
+}
+
+.contentEditor img{
+    width: 100% !important;
+}
+.contentEditor .contenteditable{
+    border: 1px dotted;
+}
+.btnFixed{
+    border-radius: 3px;
+    border:1px solid #ddd;
+    background-color: #f1f1f1;
+    padding: 5px;
+    color: #6E6E6E;
+    text-align: center;
+    position: fixed;
+    bottom: 5px;
+    right: 30px;
+}
+#contenedorVotos{
+    padding: 5px;
+}
+#contenedorVotos .col-md-6{
+ padding: 10px;
+  
+}
+#contenedorVotos span{
+    padding: 5px;
+}

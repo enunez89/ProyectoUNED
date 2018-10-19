@@ -1,0 +1,187 @@
+
+/* 
+    Author     : Yendry Arrieta
+*/
+
+body{
+    background-color: #fafafa;
+    width: 100%;
+}
+
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v37/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+/*-------------ENCABEZADO------------*/
+#encabezado-caja{
+    background: transparent!important;
+    margin-top: 1%;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    border: none;
+    width: 100%;
+    text-align: center;
+}
+
+.encabezado h4, p, h5{
+    font-size: 12px;
+    color: gray;
+}
+
+/*-------------CONTENIDO-------------*/
+
+.content{
+    width: 100%;
+}
+
+.detalle-factura{
+    width: 40%;
+    display:flex;
+    flex-direction: column;
+}
+
+#cliente, #concepto, #fecha, #detalle-factura{
+    border-radius: 8px;
+}
+
+#planID, #moneyID{
+    width: 98%;
+}
+
+#informacion-factura h5{
+    color: black;   
+    font-size: 13px;
+}
+
+#detalle-factura h5{
+    color: #337ab7;   
+    font-size: 20px;
+}
+
+.seleccionar_cliente{
+    width: 32%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+}
+
+.cliente{
+    width: 32%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+}
+.fecha-vencimiento{
+    width: 32%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+}
+
+.correo-cortesia{
+    width: 32%;
+    display:flex;
+    flex-direction: column;
+}
+
+.condicion-venta{
+    width: 32%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+}
+.dias-pago{
+    width: 32%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+}
+.otro{
+    width: 32%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+    margin-bottom: 2%;
+}
+
+.tipo-cambio{
+    width: 49%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 2%;
+}
+
+.moneda{
+    width: 49%;
+    float:left;
+    display:flex;
+    flex-direction: column;
+    margin-right: 1%;
+    margin-bottom: 2%;
+}
+
+.observacion{
+    margin-bottom: 1%;
+    width: 98%;
+}
+
+.form-group h5{
+    color:black;
+    font-size: 14px;
+}
+
+.forma-pago{
+    text-align: right;
+}
+
+#delete_all {
+    color: #8B0000;
+    background: transparent;
+}
+
+#cont-sale_concept{
+    border: lightgray solid 1px;
+    height: 250px;
+    margin-top: 2%;
+    overflow: auto; 
+}
+#ULsaleConcept{
+    height: 200px;
+}
+
+#container-sale_concept{
+    margin-top: 2%;
+}
+
+#container-sale_concept i {
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 7%;
+}

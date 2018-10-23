@@ -52,12 +52,12 @@ function Guardar() {
         type: 'POST',
         url: 'index.php',
         dataType: 'json',
-        data: {'codigo': $('#codigo').val().trim(), 'action': "insertAssest"},
+        data: {'codigo': $('#codigo').val(), 'action': "insertAssest"},
         success: function (result) {
             alertify.success("Guardado correctamente");
         },
         error: function (error) {
-            alertify.error(error);
+            alertify.error("Ha ocurrido un error");
         }
     });
 }

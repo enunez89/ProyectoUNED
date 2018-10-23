@@ -9,7 +9,7 @@
 GESTIÓN ACTIVOS
 </h4>
 
-<form class="form-login" method="get" action="">       
+<form class="form-login" method="post" action="">       
     <input type='hidden' name="action" id="action" value="nuevo">
         <input type="submit" class="btn btn-primary" value="Nuevo">
  </form>

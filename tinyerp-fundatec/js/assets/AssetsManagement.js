@@ -3,21 +3,49 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var assestManagement  = {
-    button: {
-        Guardar: function(){
+$(document).ready(function () {
+//se inicializa el forms
+    assestManagement.fnInitializer();
+});
+
+var assestManagement = {
+    controlsId: {
+        dtpAcquisition: "#dtpAcquisition",
+    },
+    fnInitializer: function () {
+        //se inicializa el datepicker fecha adquisicion
+        $(assestManagement.controlsId.dtpAcquisition).datepicker();
+
+
+    },
+    actions: {
+        pages: {
+            frmNewAssest: "frmActivos.php"
+        },
+        fnLoadFrmNewAssest: function () {
+            /*
+             * Carga el forms para crear un nuevo activo 
+             **/
+
+            //redirecciona a la pagina del form nuevo activo
+            //window.location.href = assestManagement.actions.pages.frmNewAssest;
+
             $.ajax({
-            type: 'POST',
-            url: 'index.php',
-            dataType: 'json',
-            data: {'codigo': $('#codigo').val().trim(), 'action': "insertAssest"},
-            success: function (result) {
-				alert("HOLA MUNDO" + result);
-            }
-        });
+                type: 'POST',
+                url: 'index.php',
+                dataType: 'json',
+                data: {'action': "nuevo"},
+                success: function (result) {
+                },
+                error: function (error) {
+                    console.log(error);
+                    alertify.error(error);
+                }
+            });
         }
     }
 }
+
 
 function Guardar() {
     $.ajax({
@@ -26,8 +54,7 @@ function Guardar() {
         dataType: 'json',
         data: {'codigo': $('#codigo').val().trim(), 'action': "insertAssest"},
         success: function (result) {
-            alertify.success("HOLA MUNDO" + result);
-           window.location.href = "index.php";
+            alertify.success("Guardado correctamente");
         },
         error: function (error) {
             alertify.error(error);

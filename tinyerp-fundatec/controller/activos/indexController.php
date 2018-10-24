@@ -23,7 +23,7 @@ class indexController extends controller{
                 break;
                 case 'insertAssest':
                     $codigo = $_POST["codigo"];
-                    echo (json_encode($codigo) );
+                    echo json_encode("Guardado con éxito!!");
                     break;
                default :
                    break;

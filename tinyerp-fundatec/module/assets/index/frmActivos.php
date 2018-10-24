@@ -1,4 +1,6 @@
+<script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
+
 <form>
     <div class="form-group">
         <label for="code">Código</label>

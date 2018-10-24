@@ -4,6 +4,7 @@
 }
 
 </style>
+<script src="../../../js/general.js" type="text/javascript"></script>
       
 <h4 class="text-primary">
 GESTIÓN ACTIVOS

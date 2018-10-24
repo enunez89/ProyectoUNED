@@ -66,7 +66,7 @@ function fullscreen(divID) {
         'background': '#ffffff'
     });
 
-    $(".btnCloseFull").click(function() {
+    $(".btnCloseFull").click(function () {
         $("#bodyscreen").remove();
     });
 
@@ -88,3 +88,51 @@ function verSubMenu(divid) {
         $("#" + divid).slideDown("500");
     }
 }
+
+/*
+ * Realiza un llamado ajax de tipo post genérico.
+ * @param {string} url
+ * @param {object} parameters
+ * @param {function} fnSuccess
+ * @param {string} dataType
+ * @returns {undefined}
+ */
+function executeAjax(url, parameters, fnProcessResponse, dataType) {
+
+    //configuración
+    if (dataType == undefined) {
+        dataType = 'json';
+    }
+
+    //llamado ajax
+    $.ajax({
+        type: 'POST',
+        url: url,
+        traditional: true,
+        data: JSON.stringify(parameters),
+        contentType: 'application/json;',
+        dataType: dataType,
+        cache: false,
+        enctype: "multipart/form-data",
+        converters: {'text json': true},
+        success: function (data) {
+            //se ejecuta la función que procesa la respuesta
+            //en caso de que el llamado ajax sea exitoso
+            fnProcessResponse(data);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //se muestra mensaje de error genérico
+            alertify.error(genericMessages.msjError);
+        }
+    }).fail(function (xhr) {
+        //se muestra mensaje de error genérico
+        alertify.error(genericMessages.msjError);
+    });
+}
+
+/*
+ * Variable que cuenta con mensajes genéricos que se le muestran al usuario
+ */
+var genericMessages = {
+    msjError: "Ha ocurrido un error, por favor comuniquese con el administrados."
+}     

@@ -48,7 +48,7 @@ var assestManagement = {
 
 
 function Guardar() {
-    $.ajax({
+    /*$.ajax({
         type: 'POST',
         url: 'index.php',
         dataType: 'json',
@@ -59,7 +59,12 @@ function Guardar() {
         error: function (error) {
             alertify.error("Ha ocurrido un error");
         }
-    });
+    });*/
+    var parameters = {'codigo': $('#codigo').val(), 'action': "insertAssest"};
+    var fnProcess = function(response){
+        alertify.success(response);
+    }
+    executeAjax('index.php', parameters, fnProcess );
 }
 
 

@@ -108,13 +108,9 @@ function executeAjax(url, parameters, fnProcessResponse, dataType) {
     $.ajax({
         type: 'POST',
         url: url,
-        traditional: true,
         data: JSON.stringify(parameters),
         contentType: 'application/json;',
         dataType: dataType,
-        cache: false,
-        enctype: "multipart/form-data",
-        converters: {'text json': true},
         success: function (data) {
             //se ejecuta la función que procesa la respuesta
             //en caso de que el llamado ajax sea exitoso
@@ -124,10 +120,10 @@ function executeAjax(url, parameters, fnProcessResponse, dataType) {
             //se muestra mensaje de error genérico
             alertify.error(genericMessages.msjError);
         }
-    }).fail(function (xhr) {
+    });/*.fail(function (xhr) {
         //se muestra mensaje de error genérico
         alertify.error(genericMessages.msjError);
-    });
+    });*/
 }
 
 /*

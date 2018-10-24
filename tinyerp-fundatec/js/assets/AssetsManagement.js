@@ -61,8 +61,9 @@ function Guardar() {
         }
     });*/
     var parameters = {'codigo': $('#codigo').val(), 'action': "insertAssest"};
-    var fnProcess = function(response){
-        alertify.success(response);
+    var fnProcess = function(data){
+        var response = data;
+        alertify.success(response.UserMsj);
     }
     executeAjax('index.php', parameters, fnProcess );
 }

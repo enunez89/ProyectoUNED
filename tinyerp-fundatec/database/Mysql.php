@@ -56,7 +56,13 @@ class Mysql implements IConexion {
      * @return resultset
      */
     public static function query($query) {
-        return mysqli_query(self::$con, $query);
+        $result = mysqli_query(self::$con, $query);
+        if($result === false){
+            echo mysqli_error(self::$con);
+        }
+        else{
+        return $result;
+        }
     }
 
     public static function query_params($query,$procedure_params) {

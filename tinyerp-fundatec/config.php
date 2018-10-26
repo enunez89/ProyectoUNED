@@ -46,21 +46,21 @@ define('DIR_MODULOS', 'module');
 // SLASH WINDOWS
 define('SD', '/');
 //SERVIDOR DE BASE DE DATOS
-define('MYSQL_SERVER', 'localhost');//190.0.226.98 actas
+define('MYSQL_SERVER', 'proyectouned.c7skqyi8esw9.us-east-2.rds.amazonaws.com:3306');//190.0.226.98 actas
 define('MYSQL_SERVER_INVESTMENT', '172.20.26.98');
 define('MSSQL_SERVER', '172.20.16.60');// SQL Server
 define('MSSQL_SERVER_CONTROLUSER', '172.20.26.98');// SQL Server
 //define('MSSQL_SERVER_MATRIFUNDB', '40.90.244.6');// SQL Server Producción
 define('MSSQL_SERVER_MATRIFUNDB', '172.20.26.98');// SQL Server Pruebas
 //USUARIO DE CONEXION A BASE DE DATOS
-define('MYSQL_USER', 'root');//ftactas
+define('MYSQL_USER', 'uned');//ftactas
 define('MYSQL_USER_INVESTMENT', 'root');//ftactas
 define('MSSQL_USER', 'cfusionft1');
 //define('MSSQL_USER_MATRIFUNDB', 'jobregon');//Producción
 define('MSSQL_USER_MATRIFUNDB', 'cbenavides');// Pruebas
 define('MSSQL_USER_CONTROL_USER', 'cbenavides');
 //CONTRASEÑA DE CONEXION A BASE DE DATOS
-define('MYSQL_PASS', '');
+define('MYSQL_PASS', 'uned123.');
 define('MYSQL_PASS_INVESTMENT', 'cell');
 define('MSSQL_PASS', 'cfusionft');
 define('MSSQL_PASS_CONTROL_USER', 'carolina08');

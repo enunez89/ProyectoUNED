@@ -15,6 +15,7 @@ var assestManagement = {
     fnInitializer: function () {
         //se inicializa el datepicker fecha adquisicion
         $(assestManagement.controlsId.dtpAcquisition).datepicker();
+        $(assestManagement.actions.fnLoadExistingAssest());
 
 
     },
@@ -27,26 +28,68 @@ var assestManagement = {
              * Carga el forms para crear un nuevo activo 
              **/
 
-            //redirecciona a la pagina del form nuevo activo
-            //window.location.href = assestManagement.actions.pages.frmNewAssest;
+            $.ajax({
+                type: 'POST',
+                url: 'index.php',
+                dataType: 'text',
+                data: {'action': "nuevo"},
+                success: function (result) {
+                    $("body").empty();
+                    $("body").append(result);
+                },
+                error: function (error) {
+                    console.log(error.Message);
+                    alertify.error(error);
+                }
+            });
+        },
+        fnLoadExistingAssest: function () {
+            /*
+             * Carga la tabla inicial de activos 
+             **/
 
             $.ajax({
                 type: 'POST',
                 url: 'index.php',
                 dataType: 'json',
-                data: {'action': "nuevo"},
+                data: {'action': "requestAssets"},
                 success: function (result) {
+                   fnLoadAsssetsResultOnTable(result);
                 },
                 error: function (error) {
-                    console.log(error);
-                    alertify.error(error);
+                     console.log(error.responseText);
+                    alertify.error(error.responseText);
                 }
             });
-        }
+        } 
     }
 }
 
+function fnLoadAsssetsResultOnTable (result){
+    var table= $("#AssetsMainTable");
 
+    $.each(result, function(i, assetRow) {
+        var row='<tr>';
+        row+='<td><input type="checkbox" id=' + assetRow.IdActivo + '></input></td>';
+        row+='<td>' + assetRow.Codigo + '</td>';
+        row+='<td>' + assetRow.Categoria + '</td>';
+        row+='<td>' + assetRow.Marca + '</td>';
+        row+='<td>' + assetRow.PrecioAdquisicion + '</td>';
+        row+='<td>' + assetRow.IdProveedor + '</td>';
+        row+='<td>' + assetRow.NumeroPlaca + '</td>';
+        row+='<td>' + assetRow.DesActivo + '</td>';
+        row+='<td>' + assetRow.Estado + '</td>';
+        row+='<td>' + assetRow.NumeroSerie + '</td>';
+        row+='<td>' + assetRow.FechaAdqusicion + '</td>';
+        row+='<td>' + assetRow.FechaRegistro + '</td>';
+        row+='<td><p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button></p>';
+        row+='<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-title="Eliminar" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+        row+='</tr>';
+        table.append(row);
+    });
+
+}
+        
 function Guardar() {
     $.ajax({
         type: 'POST',

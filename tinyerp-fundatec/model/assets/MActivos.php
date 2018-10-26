@@ -12,7 +12,7 @@
  *
  * @author enunezs89
  */
-require_once '../../utilities/utilities.php';
+require_once '../../../utilities/utilities.php';
 class MActivos {
     
     public  function obtenerActivosERP(){
@@ -41,6 +41,30 @@ class MActivos {
         } catch (Exception $e) {
             print "Caught exception: " . $e->getMessage() . "\n";
             return false;
+        }
+    }
+  
+    public function getAllAssets(){
+        Mysql::open();
+        $query = "CALL pr_GetAllAssets();";
+        $assets = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($assets, $row);
+        }   
+        Mysql::close();
+        return json_encode($assets);          
+    }  
+    
+        public function insertContractPayments($idContract, $total,$payId,$coinId,$description,$paymentDate) {              
+        try {
+            Mysql::open();
+            $sql = "INSERT INTO tbl_contract_payments (id_contract,total,pay_per_id,coin_id,description,payment_date) VALUES($idContract,$total,$payId,$coinId,'$description','$paymentDate'); ";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
         }
     }
 }

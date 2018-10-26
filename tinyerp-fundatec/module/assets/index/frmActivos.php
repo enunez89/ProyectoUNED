@@ -1,5 +1,5 @@
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-<form>
+<form class="form-group">
     <div class="form-group">
         <label for="code">Código</label>
         <input type="text" class="form-control" name="code" id="code" required="required" placeholder="Código">

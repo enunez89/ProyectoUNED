@@ -7,6 +7,7 @@ header('Content-Type: text/html; charset=UTF-8');
 ini_set("display_errors", 1);
 error_reporting(-1);
 
+
 date_default_timezone_set("America/Costa_Rica");
 
 //************************************************************************//
@@ -45,21 +46,21 @@ define('DIR_MODULOS', 'module');
 // SLASH WINDOWS
 define('SD', '/');
 //SERVIDOR DE BASE DE DATOS
-define('MYSQL_SERVER', '40.90.244.6');//190.0.226.98 actas
+define('MYSQL_SERVER', 'localhost');//190.0.226.98 actas
 define('MYSQL_SERVER_INVESTMENT', '172.20.26.98');
 define('MSSQL_SERVER', '172.20.16.60');// SQL Server
 define('MSSQL_SERVER_CONTROLUSER', '172.20.26.98');// SQL Server
 //define('MSSQL_SERVER_MATRIFUNDB', '40.90.244.6');// SQL Server Producción
 define('MSSQL_SERVER_MATRIFUNDB', '172.20.26.98');// SQL Server Pruebas
 //USUARIO DE CONEXION A BASE DE DATOS
-define('MYSQL_USER', 'userPruebaContratos');//ftactas
+define('MYSQL_USER', 'root');//ftactas
 define('MYSQL_USER_INVESTMENT', 'root');//ftactas
 define('MSSQL_USER', 'cfusionft1');
 //define('MSSQL_USER_MATRIFUNDB', 'jobregon');//Producción
 define('MSSQL_USER_MATRIFUNDB', 'cbenavides');// Pruebas
 define('MSSQL_USER_CONTROL_USER', 'cbenavides');
 //CONTRASEÑA DE CONEXION A BASE DE DATOS
-define('MYSQL_PASS', 'pruebasFundatec123');
+define('MYSQL_PASS', '');
 define('MYSQL_PASS_INVESTMENT', 'cell');
 define('MSSQL_PASS', 'cfusionft');
 define('MSSQL_PASS_CONTROL_USER', 'carolina08');
@@ -67,7 +68,7 @@ define('MSSQL_PASS_CONTROL_USER', 'carolina08');
 define('MSSQL_PASS_MATRIFUNDB', 'carolina08');//Pruebas
 
 //NOMBRE DE LA BASE DE DATOS
-define('MYSQL_DATABASE', 'db_erp_fundatec');
+define('MYSQL_DATABASE', 'gestionactivos');
 define('MYSQL_DATABASE_INVESTMENT', 'db_investment');
 define('MSSQL_DATABASE', 'minisif_ft');
 define('MSSQL_DATABASE_MATRIFUNDB', 'matrifunDB');

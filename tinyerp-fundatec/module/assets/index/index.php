@@ -7,7 +7,7 @@
  */
 
 require_once '../../../config.php';
-require_once '../../../controller/assets/indexController.php';
+require_once '../../../controller/Assets/AssetsController.php';
 
-$indexController = new indexController();
-$indexController->procesar();
+$assetsController = new AssetsController();
+$assetsController->procesar();

@@ -91,7 +91,7 @@ function fnLoadAsssetsResultOnTable (result){
 }
         
 function Guardar() {
-    $.ajax({
+    /*$.ajax({
         type: 'POST',
         url: 'index.php',
         dataType: 'json',
@@ -102,7 +102,13 @@ function Guardar() {
         error: function (error) {
             alertify.error("Ha ocurrido un error");
         }
-    });
+    });*/
+    var parameters = {'codigo': $('#codigo').val(), 'action': "insertAssest"};
+    var fnProcess = function(data){
+        var response = data;
+        alertify.success(response.UserMsj);
+    }
+    executeAjax('index.php', parameters, fnProcess );
 }
 
 

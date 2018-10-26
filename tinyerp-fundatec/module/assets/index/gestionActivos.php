@@ -4,10 +4,8 @@
 }
 
 </style>
-<<<<<<< HEAD
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-=======
->>>>>>> ac7cd4ea343801d2b1141c9aa8883beb47cd71eb
+<script src="../../../js/general.js" type="text/javascript"></script>
       
 <h4 class="text-primary">
 GESTIÓN ACTIVOS

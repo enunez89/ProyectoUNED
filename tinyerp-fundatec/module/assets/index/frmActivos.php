@@ -1,10 +1,8 @@
+<script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-<<<<<<< HEAD
 <form class="form-group">
-=======
 
 <form>
->>>>>>> ac7cd4ea343801d2b1141c9aa8883beb47cd71eb
     <div class="form-group">
         <label for="code">Código</label>
         <input type="text" class="form-control" name="code" id="code" required="required" placeholder="Código">

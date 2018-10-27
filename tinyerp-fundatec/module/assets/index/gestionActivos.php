@@ -13,6 +13,8 @@ GESTIÓN ACTIVOS
 
 <form class="form-login" method="post" action="">       
     <a href="index.php?action=nuevo" class="btn btn-primary" >Nuevo</a>
+    
+    <a href="index.php?action=newRepair" class="btn btn-primary" >Agregar Reparación</a>
         
         <table class="table" id="AssetsMainTable">
             <thead>

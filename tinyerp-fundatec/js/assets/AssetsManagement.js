@@ -11,12 +11,19 @@ $(document).ready(function () {
 var assestManagement = {
     controlsId: {
         dtpAcquisition: "#dtpAcquisition",
+        ddlCodCategory: "#codCategory",
+        dtpExpiration: "#dtpExpiration",
+        date: ".date",
     },
     fnInitializer: function () {
-        //se inicializa el datepicker fecha adquisicion
-        $(assestManagement.controlsId.dtpAcquisition).datepicker();
+        //se inicializa todos los datepicker con el selector date
+        $(assestManagement.controlsId.date).datepicker();
+        
+        //carga la tabla de activos
         $(assestManagement.actions.fnLoadExistingAssest());
 
+        //llenamos el combo de categorias de activos
+        //assestManagement.actions.fnFillCategoryAssest();
 
     },
     actions: {
@@ -61,7 +68,48 @@ var assestManagement = {
                     alertify.error(error.responseText);
                 }
             });
-        } 
+        },
+        fnFillCategoryAssest: function(){
+            /*
+             * Llena el combobox de categorias de activos.
+             * @param {type} result
+             * @returns {undefined}
+             */
+            
+            //definimos la funcion luego del llamado ajax
+            var proccessCallback = function(result)
+            {
+                //obtenemos el combo de categorias
+                var selectControl = $(assestManagement.controlsId.ddlCodCategory);
+                
+                //recorremos el resultado y agregamos las opciones al comobo
+                $.each(result, function(i, assetRow) {
+                    var option = new Option(DescCatalogoValor, assetRow.CodCatalogoValor);
+                    selectControl.append(option);
+                });                
+            }
+            
+            
+            //llamamos la funcion ajax
+            var parameters = {'action': "getAllCategoryAssest"};
+            executeAjax('index.php', parameters, proccessCallback );
+            
+            /*$.ajax({
+                type: 'POST',
+                url: 'index.php',
+                dataType: 'json',
+                data: parameters,
+                success: function (result) {
+                   proccessCallback(result);
+                },
+                error: function (error) {
+                     console.log(error.responseText);
+                    alertify.error(error.responseText);
+                }
+            });*/
+            
+            
+        }
     }
 }
 
@@ -82,7 +130,8 @@ function fnLoadAsssetsResultOnTable (result){
         row+='<td>' + assetRow.NumeroSerie + '</td>';
         row+='<td>' + assetRow.FechaAdqusicion + '</td>';
         row+='<td>' + assetRow.FechaRegistro + '</td>';
-        row+='<td><p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button></p>';
+        //row+='<td> <p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button></p> </a>';
+        row+='<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAsset" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
         row+='<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-title="Eliminar" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
         row+='</tr>';
         table.append(row);

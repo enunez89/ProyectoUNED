@@ -13,19 +13,19 @@
  * @author enunezs89
  */
 require_once '../../../utilities/utilities.php';
+
 class MActivos {
-    
-    public  function obtenerActivosERP(){
+
+    public function obtenerActivosERP() {
         $utilitiesAux = new Utilities();
-        
+
         try {
             //creamos el cliente soap
             $client = new SoapClient($utilitiesAux->getWSDLGestionActivos());
             //$parametros = array('pApplicationID' => $utilitiesAux->getAplicationId(), 'pUserName' => $username, 'pPassword' => $clave);
-          
             //se realiza el llamado al metodo del wcf
             $result = $client->ListarActivos();
-            if ($result == null) {               
+            if ($result == null) {
                 return false;
             } else {
                 Sesion::setAttr("firstname", $result->validateUserResult->FirstName);
@@ -43,20 +43,20 @@ class MActivos {
             return false;
         }
     }
-  
-    public function getAllAssets(){
+
+    public function getAllAssets() {
         Mysql::open();
         $query = "CALL pr_GetAllAssets();";
         $assets = array();
         $result = Mysql::query($query);
         while ($row = Mysql::get_row_array($result)) {
             array_push($assets, $row);
-        }   
+        }
         Mysql::close();
-        return json_encode($assets);          
-    }  
-    
-        public function insertContractPayments($idContract, $total,$payId,$coinId,$description,$paymentDate) {              
+        return json_encode($assets);
+    }
+
+    public function insertContractPayments($idContract, $total, $payId, $coinId, $description, $paymentDate) {
         try {
             Mysql::open();
             $sql = "INSERT INTO tbl_contract_payments (id_contract,total,pay_per_id,coin_id,description,payment_date) VALUES($idContract,$total,$payId,$coinId,'$description','$paymentDate'); ";
@@ -67,4 +67,21 @@ class MActivos {
             return -1;
         }
     }
+    
+    public function getAllCategoryAssest(){
+        /**
+         * Método que obtiene de base de datos el catalogo de categorias de activos
+         */
+        
+        Mysql::open();
+        $query = "CALL pr_GetAllCategoryAssest();";
+        $categories = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($categories, $row);
+        }
+        Mysql::close();
+        return json_encode($categories);
+    }
+
 }

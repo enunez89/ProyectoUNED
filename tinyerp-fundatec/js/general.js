@@ -108,15 +108,15 @@ function executeAjax(url, parameters, fnProcessResponse, dataType) {
     $.ajax({
         type: 'POST',
         url: url,
-        data: JSON.stringify(parameters),
-        contentType: 'application/json;',
-        dataType: dataType,
-        success: function (data) {
+        dataType: 'json',
+        data: parameters,
+        success: function (result) {
             //se ejecuta la función que procesa la respuesta
             //en caso de que el llamado ajax sea exitoso
-            fnProcessResponse(data);
+            fnProcessResponse(result);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
             //se muestra mensaje de error genérico
             alertify.error(genericMessages.msjError);
         }

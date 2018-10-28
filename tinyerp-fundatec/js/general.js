@@ -121,14 +121,129 @@ function executeAjax(url, parameters, fnProcessResponse, dataType) {
             alertify.error(genericMessages.msjError);
         }
     });/*.fail(function (xhr) {
-        //se muestra mensaje de error genérico
+     //se muestra mensaje de error genérico
+     alertify.error(genericMessages.msjError);
+     });*/
+}
+
+/*
+ * Valida los campos requeridos de un form
+ * @param {string} frmName
+ * @returns {Boolean}
+ */
+function fnRequiredFields(frmName, showAlert) {
+    try {
+
+        fnRemoveAlertRequiredFields(frmName);
+        var hasError = true;
+        //Validar inputs
+        $(frmName + " :input.requerido").each(function () {
+            if (jQuery.trim($(this).val()) == '') {
+                var nombreAtributo = $(this).parent().parent().find('.control-label').text();
+                if (nombreAtributo == "") {
+                    nombreAtributo = $(this).parent().find('label').text();
+                }
+                //se le quita los 2 puntos si tiene
+                nombreAtributo = nombreAtributo.replace(":", "");
+
+                $(this)
+                        .after('<span class="text-danger validationMessajeFor"> El campo ' +
+                                nombreAtributo +
+                                ' es requerido.</span>');
+                this.style.border = "1px solid #b94a48";
+                hasError = false;
+            }
+        });
+
+        //Validar Combos
+        $(frmName + " :input.requeridoCombo").each(function () {
+            if (jQuery.trim($(this).val()) == "0" || jQuery.trim($(this).val()) == '') {
+                var nombreAtributo = $(this).parent().parent().find('.control-label').text();
+                if (nombreAtributo == "") {
+                    nombreAtributo = $(this).parent().find('label').text();
+                }
+
+                //se le quita los 2 puntos si tiene
+                nombreAtributo = nombreAtributo.replace(":", "");
+
+                $(this)
+                        .after('<span class="text-danger validationMessajeFor"> El campo ' +
+                                nombreAtributo +
+                                ' es requerido.</span>');
+                this.style.border = "1px solid #b94a48";
+                hasError = false;
+            }
+        });
+
+        //Validar checkBox
+        var validarChk = false;
+        var chkRequerido = true;
+        var controlChek = "";
+        $(frmName + " :input.ChkListRequerido").each(function () {
+            validarChk = true;
+            controlChek = $(this);
+            if ($(this).is(':checked')) {
+                chkRequerido = false;
+            }
+        });
+        if (validarChk) {
+            if (chkRequerido) {
+                var nombreEtiqueta = controlChek.parent().parent().parent().parent().parent().parent().find('.control-label').text();
+                controlChek.parent().parent().parent().parent().after('<span class="text-danger validationMessajeFor">' + msjAplicacion.msjChckListRequerido + '</span>');
+                hasError = false;
+            }
+        }
+
+
+        if (hasError == false) {
+            if (showAlert == undefined || showAlert) {
+                //mostramos el mensaje de alerta
+                alertify.error(genericMessages.msjRequiredFileds);
+            }
+        }
+        return hasError;
+
+    } catch (err) {
         alertify.error(genericMessages.msjError);
-    });*/
+    }
+}
+
+/*
+ * Quita el mensaje de alerta de los campos
+ * @param {string} frmName
+ * @returns {undefined}
+ */
+function fnRemoveAlertRequiredFields(frmName) {
+    //constantes
+    var cssLblMessageValidation = "validationMessajeFor";
+
+    var formulario = document.getElementById(frmName.substring(1, frmName.lengh));
+    if (formulario != null || formulario != undefined) {
+        var span = formulario.getElementsByClassName(cssLblMessageValidation);
+        if (span != null) {
+            $(span).each(function () {
+                //si es input
+                var input = $(this).parent().find('input');
+                //Si es dropdown
+                if ($(this).parent().find('select').length > 0) {
+                    input = $(this).parent().find('select');
+                }
+
+                input.css('border-color', '#bdbdbd');
+                input.css('border-top', 'none');
+                input.css('border-left', 'none');
+                input.css('border-right', 'none');
+
+                $(this).remove();
+            });
+        }
+    }
 }
 
 /*
  * Variable que cuenta con mensajes genéricos que se le muestran al usuario
  */
 var genericMessages = {
-    msjError: "Ha ocurrido un error, por favor comuniquese con el administrados."
+    msjError: "Ha ocurrido un error, por favor comuniquese con el administrados.",
+    msjRequiredFileds: "Existen campos requeridos.",
 }     

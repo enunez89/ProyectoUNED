@@ -36,34 +36,16 @@ var assetManagement = {
         $(assetManagement.actions.fnLoadExistingAssest());
 
         //llenamos el combo de categorias de activos
-        //assetManagement.actions.fnFillCategoryAssest();
+        $(assetManagement.actions.fnFillCategoryAssest());
+        
+        //llenamos el combo de proveedores de activos
+        $(assetManagement.actions.fnFillProvidersAssest());
 
     },
     actions: {
         pages: {
             frmNewAssest: "frmActivos.php"
         },
-        fnLoadFrmNewAssest: function () {
-            /*
-             * Carga el forms para crear un nuevo activo 
-             **/
-
-            $.ajax({
-                type: 'POST',
-                url: 'index.php',
-                dataType: 'text',
-                data: {'action': "nuevo"},
-                success: function (result) {
-                    $("body").empty();
-                    $("body").append(result);
-                },
-                error: function (error) {
-                    console.log(error.Message);
-                    alertify.error(error);
-                }
-            });
-        },
-
         fnLoadExistingAssest: function () {
             /*
              * Carga la tabla inicial de activos 
@@ -90,40 +72,45 @@ var assetManagement = {
              * @param {type} result
              * @returns {undefined}
              */
-
+                       
             //definimos la funcion luego del llamado ajax
             var proccessCallback = function (result)
             {
                 //obtenemos el combo de categorias
-                var selectControl = $(assestManagement.controlsId.ddlCodCategory);
+                var selectControl = $(assetManagement.controlsId.ddlCodCategory);
 
                 //recorremos el resultado y agregamos las opciones al comobo
                 $.each(result, function (i, assetRow) {
-                    var option = new Option(DescCatalogoValor, assetRow.CodCatalogoValor);
+                    var option = new Option(assetRow.DescCatalogoValor, assetRow.CodCatalogoValor);
                     selectControl.append(option);
                 });
-            }
-
-
+            };
             //llamamos la funcion ajax
             var parameters = {'action': "getAllCategoryAssest"};
             executeAjax('index.php', parameters, proccessCallback);
+        },
+        fnFillProvidersAssest: function () {
+            /*
+             * Llena el combobox de proveedores de activos.
+             * @param {type} result
+             * @returns {undefined}
+             */
+                       
+            //definimos la funcion luego del llamado ajax
+            var proccessCallback = function (result)
+            {
+                //obtenemos el combo de categorias
+                var selectControl = $(assetManagement.controlsId.ddlProvider);
 
-            /*$.ajax({
-             type: 'POST',
-             url: 'index.php',
-             dataType: 'json',
-             data: parameters,
-             success: function (result) {
-             proccessCallback(result);
-             },
-             error: function (error) {
-             console.log(error.responseText);
-             alertify.error(error.responseText);
-             }
-             });*/
-
-
+                //recorremos el resultado y agregamos las opciones al comobo
+                $.each(result, function (i, assetRow) {
+                    var option = new Option(assetRow.Nombre, assetRow.IdProveedor);
+                    selectControl.append(option);
+                });
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "getAllProviders"};
+            executeAjax('index.php', parameters, proccessCallback);
         },
 
         fnValidateFrmNewAsset: function () {

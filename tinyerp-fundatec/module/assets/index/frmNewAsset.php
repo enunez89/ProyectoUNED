@@ -18,7 +18,6 @@
                 <label for="codCategory">Categoría</label>
                 <select class="form-control requeridoCombo" id="codCategory" name="codCategory">
                     <option value="0">Seleccione</option>
-                    <option value="1">Prueba</option>
                 </select>
             </div>
         </div>
@@ -40,9 +39,6 @@
                 <label for="provider">Proveedor</label>
                 <select class="form-control requeridoCombo" id="provider" name="provider">
                     <option value="0">Seleccione</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
                 </select>
             </div>
 

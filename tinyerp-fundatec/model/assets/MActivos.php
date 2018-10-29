@@ -36,8 +36,7 @@ class MActivos {
                 Sesion::setAttr("imageProfile", $utilitiesAux->getProfileImageUrl() . "/" . $result->validateUserResult->ImageProfile);
                 Sesion::setAttr("idUsuarioLocal", $result->validateUserResult->UserID);
                 Sesion::setAttr("idUsuarioGlobal", $result->validateUserResult->UserID);
-                return true;
-            }
+                return true;}
         } catch (Exception $e) {
             print "Caught exception: " . $e->getMessage() . "\n";
             return false;
@@ -72,7 +71,6 @@ class MActivos {
         /**
          * Método que obtiene de base de datos el catalogo de categorias de activos
          */
-        
         Mysql::open();
         $query = "CALL pr_GetAllCategoryAssest();";
         $categories = array();
@@ -82,6 +80,23 @@ class MActivos {
         }
         Mysql::close();
         return json_encode($categories);
+        
+    }
+    
+    public function getAllProviders(){
+        /**
+         * Método que obtiene de base de datos el catalogo de proveedores de activos
+         */
+        Mysql::open();
+        $query = "CALL pr_getAllProviders();";
+        $providers = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($providers, $row);
+        }
+        Mysql::close();
+        return json_encode($providers);
+        
     }
 
 }

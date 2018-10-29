@@ -20,26 +20,38 @@ class AssetsController extends controller {
         $action = $this->getAction();
 
         switch ($action) {
-            case 'nuevo':
+            case 'nuevo':{
                 $this->runView("frmNewAsset", "assets/index");
                 break;
-            case 'editAsset':
+            }
+            case 'editAsset':{
                 $this->runView("frmEditAsset", "assets/index");
                 break;
-            case 'newRepair':
+            }
+            case 'newRepair':{
                 $this->runView("frmNewRepair", "assets/index");
                 break;
-            case 'requestAssets':
+            }
+            case 'requestAssets':{
                 $assetsModel = new MActivos();
                 $databaseResult = $assetsModel->getAllAssets();
                 echo ($databaseResult);
                 break;
-            case 'getAllCategoryAssest':
+            }
+            case 'getAllCategoryAssest':{
                 $assetsModel = new MActivos();
                 $getCategoryAssestResp = $assetsModel->getAllCategoryAssest();
                 echo ($getCategoryAssestResp);
+            break;
+            }
+             case 'getAllProviders':{
+                $assetsModel = new MActivos();
+                $getProvidersAssestResp = $assetsModel->getAllProviders();
+                echo ($getProvidersAssestResp);
+                break;
+             }
             default :
-                $this->showAssetsIndex();
+                echo $this->showAssetsIndex();
                 break;
         }
     }

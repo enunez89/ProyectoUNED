@@ -100,7 +100,7 @@ function verSubMenu(divid) {
 function executeAjax(url, parameters, fnProcessResponse, dataType) {
 
     //configuración
-    if (dataType == undefined) {
+    if (dataType === undefined) {
         dataType = 'json';
     }
 

@@ -98,5 +98,36 @@ class MActivos {
         return json_encode($providers);
         
     }
+    
+    public function insertAsset(Asset $asset) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */ 
+        
+        try {
+            //obtenemos los parametros del sp
+            $codigo = $asset->getCode();
+            $codCategoria = $asset->getCodCategory();
+            $marca = $asset->getBrand();
+            $precio =  $asset->getPrice();
+            $idProveedor = $asset->getIdProvider();
+            $codEstado = $asset->getCodState();
+            $numSerie = $asset->getSerialNumber();
+            $numPlaca = $asset->getPlateNumber();
+            $descripcion = $asset->getDescription();
+            $fechaAdquisicion = $asset->getAcquisitionDate();
+            $idGarantia = $asset->getIdWarranty();
+            
+            Mysql::open();
+            $sql = "CALL pr_InsertAssest('$codigo', $codCategoria, '$marca', "
+                    . "$precio, $idProveedor, $codEstado, '$numSerie', '$numPlaca', "
+                    . "'$descripcion', '$fechaAdquisicion', $idGarantia); ";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
 
 }

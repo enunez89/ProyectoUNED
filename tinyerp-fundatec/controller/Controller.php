@@ -10,6 +10,7 @@ class Controller extends View {
     const CAPA_MODELPOINTOFSALE = 'model/pointOfSale';
     const CAPA_MODELCONTRACT = 'model/contract';
     const CAPA_MODELASSETS = 'model/assets';
+    const  CAPA_ENTITYASSETS = 'entity/assets';
 
     protected $pageTitle = 'Sistemas FUNDATEC';
 
@@ -150,6 +151,15 @@ class Controller extends View {
      protected function loadModelAssets($phpModel) {
         $this->importFile(self::CAPA_MODELASSETS, $phpModel);
     }
+    
+    /**
+     * Importa la entidad activos
+     * @param type $phpModel
+     */
+    protected function loadEntityAssets($entity) {
+        $this->importFile(self::CAPA_ENTITYASSETS, $entity);
+    }
+    
     /**
      * Funcion para importar archivos desde un controlador
      * @param type $CAPA

@@ -155,10 +155,11 @@ var assetManagement = {
                 
                 
                 //formamos los parametros a enviar
-                var parameters = {'asset': asset, 'action': "creatAsset"};
+                var parameters = {'asset': asset, 'action': "createAsset"};
                 var fnProcess = function (data) {
-                    var response = data;
+                    console.log(data);
                     alertify.success(assetManagement.messages.assetSaveSuccess);
+                    
                 }
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);

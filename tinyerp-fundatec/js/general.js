@@ -244,6 +244,6 @@ function fnRemoveAlertRequiredFields(frmName) {
  * Variable que cuenta con mensajes genéricos que se le muestran al usuario
  */
 var genericMessages = {
-    msjError: "Ha ocurrido un error, por favor comuniquese con el administrados.",
+    msjError: "Ha ocurrido un error, por favor comuniquese con el administrador.",
     msjRequiredFileds: "Existen campos requeridos.",
 }     

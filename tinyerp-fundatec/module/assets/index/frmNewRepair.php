@@ -3,6 +3,7 @@
 
 <div class="page-header">
     <h1>Agregar Reparación</h1>
+    <a href="index.php?action=consultRepair" class="btn btn-primary" >Volver</a>
 </div>
 
 <form class="form-group">

@@ -26,6 +26,7 @@ class Asset {
     public $Description;
     public $AcquisitionDate;
     public $IdWarranty;
+    public $Warranty;
 
     function __construct() {
         
@@ -79,6 +80,10 @@ class Asset {
     public function getIdWarranty() {
         return $this->IdWarranty;
     }
+    
+       public function getWarranty() {
+        return $this->Warranty;
+    }
 
     public function setId($Id) {
         $this->Id = $Id;
@@ -126,6 +131,10 @@ class Asset {
 
     public function setIdWarranty($IdWarranty) {
         $this->IdWarranty = $IdWarranty;
+    }
+    
+    public function setWarranty($Warranty) {
+        $this->Warranty = $Warranty;
     }
 
 

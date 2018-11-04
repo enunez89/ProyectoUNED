@@ -88,5 +88,10 @@ class Mysql implements IConexion {
     public static function execute($query) {
         return (self::query($query) !== FALSE) ? TRUE : FALSE;
     }
+    
+    public static function prepare($procedureCall,$types,$value) {
+        return mysqli_prepare(self::$con, $procedureCall);
+    }
+    
 
 }

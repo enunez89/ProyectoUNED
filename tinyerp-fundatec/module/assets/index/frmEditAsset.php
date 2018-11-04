@@ -1,6 +1,13 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-
+<script type="text/javascript" src="../../../js/assets/EditAsset.js"></script>
+<script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
+<script>
+$(document).ready(function () {
+//se inicializa el forms
+    editAsset.fnInitializer();
+});
+</script> 
 <div class="page-header">
     <h1>Editar Activo</h1>
 </div>
@@ -17,6 +24,7 @@
             <div class="form-group col-lg-6">
                 <label for="codCategory">Categoría</label>
                 <select class="form-control" id="codCategory" name="codCategory">
+                    <option>Seleccione</option>
                 </select>
             </div>
         </div>
@@ -38,9 +46,6 @@
                 <label for="provider">Proveedor</label>
                 <select class="form-control" id="provider" name="provider">
                     <option>Seleccione</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
                 </select>
             </div>
 
@@ -75,8 +80,8 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="Guardar();">
-            <a href="index.php" class="btn btn-default">Volver</a>
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(editAsset.actions.fnSaveEditedAsset());">
+            <a href="index.php" class="btn btn-default">Cancelar</a>
         </div>
     </div>
 </form>

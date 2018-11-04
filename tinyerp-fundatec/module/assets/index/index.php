@@ -9,6 +9,7 @@
 require_once '../../../config.php';
 require_once '../../../controller/Assets/AssetsController.php';
 require_once '../../../entity/assets/Asset.php';
+require_once '../../../entity/assets/Repair.php';
 
 $assetsController = new AssetsController();
 $assetsController->procesar();

@@ -1,9 +1,16 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../../js/assets/NewRepair.js"></script>
+<script type="text/javascript" src="../../../js/assets/RepairManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
+<script>
+    $(document).ready(function () {
+    //se inicializa el forms
+        newRepair.fnInitializer();
+    });
+</script>
 
 <div class="page-header">
     <h1>Agregar Reparación</h1>
-    <a href="index.php?action=consultRepair" class="btn btn-primary" >Volver</a>
 </div>
 
 <form class="form-group">
@@ -11,18 +18,19 @@
         <div class="row">
             <div class="form-group col-lg-4">
                 <label for="studioName">Nombre Taller</label>
-                <input type="text" class="form-control" name="studioName" id="studioName" required="required" placeholder="Nombre Taller">
+                <input type="text" class="form-control requerido" name="studioName" id="studioName" required="required" placeholder="Nombre Taller">
             </div>
 
             <div class="form-group col-lg-4">
                 <label for="dtpDevolution">Fecha devolución</label>
-                <input type="text" class="form-control date" name="dtpDevolution" id="dtpAcquisition">
+                <input type="text" class="form-control date requerido" name="dtpDevolution" id="dtpDevolutionToShow">
+                <input type="hidden" class="form-control" name="dtpDevolution" id="dtpDevolutionToSave">
             </div>
 
             <div class="form-group col-lg-4">
                 <label>Cubierto por garantía</label>
                 <div class="radio">
-                    <label><input type="radio" name="covert" value="1">Si</label>
+                    <label><input id="chkCovertTrue" type="radio" name="covert" value="1">Si</label>
                 </div>
                 <div class="radio">
                     <label><input type="radio" name="covert" value="0">No</label>
@@ -49,7 +57,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="Guardar();">
-            <a href="index.php" class="btn btn-default">Volver</a>
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(newRepair.actions.fnSaveNewRepair());">
+            <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
         </div>
     </div>

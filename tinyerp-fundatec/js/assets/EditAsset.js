@@ -44,7 +44,7 @@ var editAsset = {
              */
 
             //validamos los campos requeridos
-            if (assetManagement.actions.fnValidateFrmNewAsset()) {
+            if (assetManagement.actions.fnValidateFrmEditAsset()) {
                 
                 //obtenemos los datos de la garantia
                 var warranty = {

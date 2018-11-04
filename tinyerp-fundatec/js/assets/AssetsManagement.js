@@ -10,6 +10,7 @@ var assetManagement = {
         ddlCodCategory: "#codCategory",        
         date: ".date",
         frmNewAsset: "#frmNewAsset",
+        frmEditAsset: "#frmEditAsset",
         txtCode: "#code",
         txtBrand: "#brand",
         txtPrice: "#price",
@@ -19,7 +20,7 @@ var assetManagement = {
         txtDescription: "#description",
         txtWarrantyTerms: "#terms",
         dtpWarrantyExpiration: "#dtpExpiration",
-        warrantyFile: "#warrantyFile",
+        warrantyFile: "#warrantyFile"
     },
     messages: {
         assetSaveSuccess: "Activo guardado correctamente.",
@@ -115,6 +116,16 @@ var assetManagement = {
 
             return fnRequiredFields(assetManagement.controlsId.frmNewAsset);
         },
+        fnValidateFrmEditAsset: function () {
+            /*
+             * Realiza la validación de los campos al crear un nuevo activo
+             * @param {type} result
+             * @returns {undefined}
+             */
+
+            return fnRequiredFields(assetManagement.controlsId.frmEditAsset);
+        }
+        ,
         fnLoadAsssetsResultOnTable: function(result) {
             var table = $("#AssetsMainTable");
 
@@ -138,7 +149,7 @@ var assetManagement = {
                 row += '</tr>';
                 table.append(row);
             });
- $(assetManagement.actions.fnOnCheckAsset());
+            $(assetManagement.actions.fnOnCheckAsset());
         },
         fnRedirectToAssetsIndex: function(){
             window.location.replace("/module/assets/index/index.php");
@@ -174,18 +185,7 @@ var assetManagement = {
 
 
 function Guardar() {
-    /*$.ajax({
-     type: 'POST',
-     url: 'index.php',
-     dataType: 'json',
-     data: {'codigo': $('#codigo').val(), 'action': "insertAssest"},
-     success: function (result) {
-     alertify.success("Guardado correctamente");
-     },
-     error: function (error) {
-     alertify.error("Ha ocurrido un error");
-     }
-     });*/
+
     var parameters = {'codigo': $('#codigo').val(), 'action': "insertAssest"};
     var fnProcess = function (data) {
         var response = data;

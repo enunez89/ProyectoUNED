@@ -92,6 +92,13 @@ class AssetsController extends controller {
                 echo ($databaseResult);
                 break;
             }
+            case 'createRepair':{
+                $newRepair= $this->convertRepairFromPost($_POST["repair"],TRUE);
+                $assetsModel = new MActivos();
+                $databaseResult = $assetsModel->insertRepair($newRepair);
+                echo ($databaseResult);
+                break;
+            }
             default :
                 echo $this->showAssetsIndex();
                 break;
@@ -119,6 +126,24 @@ class AssetsController extends controller {
         return $newAsset;
     }
 
+    public function convertRepairFromPost($repair,$isNew){
+        $jsonEncode = json_encode($repair);
+        $repairObject = json_decode($jsonEncode);
+        
+        $newRepair = new Repair();
+        if($isNew === FALSE){
+            $newRepair->setRepairId($repairObject->RepairId);
+        }
+        $newRepair->setAssetId($repairObject->AssetId);
+        $newRepair->setStudioName($repairObject->StudioName);
+        $newRepair->setDevolutionDate($repairObject->DevolutionDate);
+        $newRepair->setDescription($repairObject->Description);
+        $newRepair->setCoverByWarranty($repairObject->CoverByWarranty);
+        $newRepair->setAttachementId(0);
+        //echo($newRepair);
+        return $newRepair;
+    }
+    
     protected function showAssetsIndex() {
         //$indexModelAux = new indexModel();
         // $this->CashRegister = $indexModelAux->getCashRegisterByUser();

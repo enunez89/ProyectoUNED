@@ -12,18 +12,18 @@ $(document).ready(function () {
     <h1>Editar Activo</h1>
 </div>
 
-<form class="form-group">
+<form class="form-group" id="frmEditAsset">
     <fieldset class="form-group">
         <legend>Información Activo</legend>
         <div class="row">
             <div class="form-group col-lg-6">
                 <label for="code">Código</label>
-                <input type="text" class="form-control" name="code" id="code" required="required" placeholder="Código">
+                <input type="text" class="form-control requerido" name="code" id="code" required="required" placeholder="Código">
             </div>
 
             <div class="form-group col-lg-6">
                 <label for="codCategory">Categoría</label>
-                <select class="form-control" id="codCategory" name="codCategory">
+                <select class="form-control requeridoCombo" id="codCategory" name="codCategory">
                     <option>Seleccione</option>
                 </select>
             </div>
@@ -32,33 +32,33 @@ $(document).ready(function () {
         <div class="row">
             <div class="form-group col-lg-6">
                 <label for="brand">Marca</label>
-                <input type="text" class="form-control" name="brand" id="brand" required="required" placeholder="Marca">
+                <input type="text" class="form-control requerido" name="brand" id="brand" required="required" placeholder="Marca">
             </div>
 
             <div class="form-group col-lg-6">
                 <label for="price">Precio Adquisición</label>
-                <input type="number" class="form-control" name="price" id="price" required="required" placeholder="Precio Adquisición">
+                <input type="number" class="form-control requerido" name="price" id="price" required="required" placeholder="Precio Adquisición">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-lg-6">
                 <label for="provider">Proveedor</label>
-                <select class="form-control" id="provider" name="provider">
+                <select class="form-control requeridoCombo" id="provider" name="provider">
                     <option>Seleccione</option>
                 </select>
             </div>
 
             <div class="form-group col-lg-6">
                 <label for="serialNum">Número Serie</label>
-                <input type="text" class="form-control" name="serialNum" id="serialNum" placeholder="Número Serie">
+                <input type="text" class="form-control requerido" name="serialNum" id="serialNum" placeholder="Número Serie">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-lg-6">
                 <label for="plateNum">Número Placa</label>
-                <input type="text" class="form-control" name="plateNum" id="plateNum" placeholder="Número Placa">
+                <input type="text" class="form-control requerido" name="plateNum" id="plateNum" placeholder="Número Placa">
             </div>
 
 
@@ -71,7 +71,7 @@ $(document).ready(function () {
         <div class="row">
             <div class="form-group col-lg-12">
                 <label for="description">Descripción</label>
-                <textarea class="form-control" rows="3" name="description" id="description"></textarea>
+                <textarea class="form-control requerido" rows="3" name="description" id="description"></textarea>
             </div>
         </div>
 

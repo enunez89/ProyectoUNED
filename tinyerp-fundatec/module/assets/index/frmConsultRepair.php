@@ -15,7 +15,7 @@ $(document).ready(function () {
 </script>
    
 <a href="index.php" class="btn btn-primary" >Volver</a>
-<a href="index.php?action=newRepairForm" class="btn btn-success" >Registrar reparación</a>
+<a id="newRepair" href="index.php?action=newRepairForm" class="btn btn-success" >Registrar reparación</a>
 <hr/>
         
 <table class="table" id="RepairsMainTable">

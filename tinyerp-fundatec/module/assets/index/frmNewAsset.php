@@ -1,6 +1,12 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-
+<script type="text/javascript" src="../../../js/assets/NewAsset.js"></script>
+<script>
+$(document).ready(function () {
+//se inicializa el forms
+    newAsset.fnInitializer();
+});
+</script> 
 <div class="page-header">
     <h1>Agregar Activo</h1>
 </div>
@@ -95,7 +101,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="assetManagement.actions.fnSaveAsset();">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="newAsset.actions.fnSaveAsset();">
             <a href="index.php" class="btn btn-default">Volver</a>
         </div>
     </div>

@@ -20,4 +20,8 @@ interface IConexion {
     public static function execute($query);
 
     public static function get_connection();
+    
+    public static function prepare($procedureCall,$types,$value);
+  
+    
 }

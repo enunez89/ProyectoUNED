@@ -3,10 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$(document).ready(function () {
-//se inicializa el forms
-    assetManagement.fnInitializer();
-});
 
 var assetManagement = {
     controlsId: {
@@ -14,6 +10,7 @@ var assetManagement = {
         ddlCodCategory: "#codCategory",
         date: ".date",
         frmNewAsset: "#frmNewAsset",
+        frmEditAsset: "#frmEditAsset",
         txtCode: "#code",
         txtBrand: "#brand",
         txtPrice: "#price",
@@ -23,13 +20,14 @@ var assetManagement = {
         txtDescription: "#description",
         txtWarrantyTerms: "#terms",
         dtpWarrantyExpiration: "#dtpExpiration",
-        warrantyFile: "#warrantyFile",
+        warrantyFile: "#warrantyFile"
     },
     messages: {
         assetSaveSuccess: "Activo guardado correctamente.",
     },
     fnInitializer: function () {
         //se inicializa todos los datepicker con el selector date
+<<<<<<< HEAD
         $(assetManagement.controlsId.date).datepicker({
             dateFormat: "dd-mm-yy"
         });
@@ -43,6 +41,13 @@ var assetManagement = {
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
 
+=======
+       $(assetManagement.controlsId.date).datepicker();
+        //carga la tabla de activos
+        $(assetManagement.actions.fnLoadExistingAssest());
+        $(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
+       
+>>>>>>> cab637c90970fbf29203e09b0fdc66c882079bc4
     },
     actions: {
         pages: {
@@ -52,22 +57,26 @@ var assetManagement = {
             /*
              * Carga la tabla inicial de activos 
              **/
-
-            $.ajax({
-                type: 'POST',
-                url: 'index.php',
-                dataType: 'json',
-                data: {'action': "requestAssets"},
-                success: function (result) {
-                    fnLoadAsssetsResultOnTable(result);
-                },
-                error: function (error) {
-                    console.log(error.responseText);
-                    alertify.error(error.responseText);
-                }
-            });
+            var proccessCallback = function (result)
+            {
+               $(assetManagement.actions.fnLoadAsssetsResultOnTable(result));
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "requestAssets"};
+            executeAjax('index.php', parameters, proccessCallback);
         },
-
+        fnLoadExistingAssestById: function () {
+            /*
+             * Carga la tabla inicial de activos 
+             **/
+            var proccessCallback = function (result)
+            {
+               fnPopulateAssetForEdition(result);
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "getAssetById"};
+            executeAjax('index.php', parameters, proccessCallback);
+        },
         fnFillCategoryAssest: function () {
             /*
              * Llena el combobox de categorias de activos.
@@ -114,7 +123,6 @@ var assetManagement = {
             var parameters = {'action': "getAllProviders"};
             executeAjax('index.php', parameters, proccessCallback);
         },
-
         fnValidateFrmNewAsset: function () {
             /*
              * Realiza la validación de los campos al crear un nuevo activo
@@ -124,14 +132,14 @@ var assetManagement = {
 
             return fnRequiredFields(assetManagement.controlsId.frmNewAsset);
         },
-
-        fnSaveAsset: function () {
-            /**
-             * Envia a guardar un nuevo activo.
+        fnValidateFrmEditAsset: function () {
+            /*
+             * Realiza la validación de los campos al crear un nuevo activo
              * @param {type} result
              * @returns {undefined}
              */
 
+<<<<<<< HEAD
             //validamos los campos requeridos
             if (assetManagement.actions.fnValidateFrmNewAsset()) {
 
@@ -166,49 +174,71 @@ var assetManagement = {
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
             }
+=======
+            return fnRequiredFields(assetManagement.controlsId.frmEditAsset);
+        }
+        ,
+        fnLoadAsssetsResultOnTable: function(result) {
+            var table = $("#AssetsMainTable");
+
+            $.each(result, function (i, assetRow) {
+                var row = '<tr>';
+                row += '<td><input type="radio" id="' + assetRow.IdActivo + '" name="assetRow"></input></td>';
+                //row += '<td>' + assetRow.Codigo + '</td>';
+                row += '<td>' + assetRow.Categoria + '</td>';
+                row += '<td>' + assetRow.Marca + '</td>';
+                row += '<td>' + assetRow.PrecioAdquisicion + '</td>';
+                row += '<td>' + assetRow.Proveedor + '</td>';
+                row += '<td>' + assetRow.NumeroPlaca + '</td>';
+                //row += '<td>' + assetRow.DesActivo + '</td>';
+                row += '<td>' + assetRow.Estado + '</td>';
+                row += '<td>' + assetRow.NumeroSerie + '</td>';
+               // row += '<td>' + assetRow.FechaAdqusicion + '</td>';
+               // row += '<td>' + assetRow.FechaRegistro + '</td>';
+                //row+='<td> <p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button></p> </a>';
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAssetForm&IdActivo='+assetRow.IdActivo+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-idAsset="'+assetRow.IdActivo+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+                row += '</tr>';
+                table.append(row);
+            });
+            $(assetManagement.actions.fnOnCheckAsset());
+        },
+        fnRedirectToAssetsIndex: function(){
+            window.location.replace("/module/assets/index/index.php");
+        },
+        fnAssignIdAssetOnOpenDialogToDelete: function(){
+            $('#modalEliminar').on('show.bs.modal', function(e) {
+            //get data-id attribute of the clicked element
+            var assetId = $(e.relatedTarget).data('idasset');
+            
+            //populate the textbox
+            $(e.currentTarget).find('#deleteAssetButton').attr('data-idasset',assetId);
+            
+            });
+        },
+        fnOnCheckAsset:function(){
+           
+            $("input[type=radio][name=assetRow]").change(function(){
+                 var checked = $(this).is(":checked");
+                 if(checked===false){
+                    $(".btnMenuPrincipal").addClass("disabled");
+                }else{
+                    $(".btnMenuPrincipal").removeClass("disabled");
+                        $("#btnRepair").attr("href","index.php?action=consultRepairForm&idAsset="+$(this).attr("id"));
+//                        $("#btnQuote").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
+//                        $("#btnAssignment").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
+//                        $("#btnPhysicalInventory").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
+                }                
+            });
+>>>>>>> cab637c90970fbf29203e09b0fdc66c882079bc4
         }
     }
-}
+};
 
-function fnLoadAsssetsResultOnTable(result) {
-    var table = $("#AssetsMainTable");
 
-    $.each(result, function (i, assetRow) {
-        var row = '<tr>';
-        row += '<td><input type="checkbox" id=' + assetRow.IdActivo + '></input></td>';
-        row += '<td>' + assetRow.Codigo + '</td>';
-        row += '<td>' + assetRow.Categoria + '</td>';
-        row += '<td>' + assetRow.Marca + '</td>';
-        row += '<td>' + assetRow.PrecioAdquisicion + '</td>';
-        row += '<td>' + assetRow.IdProveedor + '</td>';
-        row += '<td>' + assetRow.NumeroPlaca + '</td>';
-        row += '<td>' + assetRow.DesActivo + '</td>';
-        row += '<td>' + assetRow.Estado + '</td>';
-        row += '<td>' + assetRow.NumeroSerie + '</td>';
-        row += '<td>' + assetRow.FechaAdqusicion + '</td>';
-        row += '<td>' + assetRow.FechaRegistro + '</td>';
-        //row+='<td> <p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button></p> </a>';
-        row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAsset" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
-        row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-title="Eliminar" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
-        row += '</tr>';
-        table.append(row);
-    });
-
-}
 
 function Guardar() {
-    /*$.ajax({
-     type: 'POST',
-     url: 'index.php',
-     dataType: 'json',
-     data: {'codigo': $('#codigo').val(), 'action': "insertAssest"},
-     success: function (result) {
-     alertify.success("Guardado correctamente");
-     },
-     error: function (error) {
-     alertify.error("Ha ocurrido un error");
-     }
-     });*/
+
     var parameters = {'codigo': $('#codigo').val(), 'action': "insertAssest"};
     var fnProcess = function (data) {
         var response = data;

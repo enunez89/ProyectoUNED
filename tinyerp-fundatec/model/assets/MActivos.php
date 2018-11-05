@@ -54,17 +54,19 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+    
+     public function getAssetById($id) {
+        Mysql::open();
 
-    public function insertContractPayments($idContract, $total, $payId, $coinId, $description, $paymentDate) {
-        try {
-            Mysql::open();
-            $sql = "INSERT INTO tbl_contract_payments (id_contract,total,pay_per_id,coin_id,description,payment_date) VALUES($idContract,$total,$payId,$coinId,'$description','$paymentDate'); ";
-            Mysql::execute($sql);
-            Mysql::close();
-            return 1;
-        } catch (Exception $exc) {
-            return -1;
+        $query = "CALL pr_GetAssetById(@searchedAsset);";
+        $queryConParametro = str_replace("@searchedAsset",$id,$query);
+        $result = Mysql::query($queryConParametro);
+        $asset = array();
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($asset, $row);
         }
+        Mysql::close();
+        return json_encode($asset);
     }
     
     public function getAllCategoryAssest(){
@@ -117,7 +119,7 @@ class MActivos {
             $descripcion = $asset->getDescription();
             $fechaAdquisicion = $utilitiesAux->getDateFormatToDB($asset->getAcquisitionDate());
             $idGarantia = $asset->getIdWarranty();
-            
+
             Mysql::open();
             $sql = "CALL pr_InsertAssest('$codigo', $codCategoria, '$marca', "
                     . "$precio, $idProveedor, $codEstado, '$numSerie', '$numPlaca', "
@@ -129,5 +131,114 @@ class MActivos {
             return -1;
         }
     }
+    
+     public function editAsset(Asset $asset) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */ 
+        
+        try {
+            //obtenemos los parametros del sp
+            $idActivo = $asset->getId();
+            $codigo = $asset->getCode();
+            $codCategoria = $asset->getCodCategory();
+            $marca = $asset->getBrand();
+            $precio =  $asset->getPrice();
+            $idProveedor = $asset->getIdProvider();
+            $codEstado = $asset->getCodState();
+            $numSerie = $asset->getSerialNumber();
+            $numPlaca = $asset->getPlateNumber();
+            $descripcion = $asset->getDescription();
+            $fechaAdquisicion = $asset->getAcquisitionDate();
+            $idGarantia = $asset->getIdWarranty();
 
+            Mysql::open();
+            $sql = "CALL pr_EditAssest($idActivo,'$codigo', $codCategoria, '$marca', "
+                    . "$precio, $idProveedor, $codEstado, '$numSerie', '$numPlaca', "
+                    . "'$descripcion', '$fechaAdquisicion', $idGarantia); ";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+     public function updateStateAsset($idActivo, $codEstado) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */ 
+        
+        try {
+            Mysql::open();
+            $sql = "CALL pr_ChangeStateAsset($idActivo,$codEstado); ";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+     public function getAllRepairsByAssetId($idAsset) {
+        Mysql::open();
+        $query = "CALL pr_GetAllRepairsByAssetId($idAsset);";
+        $assets = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($assets, $row);
+        }
+        Mysql::close();
+        return json_encode($assets);
+    }
+    
+    public function insertRepair(Repair $repair) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */ 
+        
+        try {
+            //obtenemos los parametros del sp
+            $assetId = $repair->getAssetId();
+            $description = $repair->getDescription();
+            $studioName = $repair->getStudioName();
+            $devolutionDate = $repair->getDevolutionDate();
+            $coverByWarranty = $repair->getCoverByWarranty();
+            $attachementId = $repair->getAttachementId();
+
+            Mysql::open();          
+            $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
+                    . ", '$devolutionDate', $coverByWarranty, $attachementId);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+    public function editRepair(Repair $repair) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */ 
+        
+        try {
+            $repairId = $repair->getRepairId();
+            $assetId = $repair->getAssetId();
+            $description = $repair->getDescription();
+            $studioName = $repair->getStudioName();
+            $devolutionDate = $repair->getDevolutionDate();
+            $coverByWarranty = $repair->getCoverByWarranty();
+            $attachementId = $repair->getAttachementId();
+
+            Mysql::open();
+            $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
+                    . ", '$devolutionDate', $coverByWarranty, $attachementId);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
 }

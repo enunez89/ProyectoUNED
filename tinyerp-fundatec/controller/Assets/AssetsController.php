@@ -21,13 +21,19 @@ class AssetsController extends controller {
         $action = $this->getAction();
 
         switch ($action) {
-            case 'nuevo':{
+            case 'newAssetForm':{
                 $this->runView("frmNewAsset", "assets/index");
                 break;
             }
+            case 'editAssetForm':{
                 $this->runView("frmEditAsset", "assets/index");
                 break;
             }
+            case 'consultRepairForm':{
+                $this->runView("frmConsultRepair", "assets/index");
+                break;
+            }
+            case 'newRepairForm':{
                 $this->runView("frmNewRepair", "assets/index");
                 break;
             }

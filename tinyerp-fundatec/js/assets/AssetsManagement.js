@@ -27,7 +27,6 @@ var assetManagement = {
     },
     fnInitializer: function () {
         //se inicializa todos los datepicker con el selector date
-<<<<<<< HEAD
         $(assetManagement.controlsId.date).datepicker({
             dateFormat: "dd-mm-yy"
         });
@@ -41,13 +40,6 @@ var assetManagement = {
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
 
-=======
-       $(assetManagement.controlsId.date).datepicker();
-        //carga la tabla de activos
-        $(assetManagement.actions.fnLoadExistingAssest());
-        $(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
-       
->>>>>>> cab637c90970fbf29203e09b0fdc66c882079bc4
     },
     actions: {
         pages: {
@@ -139,7 +131,6 @@ var assetManagement = {
              * @returns {undefined}
              */
 
-<<<<<<< HEAD
             //validamos los campos requeridos
             if (assetManagement.actions.fnValidateFrmNewAsset()) {
 
@@ -174,7 +165,6 @@ var assetManagement = {
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
             }
-=======
             return fnRequiredFields(assetManagement.controlsId.frmEditAsset);
         }
         ,
@@ -230,22 +220,9 @@ var assetManagement = {
 //                        $("#btnPhysicalInventory").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
                 }                
             });
->>>>>>> cab637c90970fbf29203e09b0fdc66c882079bc4
         }
     }
 };
-
-
-
-function Guardar() {
-
-    var parameters = {'codigo': $('#codigo').val(), 'action': "insertAssest"};
-    var fnProcess = function (data) {
-        var response = data;
-        alertify.success(response.UserMsj);
-    }
-    executeAjax('index.php', parameters, fnProcess);
-}
 
 
 

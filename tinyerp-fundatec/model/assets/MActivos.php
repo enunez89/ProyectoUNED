@@ -117,7 +117,7 @@ class MActivos {
             $numSerie = $asset->getSerialNumber();
             $numPlaca = $asset->getPlateNumber();
             $descripcion = $asset->getDescription();
-            $fechaAdquisicion = $utilitiesAux->getDateFormatToDB($asset->getAcquisitionDate());
+            $fechaAdquisicion = $asset->getAcquisitionDate();
             $idGarantia = $asset->getIdWarranty();
 
             Mysql::open();

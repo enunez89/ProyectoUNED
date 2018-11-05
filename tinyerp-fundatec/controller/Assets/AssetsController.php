@@ -62,39 +62,15 @@ class AssetsController extends controller {
                 echo ($getProvidersAssestResp);
                 break;
              }
-<<<<<<< HEAD
-             case 'createAsset':{
-               //obtenemos los datos del activo
-                 $assetData = $_POST["asset"];
-                 //creamos la entidad
-                 $assetEntity = new Asset();
-                 //obtenemos los datos
-                 $assetEntity->setCode($assetData["Codigo"]);
-                 $assetEntity->setCodCategory($assetData["CodCategoria"]);
-                 $assetEntity->setBrand($assetData["Marca"]);
-                 $assetEntity->setPrice($assetData["PrecioAdquisicion"]);
-                 $assetEntity->setIdProvider($assetData["IdProveedor"]);
-                 $assetEntity->setSerialNumber($assetData["NumeroSerie"]);
-                 $assetEntity->setPlateNumber($assetData["NumeroPlaca"]);
-                 $assetEntity->setDescription($assetData["DesActivo"]);
-                 $assetEntity->setAcquisitionDate($assetData["FechaAdqusicion"]);
-                 //$assetEntity->setAcquisitionDate('2018-11-01');
-                 $assetEntity->setIdWarranty(0);
-                 $assetEntity->setCodState(1);//estado activo
-                 
-                                
-                 //se envia a guardar
-                $assetsModel = new MActivos();
-                $respInsertAsset = $assetsModel->insertAsset($assetEntity);
-                echo (json_encode($respInsertAsset));
-            break;
-=======
             case 'createAsset':{
+                //obtenemos el objeto Asset con los datos recibidos de la vista
                 $newAsset= $this->convertAssetFromPost($_POST["asset"],TRUE);
+                //seteamos el estado de activo
                 $newAsset->setCodState(1);//agregar
+                //enviamos a guardar
                 $assetsModel = new MActivos();
-                $getCategoryAssestResp = $assetsModel->insertAsset($newAsset);
-                echo($getCategoryAssestResp);
+                $insertAssestResp = $assetsModel->insertAsset($newAsset);
+                echo($insertAssestResp);
                 break;
             }
             case 'editAsset':{
@@ -126,7 +102,6 @@ class AssetsController extends controller {
                 $databaseResult = $assetsModel->insertRepair($newRepair);
                 echo ($databaseResult);
                 break;
->>>>>>> cab637c90970fbf29203e09b0fdc66c882079bc4
             }
             default :
                 echo $this->showAssetsIndex();
@@ -178,9 +153,4 @@ class AssetsController extends controller {
         // $this->CashRegister = $indexModelAux->getCashRegisterByUser();
         $this->runView("gestionActivos");
     }
-
-    public function mostrarFrmActivos() {
-        $this->runView("frmActivos");
-    }
-
 }

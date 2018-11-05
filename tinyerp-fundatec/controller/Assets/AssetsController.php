@@ -13,6 +13,7 @@ class AssetsController extends controller {
         Sesion::open();
         $this->verifyActiveSession();
         $this->loadModelAssets("MActivos");
+        $this->loadEntityAssets("Asset");
         //$this->loadModelContract("indexModel");
     }
 
@@ -50,6 +51,32 @@ class AssetsController extends controller {
                 echo ($getProvidersAssestResp);
                 break;
              }
+             case 'createAsset':{
+               //obtenemos los datos del activo
+                 $assetData = $_POST["asset"];
+                 //creamos la entidad
+                 $assetEntity = new Asset();
+                 //obtenemos los datos
+                 $assetEntity->setCode($assetData["Codigo"]);
+                 $assetEntity->setCodCategory($assetData["CodCategoria"]);
+                 $assetEntity->setBrand($assetData["Marca"]);
+                 $assetEntity->setPrice($assetData["PrecioAdquisicion"]);
+                 $assetEntity->setIdProvider($assetData["IdProveedor"]);
+                 $assetEntity->setSerialNumber($assetData["NumeroSerie"]);
+                 $assetEntity->setPlateNumber($assetData["NumeroPlaca"]);
+                 $assetEntity->setDescription($assetData["DesActivo"]);
+                 $assetEntity->setAcquisitionDate($assetData["FechaAdqusicion"]);
+                 //$assetEntity->setAcquisitionDate('2018-11-01');
+                 $assetEntity->setIdWarranty(0);
+                 $assetEntity->setCodState(1);//estado activo
+                 
+                                
+                 //se envia a guardar
+                $assetsModel = new MActivos();
+                $respInsertAsset = $assetsModel->insertAsset($assetEntity);
+                echo (json_encode($respInsertAsset));
+            break;
+            }
             default :
                 echo $this->showAssetsIndex();
                 break;

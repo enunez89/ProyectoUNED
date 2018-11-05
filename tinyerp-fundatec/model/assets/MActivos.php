@@ -206,11 +206,33 @@ class MActivos {
             $coverByWarranty = $repair->getCoverByWarranty();
             $attachementId = $repair->getAttachementId();
 
+            Mysql::open();          
+            $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
+                    . ", '$devolutionDate', $coverByWarranty, $attachementId);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+    public function editRepair(Repair $repair) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */ 
+        
+        try {
+            $repairId = $repair->getRepairId();
+            $assetId = $repair->getAssetId();
+            $description = $repair->getDescription();
+            $studioName = $repair->getStudioName();
+            $devolutionDate = $repair->getDevolutionDate();
+            $coverByWarranty = $repair->getCoverByWarranty();
+            $attachementId = $repair->getAttachementId();
+
             Mysql::open();
-//            $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
-//                    . ", '$devolutionDate', $coverByWarranty, $attachementId);";
-            
-             $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
+            $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
                     . ", '$devolutionDate', $coverByWarranty, $attachementId);";
             Mysql::execute($sql);
             Mysql::close();

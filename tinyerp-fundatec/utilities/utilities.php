@@ -64,4 +64,22 @@ class Utilities {
        return 'http://localhost:8087/Minisif_ft.svc?wsdl';
     }
     
+    function  getDateFormatToDB($date){
+        /*
+         * Función que convierte una fecha en formato dd-mm-yyyy en formato yyyy-mm-dd
+         * para poderla enviar a base de datos
+         */
+        
+        //separamos la fecha 
+        //posición 0 = día
+        //posición 1 = mes
+        //posición 2 = año
+        $arrStrDate = explode("-", $date);
+        
+        //obtenemos un string con el formato para base de datos yyyy-mm-dd
+        $dateFormatDB = $arrStrDate[2] + "-" + $arrStrDate[1] + "-" + $arrStrDate[0];
+        
+        return $dateFormatDB;
+    }
+    
 }//fin de class

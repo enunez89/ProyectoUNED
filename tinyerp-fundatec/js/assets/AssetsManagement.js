@@ -11,7 +11,7 @@ $(document).ready(function () {
 var assetManagement = {
     controlsId: {
         dtpAcquisition: "#dtpAcquisition",
-        ddlCodCategory: "#codCategory",        
+        ddlCodCategory: "#codCategory",
         date: ".date",
         frmNewAsset: "#frmNewAsset",
         txtCode: "#code",
@@ -30,14 +30,16 @@ var assetManagement = {
     },
     fnInitializer: function () {
         //se inicializa todos los datepicker con el selector date
-        $(assetManagement.controlsId.date).datepicker();
+        $(assetManagement.controlsId.date).datepicker({
+            dateFormat: "dd-mm-yy"
+        });
 
         //carga la tabla de activos
         $(assetManagement.actions.fnLoadExistingAssest());
 
         //llenamos el combo de categorias de activos
         $(assetManagement.actions.fnFillCategoryAssest());
-        
+
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
 
@@ -72,7 +74,7 @@ var assetManagement = {
              * @param {type} result
              * @returns {undefined}
              */
-                       
+
             //definimos la funcion luego del llamado ajax
             var proccessCallback = function (result)
             {
@@ -95,7 +97,7 @@ var assetManagement = {
              * @param {type} result
              * @returns {undefined}
              */
-                       
+
             //definimos la funcion luego del llamado ajax
             var proccessCallback = function (result)
             {
@@ -132,13 +134,13 @@ var assetManagement = {
 
             //validamos los campos requeridos
             if (assetManagement.actions.fnValidateFrmNewAsset()) {
-                
+
                 //obtenemos los datos de la garantia
                 var warranty = {
                     FechaVencimiento: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
-                    Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),                    
+                    Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),
                 }
-                
+
                 //obtenemoos los daos del activoa guardar
                 var asset = {
                     Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
@@ -152,14 +154,14 @@ var assetManagement = {
                     FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisition).val(),
                     Garantia: warranty
                 }
-                
-                
+
+                console.log(asset.FechaAdqusicion);
                 //formamos los parametros a enviar
                 var parameters = {'asset': asset, 'action': "createAsset"};
                 var fnProcess = function (data) {
                     console.log(data);
                     alertify.success(assetManagement.messages.assetSaveSuccess);
-                    
+
                 }
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);

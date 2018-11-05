@@ -103,7 +103,7 @@ class MActivos {
         /**
          * Método que guarda la información de un activo en base de datos.
          */ 
-        
+       $utilitiesAux = new Utilities();
         try {
             //obtenemos los parametros del sp
             $codigo = $asset->getCode();
@@ -115,7 +115,7 @@ class MActivos {
             $numSerie = $asset->getSerialNumber();
             $numPlaca = $asset->getPlateNumber();
             $descripcion = $asset->getDescription();
-            $fechaAdquisicion = $asset->getAcquisitionDate();
+            $fechaAdquisicion = $utilitiesAux->getDateFormatToDB($asset->getAcquisitionDate());
             $idGarantia = $asset->getIdWarranty();
             
             Mysql::open();

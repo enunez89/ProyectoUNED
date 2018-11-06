@@ -5,6 +5,7 @@ var repairsManagement = {
         dtpDevolutionToShow: "#dtpDevolutionToShow",
         dtpDevolutionToSave: "#dtpDevolutionToSave",
         radioCovert: "#chkCovertTrue",
+        radioCovertFalse: "#chkCovertFalse",
         txtDescription: "#descRepair",
         addRepairBtn:"#newRepair",
         repairIndexAction: "consultRepairForm",
@@ -31,13 +32,13 @@ var repairsManagement = {
             var IdAsset = assetId;
             var proccessCallback = function (result)
             {
-               $(repairsManagement.actions.fnLoadRepairsResultOnTable(result));
+               $(repairsManagement.actions.fnLoadRepairsResultOnTable(result, assetId));
             };
             //llamamos la funcion ajax
             var parameters = {'action': "requestRepairs", 'IdAsset': IdAsset};
             executeAjax('index.php', parameters, proccessCallback);
         },
-        fnLoadRepairsResultOnTable: function(result) {
+        fnLoadRepairsResultOnTable: function(result, assetId) {
             var table = $("#RepairsMainTable");
 
             $.each(result, function (i, repairRow) {
@@ -53,7 +54,7 @@ var repairsManagement = {
                 row += '<td>' + repairRow.FechaRegistro + '</td>'; 
                 row += '<td>' + repairRow.FechaDevolucion + '</td>'; 
                 row += '<td>' + repairRow.CubiertoPorGarantia + '</td>'; 
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editRepairForm&IdActivo='+repairRow.IdReparacion+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>';
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editRepairForm&IdRepair='+repairRow.IdReparacion+'&idAsset='+assetId+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>';
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminarReparacion" data-idAsset="'+repairRow.IdReparacion+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
@@ -68,7 +69,10 @@ var repairsManagement = {
             var urlParams = new URLSearchParams(window.location.search);
             var idAsset = urlParams.get('idAsset');
             return idAsset;
-        }
+        },
+        fnRedirectToRepairsIndex: function(action, idAsset){
+            window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());
+        }  
     }
 };
 

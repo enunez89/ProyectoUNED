@@ -44,13 +44,10 @@ var newRepair = {
                     console.log(data);
                     alertify.success(assetManagement.messages.assetSaveSuccess);
                     var actionIndex = repairsManagement.controlsId.repairIndexAction;
-                    $(newRepair.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
+                    $(repairsManagement.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
                 };
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
-            },
-        fnRedirectToRepairsIndex: function(action, idAsset){
-            window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());
-        }       
+            }     
     }
 };

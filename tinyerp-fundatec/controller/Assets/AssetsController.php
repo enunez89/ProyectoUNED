@@ -103,6 +103,24 @@ class AssetsController extends controller {
                 echo ($databaseResult);
                 break;
             }
+             case 'editRepair':{
+                $existingRepair= $this->convertRepairFromPost($_POST["repair"],FALSE);
+                $assetsModel = new MActivos();
+                $databaseResult = $assetsModel->editRepair($existingRepair);
+                echo ($databaseResult);
+                break;
+            }
+            case 'editRepairForm':{
+                $this->runView("frmEditRepair", "assets/index");
+                break;
+            }
+             case 'getRepairById':{
+                $id= (int) $_POST["IdRepair"];
+                $assetsModel = new MActivos();
+                $getCategoryAssestResp = $assetsModel->getRepairById($id);
+                echo ($getCategoryAssestResp);
+            break;
+            }
             default :
                 echo $this->showAssetsIndex();
                 break;

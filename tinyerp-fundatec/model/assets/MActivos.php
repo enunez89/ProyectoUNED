@@ -58,9 +58,8 @@ class MActivos {
      public function getAssetById($id) {
         Mysql::open();
 
-        $query = "CALL pr_GetAssetById(@searchedAsset);";
-        $queryConParametro = str_replace("@searchedAsset",$id,$query);
-        $result = Mysql::query($queryConParametro);
+        $query = "CALL pr_GetAssetById($id);";
+        $result = Mysql::query($query);
         $asset = array();
         while ($row = Mysql::get_row_array($result)) {
             array_push($asset, $row);
@@ -219,7 +218,7 @@ class MActivos {
     
     public function editRepair(Repair $repair) {
         /**
-         * Método que guarda la información de un activo en base de datos.
+         * Método que obtiene la información de una reparacion en base de datos.
          */ 
         
         try {
@@ -232,13 +231,26 @@ class MActivos {
             $attachementId = $repair->getAttachementId();
 
             Mysql::open();
-            $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
-                    . ", '$devolutionDate', $coverByWarranty, $attachementId);";
+            $sql = "CALL pr_EditRepair($assetId, '$description', '$studioName'"
+                    . ", '$devolutionDate', $coverByWarranty, $attachementId, $repairId);";
             Mysql::execute($sql);
             Mysql::close();
             return 1;
         } catch (Exception $exc) {
             return -1;
         }
+    }
+    
+     public function getRepairById($id) {
+        Mysql::open();
+
+        $query = "CALL pr_GetRepairById($id);";
+        $result = Mysql::query($query);
+        $asset = array();
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($asset, $row);
+        }
+        Mysql::close();
+        return json_encode($asset);
     }
 }

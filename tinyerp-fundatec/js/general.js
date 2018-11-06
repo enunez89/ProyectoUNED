@@ -240,6 +240,18 @@ function fnRemoveAlertRequiredFields(frmName) {
     }
 }
 
+/**
+ * Funcion que inicializa un campo datepicker
+ * @returns {undefined}
+ */
+function fnInitDatePicker() {
+    //se inicializa todos los datepicker con el selector date
+    $('.date').datepicker({
+        dateFormat: "dd-mm-yy",
+        altFormat : 'yy/mm/dd'
+    });
+}
+
 /*
  * Variable que cuenta con mensajes genéricos que se le muestran al usuario
  */

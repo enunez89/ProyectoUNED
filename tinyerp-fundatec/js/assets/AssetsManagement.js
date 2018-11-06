@@ -7,8 +7,8 @@
 var assetManagement = {
     controlsId: {
         dtpAcquisition: "#dtpAcquisition",
-        ddlCodCategory: "#codCategory",
-        date: ".date",
+        dtpAcquisitionToSave : "#dtpAcquisitionToSave",
+        ddlCodCategory: "#codCategory",        
         frmNewAsset: "#frmNewAsset",
         frmEditAsset: "#frmEditAsset",
         txtCode: "#code",
@@ -20,25 +20,21 @@ var assetManagement = {
         txtDescription: "#description",
         txtWarrantyTerms: "#terms",
         dtpWarrantyExpiration: "#dtpExpiration",
-        warrantyFile: "#warrantyFile"
+        warrantyFile: "#warrantyFile",
     },
     messages: {
         assetSaveSuccess: "Activo guardado correctamente.",
     },
     fnInitializer: function () {
-        //se inicializa todos los datepicker con el selector date
-        $(assetManagement.controlsId.date).datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-
+        
         //carga la tabla de activos
         $(assetManagement.actions.fnLoadExistingAssest());
 
-        //llenamos el combo de categorias de activos
+        /*//llenamos el combo de categorias de activos
         $(assetManagement.actions.fnFillCategoryAssest());
 
         //llenamos el combo de proveedores de activos
-        $(assetManagement.actions.fnFillProvidersAssest());
+        $(assetManagement.actions.fnFillProvidersAssest());*/
 
     },
     actions: {
@@ -166,8 +162,7 @@ var assetManagement = {
                 executeAjax('index.php', parameters, fnProcess);
             }
             return fnRequiredFields(assetManagement.controlsId.frmEditAsset);
-        }
-        ,
+        },
         fnLoadAsssetsResultOnTable: function(result) {
             var table = $("#AssetsMainTable");
 

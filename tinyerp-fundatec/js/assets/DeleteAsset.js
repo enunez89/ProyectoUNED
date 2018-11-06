@@ -6,7 +6,7 @@
 var deleteAsset= {
     actions:{
             fnDeleteAsset: function(){
-            var idAsset = $("#deleteAssetButton").data('idasset');
+            var idAsset = $("#deleteAssetButton").data('idAsset');
             var proccessCallback = function (result)
             {
                $(assetManagement.actions.fnRedirectToAssetsIndex);

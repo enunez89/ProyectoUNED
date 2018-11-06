@@ -3,10 +3,10 @@ var newAsset = {
           
         //llenamos el combo de categorias de activos
         $(assetManagement.actions.fnFillCategoryAssest());
-        //pickers
-         $(assetManagement.controlsId.date).datepicker();
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
+        
+        $( ".date" ).datepicker( "option", "altField", "#dtpAcquisitionToSave" );
 
      },
      actions:{
@@ -19,6 +19,8 @@ var newAsset = {
 
             //validamos los campos requeridos
             if (assetManagement.actions.fnValidateFrmNewAsset()) {
+                
+                
                 
                 //obtenemos los datos de la garantia
                 var warranty = {
@@ -36,7 +38,7 @@ var newAsset = {
                     NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
                     NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
                     DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                    FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisition).val(),
+                    FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisitionToSave).val(),
                     Garantia: warranty
                 }
                 

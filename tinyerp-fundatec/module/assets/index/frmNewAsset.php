@@ -2,10 +2,12 @@
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/NewAsset.js"></script>
 <script>
-$(document).ready(function () {
-//se inicializa el forms
-    newAsset.fnInitializer();
-});
+    $(document).ready(function () {
+        //se inicializa el forms
+        newAsset.fnInitializer();
+        //inicializamos los campos de fecha
+        fnInitDatePicker();
+    });
 </script> 
 <div class="page-header">
     <h1>Agregar Activo</h1>
@@ -64,6 +66,8 @@ $(document).ready(function () {
             <div class="form-group col-lg-6">
                 <label for="dtpAcquisition">Fecha Adquisición</label>
                 <input type="text" class="form-control date requerido" name="dtpAcquisition" id="dtpAcquisition">
+                <input type="hidden" name="dtpAcquisitionToSave" id="dtpAcquisitionToSave">
+                    
             </div>
         </div>
 

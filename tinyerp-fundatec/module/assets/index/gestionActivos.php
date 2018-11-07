@@ -44,5 +44,6 @@ GESTIÓN ACTIVOS
             <tbody>
             </tbody>
         </table>
+    <input type="hidden" id="maskMoneySetter" class="money"/>
  <?php
 include ('deleteModal.php');

@@ -32,6 +32,7 @@ var assetManagement = {
         $(assetManagement.actions.fnFillProvidersAssest());
         //asigna valores para el modal de eliminar
         $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
+        $(assetManagement.actions.fnFormatMoney());  
     },
     fnEditionInitializer: function () {
           
@@ -87,19 +88,23 @@ var assetManagement = {
                 row += '<td><input type="radio" id="' + assetRow.IdActivo + '" name="assetRow"></input></td>';
                 row += '<td>' + assetRow.Categoria + '</td>';
                 row += '<td>' + assetRow.Marca + '</td>';
-                row += '<td>' + assetRow.PrecioAdquisicion + '</td>';
+                row += '<td>' + assetManagement.actions.fnMaskMoneyToText(assetRow.PrecioAdquisicion) + '</td>';
                 row += '<td>' + assetRow.Proveedor + '</td>';
                 row += '<td>' + assetRow.NumeroPlaca + '</td>';
                 row += '<td>' + assetRow.Estado + '</td>';
                 row += '<td>' + assetRow.NumeroSerie + '</td>';
-                row += '<td>' + $(assetManagement.actions.fnFormatStringDateToCustomFormat(assetRow.FechaAdqusicion,"DD/MM/YYYY")) + '</td>';
+                //row += '<td>' + assetManagement.actions.fnFormatStringDateToCustomFormat(assetRow.FechaAdqusicion,"DD/MM/YYYY") + '</td>';
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAssetForm&IdActivo='+assetRow.IdActivo+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="assetManagement.actions.fnDeleteAsset();" data-idtodelete="'+assetRow.IdActivo+'" data-idAsset="'+assetRow.IdActivo+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
             });
             $(assetManagement.actions.fnOnCheckAsset());
+            $(assetManagement.actions.fnFormatMoney());
+            $(assetManagement.controlsId.moneyField).trigger("mask");
         },
+        
+        
         /////////////////AGREGAR//////////////////////
         fnValidateFrmNewAsset: function () {
             /*
@@ -229,7 +234,7 @@ var assetManagement = {
             $(assetManagement.controlsId.txtSerialNum).val(result.NumeroSerie);
             $(assetManagement.controlsId.txtPlateNum).val(result.NumeroPlaca);
             var fechaEdicion = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaAdqusicion,"DD/MM/YYYY");
-            $(assetManagement.controlsId.dtpAcquisition).val(fechaEdicion);
+            $(assetManagement.controlsId.dtpAcquisition).datepicker('setDate',fechaEdicion);
             //formato de dtp
         $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
             $(assetManagement.controlsId.txtDescription).val(result.DesActivo);
@@ -254,21 +259,21 @@ var assetManagement = {
                 var urlParams = new URLSearchParams(window.location.search);
                 var assetId = urlParams.get('IdActivo');
                   //obtenemoos los daos del activoa guardar
-                 var fechaFormateada = assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(),"YYYY-MM-DD");
-                
+//                 var fechaFormateada = assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(),"YYYY-DD-MM");
+//                
                 var asset = {
                     IdActivo: assetId,
                     Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
                     CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
                     Marca: $(assetManagement.controlsId.txtBrand).val(),
-                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).val(),
+                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).maskMoney('unmasked')[0],
                     IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
                     NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
                     NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
                     DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                    FechaAdqusicion:fechaFormateada,
+                    FechaAdqusicion:$(assetManagement.controlsId.dtpAcquisitionToSave).val(),
                     Garantia: warranty
-                }
+                };
                 
                 
                 //formamos los parametros a enviar
@@ -380,6 +385,10 @@ var assetManagement = {
             allowZero:false,
             allowNegative:false
         });
+        },
+        fnMaskMoneyToText: function(value){
+             $('#maskMoneySetter').val(value).trigger('mask');
+             return $('#maskMoneySetter').val().toString();
         },
         fnFormatStringDateToCustomFormat: function(dateString, format){
         return moment(dateString).format(format);

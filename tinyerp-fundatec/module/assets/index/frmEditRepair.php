@@ -1,11 +1,10 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/RepairManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-<script type="text/javascript" src="../../../js/assets/EditRepair.js"></script>
 <script>
     $(document).ready(function () {
     //se inicializa el forms
-        $(editRepair.fnInitializer());
+        $(repairsManagement.fnEditionInitializer());
     });
 </script>
 
@@ -57,7 +56,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(editRepair.actions.fnSaveEditedRepair());">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(repairsManagement.actions.fnSaveEditedRepair());">
             <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
         </div>
     </div>

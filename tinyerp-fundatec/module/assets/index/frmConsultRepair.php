@@ -5,12 +5,13 @@ GESTIÓN ACTIVOS
 Reparaciones
 </h5>
 <script type="text/javascript" src="../../../js/assets/RepairManagement.js"></script>
+<script type="text/javascript" src="../../../js/assets/DeleteModalManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script>
 $(document).ready(function () {
 //se inicializa el forms
-    repairsManagement.fnInitializer();
+    repairsManagement.fnIndexInitializer();
 });
 </script>
    
@@ -34,24 +35,5 @@ $(document).ready(function () {
     <tbody>
     </tbody>
 </table>
-
-<div class="modal fade" id="modalEliminarReparacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar activo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Desea eliminar el activo seleccionado?
-      </div>
-      <div class="modal-footer">
-          <button type="button" id="deleteAssetButton" class="btn btn-danger" onclick="$(deleteAsset.actions.fnDeleteAsset());">Eliminar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<?php
+include('deleteModal.php');

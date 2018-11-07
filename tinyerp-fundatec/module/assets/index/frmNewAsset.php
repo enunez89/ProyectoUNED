@@ -1,12 +1,10 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-<script type="text/javascript" src="../../../js/assets/NewAsset.js"></script>
+<script type="text/javascript" src="../../../js/assets/jquery.maskMoney.js"></script>
 <script>
     $(document).ready(function () {
         //se inicializa el forms
-        newAsset.fnInitializer();
-        //inicializamos los campos de fecha
-        fnInitDatePicker();
+        $(assetManagement.fnAdditionInitializer());
     });
 </script> 
 <div class="page-header">
@@ -38,7 +36,7 @@
 
             <div class="form-group col-lg-6">
                 <label for="price">Precio Adquisición</label>
-                <input type="number" class="form-control requerido" name="price" id="price" required="required" placeholder="Precio Adquisición">
+                <input type="tel" class="form-control requerido money" name="price" id="price" required="required" placeholder="Precio Adquisición">
             </div>
         </div>
 
@@ -105,7 +103,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="newAsset.actions.fnSaveAsset();">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(assetManagement.actions.fnSaveAsset());">
             <a href="index.php" class="btn btn-default">Volver</a>
         </div>
     </div>

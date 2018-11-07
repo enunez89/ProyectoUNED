@@ -258,4 +258,5 @@ function fnInitDatePicker() {
 var genericMessages = {
     msjError: "Ha ocurrido un error, por favor comuniquese con el administrador.",
     msjRequiredFileds: "Existen campos requeridos.",
-}     
+}
+

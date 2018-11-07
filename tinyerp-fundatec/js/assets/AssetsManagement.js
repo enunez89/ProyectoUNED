@@ -40,14 +40,10 @@ var assetManagement = {
         $(assetManagement.actions.fnFillCategoryAssest());
         
         //llenamos el combo de proveedores de activos
-<<<<<<< HEAD
-        $(assetManagement.actions.fnFillProvidersAssest());*/
+        $(assetManagement.actions.fnFillProvidersAssest());
         
         $(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
-
-    },
-=======
-        $(assetManagement.actions.fnFillProvidersAssest());
+        
         //Carga el activo por Id (URL)
         $(assetManagement.actions.fnGetAssetForEdition());
         //formato de dtp
@@ -66,7 +62,6 @@ var assetManagement = {
         //mascaraDeMontos
         $(assetManagement.actions.fnFormatMoney());       
      },
->>>>>>> 471a6393c59a1a95580ef7648881c0409eb1e37c
     actions: {
         pages: {
             frmNewAssest: "frmActivos.php"

@@ -34,12 +34,9 @@ var assetManagement = {
         $(assetManagement.actions.fnFillCategoryAssest());
 
         //llenamos el combo de proveedores de activos
-<<<<<<< HEAD
         $(assetManagement.actions.fnFillProvidersAssest());*/
-=======
         
         $(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
->>>>>>> 8a947d6a5dbed615b59ad703f9a0da7b94cb984f
 
     },
     actions: {

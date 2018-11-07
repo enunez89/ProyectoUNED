@@ -1,11 +1,11 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
-<script type="text/javascript" src="../../../js/assets/EditAsset.js"></script>
+<script type="text/javascript" src="../../../js/assets/jquery.maskMoney.js"></script>
 <script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
 <script>
 $(document).ready(function () {
 //se inicializa el forms
-    editAsset.fnInitializer();
+    assetManagement.fnEditionInitializer();
 });
 </script> 
 <div class="page-header">
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
             <div class="form-group col-lg-6">
                 <label for="price">Precio Adquisición</label>
-                <input type="number" class="form-control requerido" name="price" id="price" required="required" placeholder="Precio Adquisición">
+                <input type="tel" class="form-control requerido money" name="price" id="price" required="required" placeholder="Precio Adquisición">
             </div>
         </div>
 
@@ -65,6 +65,7 @@ $(document).ready(function () {
             <div class="form-group col-lg-6">
                 <label for="dtpAcquisition">Fecha Adquisición</label>
                 <input type="text" class="form-control date" name="dtpAcquisition" id="dtpAcquisition">
+                <input type="hidden" name="dtpAcquisitionToSave" id="dtpAcquisitionToSave">
             </div>
         </div>
 
@@ -80,7 +81,7 @@ $(document).ready(function () {
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(editAsset.actions.fnSaveEditedAsset());">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(assetManagement.actions.fnSaveEditedAsset());">
             <a href="index.php" class="btn btn-default">Cancelar</a>
         </div>
     </div>

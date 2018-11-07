@@ -1,5 +1,5 @@
 var repairsManagement = {
-     controlsId:{
+    controlsId:{
         date:".date",
         txtStudioName: "#studioName",
         dtpDevolutionToShow: "#dtpDevolutionToShow",
@@ -11,24 +11,44 @@ var repairsManagement = {
         repairIndexAction: "consultRepairForm",
         btnReturnToRepairIndex: "#btnReturnToRepairIndex"
     },
-    messages:{},
-    fnInitializer: function(){
-         //se cargan las reparaciones del activo
-         $(repairsManagement.actions.fnLoadExistingRepairs());
+    messages:{
+        repairSavedSuccess: "Reparación guardada correctamente.",
+        repairDeletedSuccess: "Reparación eliminada correctamente.",
+        repairUpdatedSuccess: "Reparación editada correctamente."
         
-        var addRepairButton = $(repairsManagement.controlsId.addRepairBtn);
-         var urlParams = new URLSearchParams(window.location.search);
-         var idAsset = urlParams.get('idAsset');
-         $(repairsManagement.actions.fnSetIdAssetForRepairActions(addRepairButton,idAsset));
     },
+    fnIndexInitializer: function(){
+         //se cargan las reparaciones del activo
+        $(repairsManagement.actions.fnLoadExistingRepairs());
+        var addRepairButton = $(repairsManagement.controlsId.addRepairBtn);
+        $(repairsManagement.actions.fnSetIdAssetForRepairActions(  addRepairButton,
+                                                                    repairsManagement.actions.fnGetAssetIdFromURL())
+                                                                );
+        $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
+    },
+    fnAdditionInitializer: function () {
+        //datePickers
+        $(repairsManagement.actions.fnFormatDatetimePickerToAlternativeFieldRepairs());
+
+        var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+        idAsset = idAsset.selector;
+         var buttonToIndex = $(repairsManagement.controlsId.btnReturnToRepairIndex);
+         buttonToIndex = buttonToIndex.selector;
+         $(repairsManagement.actions.fnSetIdAssetForRepairActions(buttonToIndex,idAsset));
+    },
+    fnEditionInitializer: function () {      
+        $(repairsManagement.actions.fnGetRepairForEdition());
+          //datePickers
+        $(repairsManagement.actions.fnFormatDatetimePickerToAlternativeFieldRepairs());
+     },
      actions: {
+        /////////////////CONSULTA///////////////
         fnLoadExistingRepairs: function () {
             /*
              * Carga la tabla inicial de reparaciones de un activo 
              **/
-             var urlParams = new URLSearchParams(window.location.search);
-             var assetId = urlParams.get('idAsset');
-             
+            var assetId = $(repairsManagement.actions.fnGetAssetIdFromURL());
+            assetId = assetId.selector;
             var IdAsset = assetId;
             var proccessCallback = function (result)
             {
@@ -55,24 +75,147 @@ var repairsManagement = {
                 row += '<td>' + repairRow.FechaDevolucion + '</td>'; 
                 row += '<td>' + repairRow.CubiertoPorGarantia + '</td>'; 
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editRepairForm&IdRepair='+repairRow.IdReparacion+'&idAsset='+assetId+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>';
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminarReparacion" data-idAsset="'+repairRow.IdReparacion+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="repairsManagement.actions.fnDeleteRepair();" data-idtodelete="'+repairRow.IdReparacion+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
             });
         },
+        /////////////////AGREGAR///////////////
+        fnSaveNewRepair: function () {
+            /**
+             * Envia a guardar un nuevo activo.
+             * @param {type} result
+             * @returns {undefined}
+             */
+
+            //validamos los campos requeridos
+            //if (assetManagement.actions.fnValidateFrmNewAsset()) {
+            var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+            var coveredByWarranty = 0;
+             if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
+                 coveredByWarranty = 1; 
+             }         
+                //obtenemoos los daos del activoa guardar
+                var repair = {
+                    AssetId: idAsset,
+                    StudioName: $(repairsManagement.controlsId.txtStudioName).val(),
+                    DevolutionDate: $(repairsManagement.controlsId.dtpDevolutionToSave).val(),
+                    CoverByWarranty: coveredByWarranty,
+                    Description: $(repairsManagement.controlsId.txtDescription).val()
+                };
+                
+                
+                //formamos los parametros a enviar
+                var parameters = {'repair': repair, 'action': "createRepair"};
+                var fnProcess = function (data) {
+                    console.log(data);
+                    alertify.success(repairsManagement.messages.repairSavedSuccess);
+                    var actionIndex = repairsManagement.controlsId.repairIndexAction;
+                    $(repairsManagement.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
+                };
+                //se envia a guardar
+                executeAjax('index.php', parameters, fnProcess);
+            },
+        ////////////////EDITAR/////////////////
+        fnGetRepairForEdition: function(){
+             var urlParams = new URLSearchParams(window.location.search);
+             var IdRepair = urlParams.get('IdRepair');
+             
+            var proccessCallback = function (result)
+            {
+               $(repairsManagement.actions.fnPopulateRepairForEdition(result));
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "getRepairById", 'IdRepair': IdRepair};
+            executeAjax('index.php', parameters, proccessCallback);
+         },
+        fnPopulateRepairForEdition: function(result){
+             result = result[0];            
+            $(repairsManagement.controlsId.txtStudioName).val(result.NombreTaller);
+            $(repairsManagement.controlsId.dtpDevolutionToShow).val(result.FechaDevolucion);
+            $(repairsManagement.controlsId.txtDescription).val(result.DesReparacion);
+           if(result.CubiertoPorGarantia === "1"){
+                $(repairsManagement.controlsId.radioCovert).prop("checked", true);
+            }else{
+                $(repairsManagement.controlsId.radioCovertFalse).prop("checked", true);
+            }
+             
+         },
+        fnSaveEditedRepair: function () {
+            /**
+             * Envia a guardar un nuevo activo.
+             * @param {type} result
+             * @returns {undefined}
+             */
+
+            //validamos los campos requeridos
+            //if (assetManagement.actions.fnValidateFrmEditAsset()) {               
+                var urlParams = new URLSearchParams(window.location.search);
+                var IdRepair = urlParams.get('IdRepair');
+                var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+                idAsset = idAsset.selector;
+                  //obtenemoos los daos del activoa guardar
+                
+                var coveredByWarranty = 0;
+                if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
+                    coveredByWarranty = 1; 
+                }         
+                //obtenemoos los daos del activoa guardar
+                var repair = {
+                    RepairId: IdRepair,
+                    AssetId: idAsset,
+                    StudioName: $(repairsManagement.controlsId.txtStudioName).val(),
+                    DevolutionDate: $(repairsManagement.controlsId.dtpDevolutionToSave).val(),
+                    CoverByWarranty: coveredByWarranty,
+                    Description: $(repairsManagement.controlsId.txtDescription).val()
+                };                
+                //formamos los parametros a enviar
+            var parameters = {'repair': repair, 'action': "editRepair"};
+            var fnProcess = function (data) {
+                console.log(data);
+                alertify.success(repairsManagement.messages.repairUpdatedSuccess);
+                var actionIndex = repairsManagement.controlsId.repairIndexAction;
+                $(repairsManagement.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
+            };
+                //se envia a guardar
+            executeAjax('index.php', parameters, fnProcess);
+        },
+        /////////////////ELIMINAR//////////////////////
+        fnDeleteRepair: function(){
+           var idRepair = $("#valueToDelete").val();
+           var proccessCallback = function (result)
+           {
+                alertify.success(repairsManagement.messages.repairDeletedSuccess);
+                window.location.reload();
+
+
+           };
+           //llamamos la funcion ajax
+           var parameters = {'action': "deleteRepair", 'IdRepair': idRepair};
+           executeAjax('index.php', parameters, proccessCallback);
+        },
+        /////////////////UTILITARIOS///////////
         fnSetIdAssetForRepairActions: function(targetButton, idAsset){
             var currentHref = $(targetButton).attr("href");
             var currentHrefModified = currentHref + "&idAsset=" + idAsset.toString();            
             $(targetButton).attr("href", currentHrefModified);
         },
-         fnGetAssetIdFromURL: function(){
+        fnGetAssetIdFromURL: function(){
             var urlParams = new URLSearchParams(window.location.search);
             var idAsset = urlParams.get('idAsset');
             return idAsset;
         },
         fnRedirectToRepairsIndex: function(action, idAsset){
             window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());
-        }  
+        },
+        fnFormatDatetimePickerToAlternativeFieldRepairs: function(){
+         $(repairsManagement.controlsId.dtpDevolutionToShow).datepicker({ 
+            dateFormat: 'dd/mm/yy',
+            altField  : '#dtpDevolutionToSave',
+            altFormat : 'yy/mm/dd'
+         });
+     }
+
     }
 };
 

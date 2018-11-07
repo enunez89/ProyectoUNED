@@ -117,8 +117,15 @@ class AssetsController extends controller {
              case 'getRepairById':{
                 $id= (int) $_POST["IdRepair"];
                 $assetsModel = new MActivos();
-                $getCategoryAssestResp = $assetsModel->getRepairById($id);
-                echo ($getCategoryAssestResp);
+                $databaseResult = $assetsModel->getRepairById($id);
+                echo ($databaseResult);
+            break;
+            }
+            case 'deleteRepair':{
+                $id= (int) $_POST["IdRepair"];
+                $assetsModel = new MActivos();
+                $databaseResult = $assetsModel->deleteRepairById($id);
+                echo ($databaseResult);
             break;
             }
             default :

@@ -253,4 +253,18 @@ class MActivos {
         Mysql::close();
         return json_encode($asset);
     }
+    
+    public function deleteRepairById($repairId) {
+        Mysql::open();
+
+         try {
+            Mysql::open();
+            $sql = "CALL pr_deleteRepairById($repairId);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
 }

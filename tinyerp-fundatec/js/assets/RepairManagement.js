@@ -71,8 +71,8 @@ var repairsManagement = {
                 row += '<td>' + repairRow.IdReparacion + '</td>';  
                 row += '<td>' + repairRow.DesReparacion + '</td>'; 
                 row += '<td>' + repairRow.NombreTaller + '</td>'; 
-                row += '<td>' + repairRow.FechaRegistro + '</td>'; 
-                row += '<td>' + repairRow.FechaDevolucion + '</td>'; 
+                row += '<td>' + assetManagement.actions.fnFormatStringDateToCustomFormat(repairRow.FechaRegistro,"DD/MM/YYYY") + '</td>'; 
+                row += '<td>' + assetManagement.actions.fnFormatStringDateToCustomFormat(repairRow.FechaDevolucion,"DD/MM/YYYY") + '</td>'; 
                 row += '<td>' + repairRow.CubiertoPorGarantia + '</td>'; 
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editRepairForm&IdRepair='+repairRow.IdReparacion+'&idAsset='+assetId+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>';
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="repairsManagement.actions.fnDeleteRepair();" data-idtodelete="'+repairRow.IdReparacion+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
@@ -91,6 +91,7 @@ var repairsManagement = {
             //validamos los campos requeridos
             //if (assetManagement.actions.fnValidateFrmNewAsset()) {
             var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+            idAsset = idAsset.selector;
             var coveredByWarranty = 0;
              if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
                  coveredByWarranty = 1; 
@@ -108,7 +109,6 @@ var repairsManagement = {
                 //formamos los parametros a enviar
                 var parameters = {'repair': repair, 'action': "createRepair"};
                 var fnProcess = function (data) {
-                    console.log(data);
                     alertify.success(repairsManagement.messages.repairSavedSuccess);
                     var actionIndex = repairsManagement.controlsId.repairIndexAction;
                     $(repairsManagement.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
@@ -132,7 +132,7 @@ var repairsManagement = {
         fnPopulateRepairForEdition: function(result){
              result = result[0];            
             $(repairsManagement.controlsId.txtStudioName).val(result.NombreTaller);
-            $(repairsManagement.controlsId.dtpDevolutionToShow).val(result.FechaDevolucion);
+            $(repairsManagement.controlsId.dtpDevolutionToShow).val(assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaDevolucion,"DD/MM/YYYY"));
             $(repairsManagement.controlsId.txtDescription).val(result.DesReparacion);
            if(result.CubiertoPorGarantia === "1"){
                 $(repairsManagement.controlsId.radioCovert).prop("checked", true);

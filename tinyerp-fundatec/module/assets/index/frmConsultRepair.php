@@ -7,6 +7,7 @@ Reparaciones
 <script type="text/javascript" src="../../../js/assets/RepairManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/DeleteModalManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
+<script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script>
 $(document).ready(function () {

@@ -7,12 +7,12 @@
 <script>
     $(document).ready(function () {
     //se inicializa el forms
-        $(repairsManagement.fnEditionInitializer());
+        repairsManagement.fnAdditionInitializer();
     });
 </script>
 
 <div class="page-header">
-    <h1>Editar Reparación</h1>
+    <h1>Agregar Reparación</h1>
 </div>
 
 <form class="form-group">
@@ -35,7 +35,7 @@
                     <label><input id="chkCovertTrue" type="radio" name="covert" value="1">Si</label>
                 </div>
                 <div class="radio">
-                    <label><input id="chkCovertFalse" type="radio" name="covert" value="0">No</label>
+                    <label><input type="radio" name="covert" value="0">No</label>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(repairsManagement.actions.fnSaveEditedRepair());">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(repairsManagement.actions.fnSaveNewRepair());">
             <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
         </div>
     </div>

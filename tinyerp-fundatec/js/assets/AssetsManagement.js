@@ -42,7 +42,7 @@ var assetManagement = {
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
         
-        $(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
+        //$(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
         
         //Carga el activo por Id (URL)
         $(assetManagement.actions.fnGetAssetForEdition());
@@ -141,7 +141,7 @@ var assetManagement = {
                     Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
                     CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
                     Marca: $(assetManagement.controlsId.txtBrand).val(),
-                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).val(),
+                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).maskMoney('unmasked')[0],
                     IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
                     NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
                     NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),

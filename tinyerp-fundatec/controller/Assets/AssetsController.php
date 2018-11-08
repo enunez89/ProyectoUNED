@@ -37,6 +37,10 @@ class AssetsController extends controller {
                 $this->runView("frmNewRepair", "assets/index");
                 break;
             }
+            case 'newQuotationForm':{
+                $this->runView("frmConsultQuotation", "assets/index");
+                break;
+            }
             case 'requestAssets':{
                 $assetsModel = new MActivos();
                 $databaseResult = $assetsModel->getAllAssets();

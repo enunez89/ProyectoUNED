@@ -21,129 +21,137 @@ class AssetsController extends controller {
         $action = $this->getAction();
 
         switch ($action) {
-            case 'newAssetForm':{
-                $this->runView("frmNewAsset", "assets/index");
-                break;
-            }
-            case 'editAssetForm':{
-                $this->runView("frmEditAsset", "assets/index");
-                break;
-            }
-            case 'consultRepairForm':{
-                $this->runView("frmConsultRepair", "assets/index");
-                break;
-            }
-            case 'newRepairForm':{
-                $this->runView("frmNewRepair", "assets/index");
-                break;
-            }
-            case 'newQuotationForm':{
-                $this->runView("frmConsultQuotation", "assets/index");
-                break;
-            }
-            case 'requestAssets':{
-                $assetsModel = new MActivos();
-                $databaseResult = $assetsModel->getAllAssets();
-                echo ($databaseResult);
-                break;
-            }
-            case 'getAllCategoryAssest':{
-                $assetsModel = new MActivos();
-                $getCategoryAssestResp = $assetsModel->getAllCategoryAssest();
-                echo ($getCategoryAssestResp);
-            break;
-            }
-            case 'getAssetById':{
-                $id= (int) $_POST["IdAsset"];
-                $assetsModel = new MActivos();
-                $getCategoryAssestResp = $assetsModel->getAssetById($id);
-                echo ($getCategoryAssestResp);
-            break;
-            }
-             case 'getAllProviders':{
-                $assetsModel = new MActivos();
-                $getProvidersAssestResp = $assetsModel->getAllProviders();
-                echo ($getProvidersAssestResp);
-                break;
-             }
-            case 'createAsset':{
-                //obtenemos el objeto Asset con los datos recibidos de la vista
-                $newAsset= $this->convertAssetFromPost($_POST["asset"],TRUE);
-                //seteamos el estado de activo
-                $newAsset->setCodState(1);//agregar
-                //enviamos a guardar
-                $assetsModel = new MActivos();
-                $insertAssestResp = $assetsModel->insertAsset($newAsset);
-                echo($insertAssestResp);
-                break;
-            }
-            case 'editAsset':{
-                $existingAsset= $this->convertAssetFromPost($_POST["asset"],FALSE);
-                $existingAsset->setCodState(1);//editar
-                $assetsModel = new MActivos();
-                $getCategoryAssestResp = $assetsModel->editAsset($existingAsset);
-                echo($getCategoryAssestResp);
-                break;
-            }
-             case 'deleteAsset':{
-                $id= (int) $_POST["IdAsset"];
-                $codEstado = 2;//eliminar = 2
-                $assetsModel = new MActivos();
-                $getCategoryAssestResp = $assetsModel->updateStateAsset($id,$codEstado);
-                echo($getCategoryAssestResp);
-                break;
-            }
-            case 'requestRepairs':{
-                 $id= (int) $_POST["IdAsset"];
-                $assetsModel = new MActivos();
-                $databaseResult = $assetsModel->getAllRepairsByAssetId($id);
-                echo ($databaseResult);
-                break;
-            }
-            case 'createRepair':{
-                $newRepair= $this->convertRepairFromPost($_POST["repair"],TRUE);
-                $assetsModel = new MActivos();
-                $databaseResult = $assetsModel->insertRepair($newRepair);
-                echo ($databaseResult);
-                break;
-            }
-             case 'editRepair':{
-                $existingRepair= $this->convertRepairFromPost($_POST["repair"],FALSE);
-                $assetsModel = new MActivos();
-                $databaseResult = $assetsModel->editRepair($existingRepair);
-                echo ($databaseResult);
-                break;
-            }
-            case 'editRepairForm':{
-                $this->runView("frmEditRepair", "assets/index");
-                break;
-            }
-             case 'getRepairById':{
-                $id= (int) $_POST["IdRepair"];
-                $assetsModel = new MActivos();
-                $databaseResult = $assetsModel->getRepairById($id);
-                echo ($databaseResult);
-            break;
-            }
-            case 'deleteRepair':{
-                $id= (int) $_POST["IdRepair"];
-                $assetsModel = new MActivos();
-                $databaseResult = $assetsModel->deleteRepairById($id);
-                echo ($databaseResult);
-            break;
-            }
+            case 'newAssetForm': {
+                    $this->runView("frmNewAsset", "assets/index");
+                    break;
+                }
+            case 'editAssetForm': {
+                    $this->runView("frmEditAsset", "assets/index");
+                    break;
+                }
+            case 'consultRepairForm': {
+                    $this->runView("frmConsultRepair", "assets/index");
+                    break;
+                }
+            case 'newRepairForm': {
+                    $this->runView("frmNewRepair", "assets/index");
+                    break;
+                }
+            case 'newQuotationForm': {
+                    $this->runView("frmConsultQuotation", "assets/index");
+                    break;
+                }
+            case 'requestAssets': {
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getAllAssets();
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'getAllCategoryAssest': {
+                    $assetsModel = new MActivos();
+                    $getCategoryAssestResp = $assetsModel->getAllCategoryAssest();
+                    echo ($getCategoryAssestResp);
+                    break;
+                }
+            case 'getAssetById': {
+                    $id = (int) $_POST["IdAsset"];
+                    $assetsModel = new MActivos();
+                    $getCategoryAssestResp = $assetsModel->getAssetById($id);
+                    echo ($getCategoryAssestResp);
+                    break;
+                }
+            case 'getAllProviders': {
+                    $assetsModel = new MActivos();
+                    $getProvidersAssestResp = $assetsModel->getAllProviders();
+                    echo ($getProvidersAssestResp);
+                    break;
+                }
+            case 'createAsset': {
+                    //obtenemos el objeto Asset con los datos recibidos de la vista
+                    $newAsset = $this->convertAssetFromPost($_POST["asset"], TRUE);
+                    //seteamos el estado de activo
+                    $newAsset->setCodState(1); //agregar
+                    //enviamos a guardar
+                    $assetsModel = new MActivos();
+                    $insertAssestResp = $assetsModel->insertAsset($newAsset);
+                    echo($insertAssestResp);
+                    break;
+                }
+            case 'editAsset': {
+                    $existingAsset = $this->convertAssetFromPost($_POST["asset"], FALSE);
+                    $existingAsset->setCodState(1); //editar
+                    $assetsModel = new MActivos();
+                    $getCategoryAssestResp = $assetsModel->editAsset($existingAsset);
+                    echo($getCategoryAssestResp);
+                    break;
+                }
+            case 'deleteAsset': {
+                    $id = (int) $_POST["IdAsset"];
+                    $codEstado = 2; //eliminar = 2
+                    $assetsModel = new MActivos();
+                    $getCategoryAssestResp = $assetsModel->updateStateAsset($id, $codEstado);
+                    echo($getCategoryAssestResp);
+                    break;
+                }
+            case 'requestRepairs': {
+                    $id = (int) $_POST["IdAsset"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getAllRepairsByAssetId($id);
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'createRepair': {
+                    $newRepair = $this->convertRepairFromPost($_POST["repair"], TRUE);
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->insertRepair($newRepair);
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'editRepair': {
+                    $existingRepair = $this->convertRepairFromPost($_POST["repair"], FALSE);
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->editRepair($existingRepair);
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'editRepairForm': {
+                    $this->runView("frmEditRepair", "assets/index");
+                    break;
+                }
+            case 'getRepairById': {
+                    $id = (int) $_POST["IdRepair"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getRepairById($id);
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'deleteRepair': {
+                    $id = (int) $_POST["IdRepair"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->deleteRepairById($id);
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'newAssignmentForm': {
+                    $this->runView("frmNewAssignment", "assets/index");
+                    break;
+                }
+            case 'listAssignment': {
+                    $this->runView("frmListAssignment", "assets/index");
+                    break;
+                }
             default :
                 echo $this->showAssetsIndex();
                 break;
         }
     }
 
-    public function convertAssetFromPost($asset,$isNew){
+    public function convertAssetFromPost($asset, $isNew) {
         $newAsset = new Asset();
         $jsonEncodeAsset = json_encode($asset);
         $assetObject = json_decode($jsonEncodeAsset);
-        
-        if($isNew === FALSE){
+
+        if ($isNew === FALSE) {
             $newAsset->setId($assetObject->IdActivo);
         }
         $newAsset->setCode($assetObject->Codigo);
@@ -159,12 +167,12 @@ class AssetsController extends controller {
         return $newAsset;
     }
 
-    public function convertRepairFromPost($repair,$isNew){
+    public function convertRepairFromPost($repair, $isNew) {
         $jsonEncode = json_encode($repair);
         $repairObject = json_decode($jsonEncode);
-        
+
         $newRepair = new Repair();
-        if($isNew === FALSE){
+        if ($isNew === FALSE) {
             $newRepair->setRepairId($repairObject->RepairId);
         }
         $newRepair->setAssetId($repairObject->AssetId);
@@ -176,10 +184,11 @@ class AssetsController extends controller {
         //echo($newRepair);
         return $newRepair;
     }
-    
+
     protected function showAssetsIndex() {
         //$indexModelAux = new indexModel();
         // $this->CashRegister = $indexModelAux->getCashRegisterByUser();
         $this->runView("gestionActivos");
     }
+
 }

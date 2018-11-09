@@ -1,3 +1,16 @@
+<script type="text/javascript" src="../../../js/assets/QuotationManagement.js"></script>
+<script type="text/javascript" src="../../../js/assets/DeleteModalManagement.js"></script>
+<script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
+<script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
+<script type="text/javascript" src="../../../js/assets/jquery.maskMoney.js"></script>
+<script src="../../../js/general.js" type="text/javascript"></script>
+<script>
+$(document).ready(function () {
+//se inicializa el forms
+    quotationManagement.fnIndexInitializer();
+});
+</script>
+
 <h4 class="text-primary">
 GESTIÓN ACTIVOS
 </h4>
@@ -22,5 +35,6 @@ Cotizaciones
     <tbody>
     </tbody>
 </table>
+<input type="hidden" id="maskMoneySetter" class="money"/>
 <?php
 include('deleteModal.php');

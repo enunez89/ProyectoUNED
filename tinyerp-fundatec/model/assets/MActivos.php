@@ -267,4 +267,16 @@ class MActivos {
             return -1;
         }
     }
+    
+     public function getAllQuotationsByAssetId($idAsset) {
+        Mysql::open();
+        $query = "CALL pr_GetAllQuotationByAssetId($idAsset);";
+        $assets = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($assets, $row);
+        }
+        Mysql::close();
+        return json_encode($assets);
+    }
 }

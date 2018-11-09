@@ -1,9 +1,3 @@
-<h4 class="text-primary">
-GESTIÓN ACTIVOS
-</h4>
-<h5 class="text-primary">
-Reparaciones
-</h5>
 <script type="text/javascript" src="../../../js/assets/RepairManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/DeleteModalManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
@@ -15,6 +9,13 @@ $(document).ready(function () {
     repairsManagement.fnIndexInitializer();
 });
 </script>
+
+<h4 class="text-primary">
+GESTIÓN ACTIVOS
+</h4>
+<h5 class="text-primary">
+Reparaciones
+</h5>
    
 <a href="index.php" class="btn btn-primary" >Volver</a>
 <a id="newRepair" href="index.php?action=newRepairForm" class="btn btn-success" >Registrar reparación</a>

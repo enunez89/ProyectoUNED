@@ -22,7 +22,7 @@ var repairsManagement = {
         $(repairsManagement.actions.fnLoadExistingRepairs());
         var addRepairButton = $(repairsManagement.controlsId.addRepairBtn);
         $(repairsManagement.actions.fnSetIdAssetForRepairActions(  addRepairButton,
-                                                                    repairsManagement.actions.fnGetAssetIdFromURL())
+                                                                    assetManagement.actions.fnGetAssetIdFromURL())
                                                                 );
         $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
     },
@@ -30,7 +30,7 @@ var repairsManagement = {
         //datePickers
         $(repairsManagement.actions.fnFormatDatetimePickerToAlternativeFieldRepairs());
 
-        var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+        var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
         idAsset = idAsset.selector;
          var buttonToIndex = $(repairsManagement.controlsId.btnReturnToRepairIndex);
          buttonToIndex = buttonToIndex.selector;
@@ -47,7 +47,7 @@ var repairsManagement = {
             /*
              * Carga la tabla inicial de reparaciones de un activo 
              **/
-            var assetId = $(repairsManagement.actions.fnGetAssetIdFromURL());
+            var assetId = $(assetManagement.actions.fnGetAssetIdFromURL());
             assetId = assetId.selector;
             var IdAsset = assetId;
             var proccessCallback = function (result)
@@ -90,7 +90,7 @@ var repairsManagement = {
 
             //validamos los campos requeridos
             //if (assetManagement.actions.fnValidateFrmNewAsset()) {
-            var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+            var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
             idAsset = idAsset.selector;
             var coveredByWarranty = 0;
              if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
@@ -152,7 +152,7 @@ var repairsManagement = {
             //if (assetManagement.actions.fnValidateFrmEditAsset()) {               
                 var urlParams = new URLSearchParams(window.location.search);
                 var IdRepair = urlParams.get('IdRepair');
-                var idAsset = $(repairsManagement.actions.fnGetAssetIdFromURL());
+                var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
                 idAsset = idAsset.selector;
                   //obtenemoos los daos del activoa guardar
                 
@@ -199,11 +199,6 @@ var repairsManagement = {
             var currentHref = $(targetButton).attr("href");
             var currentHrefModified = currentHref + "&idAsset=" + idAsset.toString();            
             $(targetButton).attr("href", currentHrefModified);
-        },
-        fnGetAssetIdFromURL: function(){
-            var urlParams = new URLSearchParams(window.location.search);
-            var idAsset = urlParams.get('idAsset');
-            return idAsset;
         },
         fnRedirectToRepairsIndex: function(action, idAsset){
             window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());

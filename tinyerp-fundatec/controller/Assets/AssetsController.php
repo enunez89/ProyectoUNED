@@ -37,8 +37,12 @@ class AssetsController extends controller {
                 $this->runView("frmNewRepair", "assets/index");
                 break;
             }
-            case 'newQuotationForm':{
+            case 'consultQuotationForm':{
                 $this->runView("frmConsultQuotation", "assets/index");
+                break;
+            }
+            case 'newQuotationForm':{
+                $this->runView("frmNewQuotation", "assets/index");
                 break;
             }
             case 'requestAssets':{
@@ -131,6 +135,13 @@ class AssetsController extends controller {
                 $databaseResult = $assetsModel->deleteRepairById($id);
                 echo ($databaseResult);
             break;
+            }
+            case 'requestQuotations':{
+                 $id= (int) $_POST["IdAsset"];
+                $assetsModel = new MActivos();
+                $databaseResult = $assetsModel->getAllQuotationsByAssetId($id);
+                echo ($databaseResult);
+                break;
             }
             default :
                 echo $this->showAssetsIndex();

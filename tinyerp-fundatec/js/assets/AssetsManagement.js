@@ -367,7 +367,7 @@ var assetManagement = {
                 }else{
                     $(".btnMenuPrincipal").removeClass("disabled");
                         $("#btnRepair").attr("href","index.php?action=consultRepairForm&idAsset="+$(this).attr("id"));
-//                        $("#btnQuote").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
+                        $("#btnQuotation").attr("href","index.php?action=consultQuotationForm&idAsset="+$(this).attr("id"));
 //                        $("#btnAssignment").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
 //                        $("#btnPhysicalInventory").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
                 }                
@@ -395,7 +395,12 @@ var assetManagement = {
         },
         fnFormatStringDateToCustomFormat: function(dateString, format){
         return moment(dateString).format(format);
-        }
+        },
+        fnGetAssetIdFromURL: function(){
+            var urlParams = new URLSearchParams(window.location.search);
+            var idAsset = urlParams.get('idAsset');
+            return idAsset;
+        },
     }
 };
 

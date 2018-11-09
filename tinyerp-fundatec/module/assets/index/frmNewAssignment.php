@@ -61,16 +61,19 @@
                         <tr>
                             <th scope="col">Código</th>
                             <th scope="col">Descripción</th>
+                            <th scope="col">Desasignar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>AZR878</td>
                             <td>Computadora Laptop HP</td>
+                            <td><input type="button" class="btn btn-danger" value="Desasignar" onclick=""></td>
                         </tr>
                         <tr>
                             <td>MUHH1233</td>
                             <td>Monitor AOC</td>
+                            <td><input type="button" class="btn btn-danger" value="Desasignar" onclick=""></td>
                         </tr>
                     </tbody>
                 </table>                         

@@ -21,6 +21,7 @@ class AssetsController extends controller {
         $action = $this->getAction();
 
         switch ($action) {
+<<<<<<< HEAD
             case 'newAssetForm':{
                 $this->runView("frmNewAsset", "assets/index");
                 break;
@@ -143,6 +144,7 @@ class AssetsController extends controller {
                 echo ($databaseResult);
                 break;
             }
+=======
             case 'newAssetForm': {
                     $this->runView("frmNewAsset", "assets/index");
                     break;
@@ -262,6 +264,7 @@ class AssetsController extends controller {
                     $this->runView("frmListAssignment", "assets/index");
                     break;
                 }
+>>>>>>> 1936e967623fc0d91a2774cffdad8837d474984e
             default :
                 echo $this->showAssetsIndex();
                 break;

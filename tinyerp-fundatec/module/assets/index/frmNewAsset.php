@@ -65,7 +65,7 @@
                 <label for="dtpAcquisition">Fecha Adquisición</label>
                 <input type="text" class="form-control date requerido" name="dtpAcquisition" id="dtpAcquisition">
                 <input type="hidden" name="dtpAcquisitionToSave" id="dtpAcquisitionToSave">
-                    
+
             </div>
         </div>
 

@@ -268,13 +268,10 @@ class AssetsController extends controller {
         }
     }
 
-    public function convertAssetFromPost($asset,$isNew){
     public function convertAssetFromPost($asset, $isNew) {
         $newAsset = new Asset();
         $jsonEncodeAsset = json_encode($asset);
         $assetObject = json_decode($jsonEncodeAsset);
-        
-        if($isNew === FALSE){
 
         if ($isNew === FALSE) {
             $newAsset->setId($assetObject->IdActivo);
@@ -292,14 +289,11 @@ class AssetsController extends controller {
         return $newAsset;
     }
 
-    public function convertRepairFromPost($repair,$isNew){
     public function convertRepairFromPost($repair, $isNew) {
         $jsonEncode = json_encode($repair);
         $repairObject = json_decode($jsonEncode);
-        
 
         $newRepair = new Repair();
-        if($isNew === FALSE){
         if ($isNew === FALSE) {
             $newRepair->setRepairId($repairObject->RepairId);
         }
@@ -312,10 +306,11 @@ class AssetsController extends controller {
         //echo($newRepair);
         return $newRepair;
     }
-    
+
     protected function showAssetsIndex() {
         //$indexModelAux = new indexModel();
         // $this->CashRegister = $indexModelAux->getCashRegisterByUser();
         $this->runView("gestionActivos");
     }
+
 }

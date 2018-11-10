@@ -285,4 +285,16 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+    
+     public function getAllAssetsByCodePlateDescription($searchedValue) {
+        Mysql::open();
+        $query = "CALL pr_SearchAssetByCodePlateDescription('$searchedValue');";
+        $assets = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($assets, $row);
+        }
+        Mysql::close();
+        return json_encode($assets);
+    }
 }

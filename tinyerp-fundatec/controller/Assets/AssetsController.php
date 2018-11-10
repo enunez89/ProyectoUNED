@@ -272,6 +272,13 @@ class AssetsController extends controller {
                     $this->runView("frmNewPeriod", "assets/index");
                     break;
                 }
+            case 'getAssetsToAssign': {
+                    $valuetosearch = $_POST["valuetosearch"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getAllAssetsByCodePlateDescription($valuetosearch);
+                    echo ($databaseResult);
+                    break;
+                }
             default :
                 echo $this->showAssetsIndex();
                 break;

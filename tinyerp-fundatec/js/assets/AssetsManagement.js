@@ -3,8 +3,8 @@
 var assetManagement = {
     controlsId: {
         dtpAcquisition: "#dtpAcquisition",
-        dtpAcquisitionToSave : "#dtpAcquisitionToSave",
-        ddlCodCategory: "#codCategory",        
+        dtpAcquisitionToSave: "#dtpAcquisitionToSave",
+        ddlCodCategory: "#codCategory",
         frmNewAsset: "#frmNewAsset",
         frmEditAsset: "#frmEditAsset",
         txtCode: "#code",
@@ -25,43 +25,43 @@ var assetManagement = {
         assetUpdatedSuccess: "Activo editado correctamente."
     },
     fnIndexInitializer: function () {
-        
+
         //carga la tabla de activos
         $(assetManagement.actions.fnLoadExistingAssest());
         //
         $(assetManagement.actions.fnFillProvidersAssest());
         //asigna valores para el modal de eliminar
         $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
-        $(assetManagement.actions.fnFormatMoney());  
+        $(assetManagement.actions.fnFormatMoney());
     },
     fnEditionInitializer: function () {
-          
+
         //llenamos el combo de categorias de activos
         $(assetManagement.actions.fnFillCategoryAssest());
-        
+
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
-        
+
         //$(assetManagement.actions.fnAssignIdAssetOnOpenDialogToDelete());
-        
+
         //Carga el activo por Id (URL)
         $(assetManagement.actions.fnGetAssetForEdition());
         //formato de dtp
         $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
         //mascaraDeMontos
-        $(assetManagement.actions.fnFormatMoneyEdit()); 
-     },
+        $(assetManagement.actions.fnFormatMoneyEdit());
+    },
     fnAdditionInitializer: function () {
-          
+
         //llenamos el combo de categorias de activos
         $(assetManagement.actions.fnFillCategoryAssest());
         //llenamos el combo de proveedores de activos
         $(assetManagement.actions.fnFillProvidersAssest());
         //formato de dtp
-        $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
+        //$(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
         //mascaraDeMontos
-        $(assetManagement.actions.fnFormatMoney());       
-     },
+        $(assetManagement.actions.fnFormatMoney());
+    },
     actions: {
         pages: {
             frmNewAssest: "frmActivos.php"
@@ -73,17 +73,17 @@ var assetManagement = {
              **/
             var proccessCallback = function (result)
             {
-               $(assetManagement.actions.fnLoadAsssetsResultOnTable(result));
+                $(assetManagement.actions.fnLoadAsssetsResultOnTable(result));
             };
             var parameters = {
                 'action': "requestAssets"
             };
             executeAjax('index.php', parameters, proccessCallback);
         },
-        fnLoadAsssetsResultOnTable: function(result) {
+        fnLoadAsssetsResultOnTable: function (result) {
             /* 
-            * funcion para cargar el resultado del ajax en tabla HTML
-            */
+             * funcion para cargar el resultado del ajax en tabla HTML
+             */
             var table = $("#AssetsMainTable");
 
             $.each(result, function (i, assetRow) {
@@ -97,8 +97,8 @@ var assetManagement = {
                 row += '<td>' + assetRow.Estado + '</td>';
                 row += '<td>' + assetRow.NumeroSerie + '</td>';
                 //row += '<td>' + assetManagement.actions.fnFormatStringDateToCustomFormat(assetRow.FechaAdqusicion,"DD/MM/YYYY") + '</td>';
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAssetForm&IdActivo='+assetRow.IdActivo+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="assetManagement.actions.fnDeleteAsset();" data-idtodelete="'+assetRow.IdActivo+'" data-idAsset="'+assetRow.IdActivo+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAssetForm&IdActivo=' + assetRow.IdActivo + '" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="assetManagement.actions.fnDeleteAsset();" data-idtodelete="' + assetRow.IdActivo + '" data-idAsset="' + assetRow.IdActivo + '" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
             });
@@ -106,8 +106,7 @@ var assetManagement = {
             $(assetManagement.actions.fnFormatMoney());
             $(assetManagement.controlsId.moneyField).trigger("mask");
         },
-        
-        
+
         /////////////////AGREGAR//////////////////////
         fnValidateFrmNewAsset: function () {
             /*
@@ -118,7 +117,7 @@ var assetManagement = {
 
             return fnRequiredFields(assetManagement.controlsId.frmNewAsset);
         },
-              fnSaveAsset: function () {
+        fnSaveAsset: function () {
             /**
              * Envia a guardar un nuevo activo.
              * @param {type} result
@@ -127,15 +126,10 @@ var assetManagement = {
 
             //validamos los campos requeridos
             if (assetManagement.actions.fnValidateFrmNewAsset()) {
-                
-                
-                
-                //obtenemos los datos de la garantia
-                var warranty = {
-                    FechaVencimiento: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
-                    Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),                    
-                }
-                
+
+
+
+console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(), "YYYY/MM/DD"));
                 //obtenemoos los daos del activoa guardar
                 var asset = {
                     Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
@@ -146,17 +140,22 @@ var assetManagement = {
                     NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
                     NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
                     DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                    FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisitionToSave).val(),
-                    Garantia: warranty
+                    FechaAdqusicion: assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(), "YYYY/MM/DD"),
+                    FechaVencimientoGarantia: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
+                    CondicionesGarantia: $(assetManagement.controlsId.txtWarrantyTerms).val(),
+                    NomArchivoGarantia: $(fileManagement.fnControlsId.hddFileName).val(),
+                    TipoArchivoGarantia: $(fileManagement.fnControlsId.hddFileType).val()                    
                 }
                 
                 
+
+
                 //formamos los parametros a enviar
                 var parameters = {'asset': asset, 'action': "createAsset"};
                 var fnProcess = function (data) {
                     console.log(data);
                     alertify.success(assetManagement.messages.assetSavedSuccess);
-                    $(assetManagement.actions.fnRedirectToAssetsIndex);
+                    //$(assetManagement.actions.fnRedirectToAssetsIndex);
                 }
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
@@ -169,7 +168,7 @@ var assetManagement = {
              **/
             var proccessCallback = function (result)
             {
-               fnPopulateAssetForEdition(result);
+                fnPopulateAssetForEdition(result);
             };
             //llamamos la funcion ajax
             var parameters = {'action': "getAssetById"};
@@ -215,20 +214,20 @@ var assetManagement = {
             }
             return fnRequiredFields(assetManagement.controlsId.frmEditAsset);
         },
-        fnGetAssetForEdition: function(){
-             var urlParams = new URLSearchParams(window.location.search);
-             var assetId = urlParams.get('IdActivo');
-             
+        fnGetAssetForEdition: function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var assetId = urlParams.get('IdActivo');
+
             var proccessCallback = function (result)
             {
-               $(assetManagement.actions.fnPopulateAssetForEdition(result));
+                $(assetManagement.actions.fnPopulateAssetForEdition(result));
             };
             //llamamos la funcion ajax
             var parameters = {'action': "getAssetById", 'IdAsset': assetId};
             executeAjax('index.php', parameters, proccessCallback);
-         },
-        fnPopulateAssetForEdition: function(result){
-             result = result[0];            
+        },
+        fnPopulateAssetForEdition: function (result) {
+            result = result[0];
             $(assetManagement.controlsId.txtCode).val(result.Codigo);
             $(assetManagement.controlsId.ddlCodCategory).val(result.IdCategoria);
             $(assetManagement.controlsId.txtBrand).val(result.Marca);
@@ -236,13 +235,13 @@ var assetManagement = {
             $(assetManagement.controlsId.ddlProvider).val(result.IdProveedor);
             $(assetManagement.controlsId.txtSerialNum).val(result.NumeroSerie);
             $(assetManagement.controlsId.txtPlateNum).val(result.NumeroPlaca);
-            var fechaEdicion = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaAdqusicion,"DD/MM/YYYY");
-            $(assetManagement.controlsId.dtpAcquisition).datepicker('setDate',fechaEdicion);
+            var fechaEdicion = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaAdqusicion, "DD/MM/YYYY");
+            $(assetManagement.controlsId.dtpAcquisition).datepicker('setDate', fechaEdicion);
             //formato de dtp
-        $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
+            $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
             $(assetManagement.controlsId.txtDescription).val(result.DesActivo);
 
-         },
+        },
         fnSaveEditedAsset: function () {
             /**
              * Envia a guardar un nuevo activo.
@@ -251,67 +250,67 @@ var assetManagement = {
              */
 
             //validamos los campos requeridos
-           // if (assetManagement.actions.fnValidateFrmEditAsset()) {
-                
-                //obtenemos los datos de la garantia
-                var warranty = {
-                    FechaVencimiento: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
-                    Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),                    
-                }
-                
-                var urlParams = new URLSearchParams(window.location.search);
-                var assetId = urlParams.get('IdActivo');
-                  //obtenemoos los daos del activoa guardar
+            // if (assetManagement.actions.fnValidateFrmEditAsset()) {
+
+            //obtenemos los datos de la garantia
+            var warranty = {
+                FechaVencimiento: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
+                Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),
+            }
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var assetId = urlParams.get('IdActivo');
+            //obtenemoos los daos del activoa guardar
 //                 var fechaFormateada = assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(),"YYYY-DD-MM");
 //                
-                var asset = {
-                    IdActivo: assetId,
-                    Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
-                    CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
-                    Marca: $(assetManagement.controlsId.txtBrand).val(),
-                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).maskMoney('unmasked')[0],
-                    IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
-                    NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
-                    NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
-                    DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                    FechaAdqusicion:$(assetManagement.controlsId.dtpAcquisitionToSave).val(),
-                    Garantia: warranty
-                };
-                
-                
-                //formamos los parametros a enviar
-                var parameters = {'asset': asset, 'action': "editAsset"};
-                var fnProcess = function (data) {
-                    console.log(data);
-                    alertify.success(assetManagement.messages.assetUpdatedSuccess);
-                    $(assetManagement.actions.fnRedirectToAssetsIndex);
-                }
-                //se envia a guardar
-                executeAjax('index.php', parameters, fnProcess);
-           // }
+            var asset = {
+                IdActivo: assetId,
+                Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
+                CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
+                Marca: $(assetManagement.controlsId.txtBrand).val(),
+                PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).maskMoney('unmasked')[0],
+                IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
+                NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
+                NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
+                DesActivo: $(assetManagement.controlsId.txtDescription).val(),
+                FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisitionToSave).val(),
+                Garantia: warranty
+            };
+
+
+            //formamos los parametros a enviar
+            var parameters = {'asset': asset, 'action': "editAsset"};
+            var fnProcess = function (data) {
+                console.log(data);
+                alertify.success(assetManagement.messages.assetUpdatedSuccess);
+                $(assetManagement.actions.fnRedirectToAssetsIndex);
+            }
+            //se envia a guardar
+            executeAjax('index.php', parameters, fnProcess);
+            // }
         },
-        
+
         /////////////////ELIMINAR//////////////////////
-        fnDeleteAsset: function(){
-           var idAsset = $("#valueToDelete").val();
-           var proccessCallback = function (result)
-           {
+        fnDeleteAsset: function () {
+            var idAsset = $("#valueToDelete").val();
+            var proccessCallback = function (result)
+            {
                 alertify.success(assetManagement.messages.assetDeletedSuccess);
-              $(assetManagement.actions.fnRedirectToAssetsIndex);
-           };
-           //llamamos la funcion ajax
-           var parameters = {'action': "deleteAsset", 'IdAsset': idAsset};
-           executeAjax('index.php', parameters, proccessCallback);
+                $(assetManagement.actions.fnRedirectToAssetsIndex);
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "deleteAsset", 'IdAsset': idAsset};
+            executeAjax('index.php', parameters, proccessCallback);
         },
         /////////////////UTILITARIOS//////////////////////
-        fnFormatDatetimePickerToAlternativeFieldAssets(){
-            $(assetManagement.controlsId.dtpAcquisition).datepicker({ 
-            dateFormat: 'dd/mm/yy',
-            altField  : assetManagement.controlsId.dtpAcquisitionToSave,
-            altFormat : 'yy/mm/dd'
-         });
+        fnFormatDatetimePickerToAlternativeFieldAssets() {
+            $(assetManagement.controlsId.dtpAcquisition).datepicker({
+                dateFormat: 'dd/mm/yy',
+                altField: assetManagement.controlsId.dtpAcquisitionToSave,
+                altFormat: 'yy/mm/dd'
+            });
         },
-        fnRedirectToAssetsIndex: function(){
+        fnRedirectToAssetsIndex: function () {
             window.location.replace("/module/assets/index/index.php");
         },
         fnFillCategoryAssest: function () {
@@ -339,8 +338,8 @@ var assetManagement = {
         },
         fnFillProvidersAssest: function () {
             /* 
-            * funcion para cargar todos los proveedores
-            */
+             * funcion para cargar todos los proveedores
+             */
             //definimos la funcion luego del llamado ajax
             var proccessCallback = function (result)
             {
@@ -356,47 +355,47 @@ var assetManagement = {
             var parameters = {'action': "getAllProviders"};
             executeAjax('index.php', parameters, proccessCallback);
         },
-        fnOnCheckAsset:function(){
-        /* 
-        * funcion para asignar el action y el id de activo a los botones del menu
-        */
-            $("input[type=radio][name=assetRow]").change(function(){
-                 var checked = $(this).is(":checked");
-                 if(checked===false){
+        fnOnCheckAsset: function () {
+            /* 
+             * funcion para asignar el action y el id de activo a los botones del menu
+             */
+            $("input[type=radio][name=assetRow]").change(function () {
+                var checked = $(this).is(":checked");
+                if (checked === false) {
                     $(".btnMenuPrincipal").addClass("disabled");
-                }else{
+                } else {
                     $(".btnMenuPrincipal").removeClass("disabled");
-                        $("#btnRepair").attr("href","index.php?action=consultRepairForm&idAsset="+$(this).attr("id"));
-                        $("#btnQuotation").attr("href","index.php?action=consultQuotationForm&idAsset="+$(this).attr("id"));
+                    $("#btnRepair").attr("href", "index.php?action=consultRepairForm&idAsset=" + $(this).attr("id"));
+                    $("#btnQuotation").attr("href", "index.php?action=consultQuotationForm&idAsset=" + $(this).attr("id"));
 //                        $("#btnAssignment").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
 //                        $("#btnPhysicalInventory").attr("href","index.php?action=newAssetForm&idAsset="+$(this).attr("id"));
-                }                
+                }
             });
         },
-        fnFormatMoney: function(){
-         $(assetManagement.controlsId.moneyField).maskMoney({
-            thousands:'.', 
-            decimal:',', 
-            allowZero:false,
-            allowNegative:false
-        });
+        fnFormatMoney: function () {
+            $(assetManagement.controlsId.moneyField).maskMoney({
+                thousands: '.',
+                decimal: ',',
+                allowZero: false,
+                allowNegative: false
+            });
         },
-        fnFormatMoneyEdit: function(){
-         $(assetManagement.controlsId.moneyField).maskMoney({
-            thousands:'.', 
-            decimal:',', 
-            allowZero:false,
-            allowNegative:false
-        });
+        fnFormatMoneyEdit: function () {
+            $(assetManagement.controlsId.moneyField).maskMoney({
+                thousands: '.',
+                decimal: ',',
+                allowZero: false,
+                allowNegative: false
+            });
         },
-        fnMaskMoneyToText: function(value){
-             $('#maskMoneySetter').val(value).trigger('mask');
-             return $('#maskMoneySetter').val().toString();
+        fnMaskMoneyToText: function (value) {
+            $('#maskMoneySetter').val(value).trigger('mask');
+            return $('#maskMoneySetter').val().toString();
         },
-        fnFormatStringDateToCustomFormat: function(dateString, format){
-        return moment(dateString).format(format);
+        fnFormatStringDateToCustomFormat: function (dateString, format) {
+            return moment(dateString).format(format);
         },
-        fnGetAssetIdFromURL: function(){
+        fnGetAssetIdFromURL: function () {
             var urlParams = new URLSearchParams(window.location.search);
             var idAsset = urlParams.get('idAsset');
             return idAsset;

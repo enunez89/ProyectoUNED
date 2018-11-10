@@ -968,7 +968,7 @@ var Dropzone = function (_Emitter) {
           }
         },
         completemultiple: function completemultiple() {},
-        maxfilesexceeded: function maxfilesexceeded() {},
+        maxfilesexceeded: function maxfilesexceeded() { },
         maxfilesreached: function maxfilesreached() {},
         queuecomplete: function queuecomplete() {},
         addedfiles: function addedfiles() {}

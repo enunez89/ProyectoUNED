@@ -26,12 +26,14 @@ class Asset {
     public $Description;
     public $AcquisitionDate;
     public $IdWarranty;
-    public $Warranty;
+    public $ExpirationDateWarranty;
+    public $TermsWarranty;
+    public $FileURLWarranty;
+    public $FileTypeWarranty;
 
     function __construct() {
         
     }
-
 
     public function getId() {
         return $this->Id;
@@ -81,10 +83,22 @@ class Asset {
         return $this->IdWarranty;
     }
     
-       public function getWarranty() {
-        return $this->Warranty;
+    public function getExpirationDateWarranty() {
+        return $this->ExpirationDateWarranty;        
+    }
+    
+    public function getTermsWarranty() {
+        return $this->TermsWarranty;
     }
 
+    public function getFileURLWarranty() {
+        return $this->FileURLWarranty;
+    }
+
+    public function getFileTypeWarranty() {
+        return $this->FileTypeWarranty;
+    }
+    
     public function setId($Id) {
         $this->Id = $Id;
     }
@@ -133,9 +147,20 @@ class Asset {
         $this->IdWarranty = $IdWarranty;
     }
     
-    public function setWarranty($Warranty) {
-        $this->Warranty = $Warranty;
+    public function setExpirationDateWarranty($ExpirationDateWarranty) {
+        $this->ExpirationDateWarranty = $ExpirationDateWarranty;
+    }
+        
+    public function setTermsWarranty($TermsWarranty) {
+        $this->TermsWarranty = $TermsWarranty;
     }
 
+    public function setFileURLWarranty($FileURLWarranty) {
+        $this->FileURLWarranty = $FileURLWarranty;
+    }
+
+    public function setFileTypeWarranty($FileNameWarranty) {
+        $this->FileTypeWarranty = $FileNameWarranty;
+    }
 
 }

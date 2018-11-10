@@ -106,6 +106,8 @@ class MActivos {
          */ 
        $utilitiesAux = new Utilities();
         try {
+            
+            $rutaArchivos = '../../module/assets/index/uploadFiles/';
             //obtenemos los parametros del sp
             $codigo = $asset->getCode();
             $codCategoria = $asset->getCodCategory();
@@ -117,12 +119,16 @@ class MActivos {
             $numPlaca = $asset->getPlateNumber();
             $descripcion = $asset->getDescription();
             $fechaAdquisicion = $asset->getAcquisitionDate();
-            $idGarantia = $asset->getIdWarranty();
+            $fechaVencimientoGarantia = $asset->getExpirationDateWarranty();
+            $condicionesGarantia = $asset->getTermsWarranty();
+            $urlArchivoGarantia = $asset->getFileURLWarranty();
+            $extensionArchivoGarantia = $asset->getFileTypeWarranty();
 
             Mysql::open();
             $sql = "CALL pr_InsertAssest('$codigo', $codCategoria, '$marca', "
                     . "$precio, $idProveedor, $codEstado, '$numSerie', '$numPlaca', "
-                    . "'$descripcion', '$fechaAdquisicion', $idGarantia); ";
+                    . "'$descripcion', '$fechaAdquisicion', '$fechaVencimientoGarantia', "
+                    . "'$condicionesGarantia', '$urlArchivoGarantia', '$extensionArchivoGarantia'); ";
             Mysql::execute($sql);
             Mysql::close();
             return 1;

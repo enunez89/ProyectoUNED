@@ -72,6 +72,7 @@ class AssetsController extends controller {
                     break;
                 }
             case 'createAsset': {
+                                
                     //obtenemos el objeto Asset con los datos recibidos de la vista
                     $newAsset = $this->convertAssetFromPost($_POST["asset"], TRUE);
                     //seteamos el estado de activo
@@ -267,7 +268,7 @@ class AssetsController extends controller {
                     $this->runView("frmListPeriod", "assets/index");
                     break;
                 }
-                case 'newPeriodForm': {
+            case 'newPeriodForm': {
                     $this->runView("frmNewPeriod", "assets/index");
                     break;
                 }
@@ -295,6 +296,10 @@ class AssetsController extends controller {
         $newAsset->setDescription($assetObject->DesActivo);
         $newAsset->setAcquisitionDate($assetObject->FechaAdqusicion);
         $newAsset->setIdWarranty(0);
+        $newAsset->setExpirationDateWarranty($assetObject->FechaVencimientoGarantia);
+        $newAsset->setTermsWarranty($assetObject->CondicionesGarantia);
+        $newAsset->setFileTypeWarranty($assetObject->TipoArchivoGarantia);
+        $newAsset->setFileURLWarranty($assetObject->NomArchivoGarantia);
         return $newAsset;
     }
 
@@ -321,5 +326,7 @@ class AssetsController extends controller {
         // $this->CashRegister = $indexModelAux->getCashRegisterByUser();
         $this->runView("gestionActivos");
     }
+
+   
 
 }

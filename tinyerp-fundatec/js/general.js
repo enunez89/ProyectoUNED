@@ -247,8 +247,8 @@ function fnRemoveAlertRequiredFields(frmName) {
 function fnInitDatePicker() {
     //se inicializa todos los datepicker con el selector date
     $('.date').datepicker({
-        dateFormat: "dd-mm-yy",
-        altFormat : 'yy/mm/dd'
+        dateFormat: 'dd/mm/yy',
+        altFormat: 'yy/mm/dd'
     });
 }
 
@@ -259,4 +259,9 @@ var genericMessages = {
     msjError: "Ha ocurrido un error, por favor comuniquese con el administrador.",
     msjRequiredFileds: "Existen campos requeridos.",
 }
+
+$(document).ready(function () {
+    //se inicializa las fechas
+    fnInitDatePicker();
+});
 

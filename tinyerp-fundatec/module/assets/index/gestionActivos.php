@@ -24,7 +24,7 @@ GESTIÓN ACTIVOS
     <a id="btnAssignment" href="index.php?action=newAssignmentForm" class="btn btn-primary btnMenuPrincipal disabled" >Asignación</a>
     <a id="btnQuotation" href="index.php?action=newQuotationForm" class="btn btn-primary btnMenuPrincipal disabled" >Cotización</a>
     <a id="btnAssignment" href="index.php?action=listAssignment" class="btn btn-primary btnMenuPrincipal" >Asignación</a>
-    <a id="btnPhysicalInventory" href="index.php?action=newPhysicalInventoryForm" class="btn btn-primary btnMenuPrincipal disabled" >Toma física</a>
+    <a id="btnPhysicalInventory" href="index.php?action=newPhysicalInventoryForm" class="btn btn-primary btnMenuPrincipal" >Toma física</a>
     <hr/>
     
         

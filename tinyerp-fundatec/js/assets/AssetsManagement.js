@@ -213,7 +213,9 @@ var assetManagement = {
             $(assetManagement.controlsId.txtDescription).val(result.DesActivo);
 
             var expirationDate = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaVencimiento, "DD/MM/YYYY");
-            $(assetManagement.controlsId.dtpWarrantyExpiration).datepicker('setDate', expirationDate);
+            if (expirationDate != '') {
+                $(assetManagement.controlsId.dtpWarrantyExpiration).datepicker('setDate', expirationDate);
+            }
 
             $(assetManagement.controlsId.txtWarrantyTerms).val(result.Condiciones);
 

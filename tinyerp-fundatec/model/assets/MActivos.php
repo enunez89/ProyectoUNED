@@ -366,4 +366,18 @@ class MActivos {
         }
     }
     
+    public function deleteQuotationById($idCotizacion) {
+        Mysql::open();
+
+         try {
+            Mysql::open();
+            $sql = "CALL pr_DeleteQuotationById($idCotizacion);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
 }

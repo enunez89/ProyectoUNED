@@ -279,12 +279,40 @@ class AssetsController extends controller {
                     echo ($databaseResult);
                     break;
                 }
+            case 'createQuotation': {
+                    $newQuotation = $this->convertQuotationFromPost($_POST["quotation"], TRUE);
+                    $assetsModel = new MActivos();
+                    $lastIdInserted = $assetsModel->insertQuotation($newQuotation);
+                    if($lastIdInserted != -1){
+                        $newQuotation->setIdQuotation($lastIdInserted);
+                        $databaseResult = $assetsModel->insertMultipleAssetsOnQuotation($newQuotation);
+                        echo ($databaseResult);
+                    }else{
+                        echo ($lastIdInserted); 
+                    }
+                    break;
+                }
             default :
                 echo $this->showAssetsIndex();
                 break;
         }
     }
 
+    public function convertQuotationFromPost($quotation, $isNew) {
+        $newQuotation = new Quotation();
+        $jsonEncodeQuotation = json_encode($quotation);
+        $quotationObject = json_decode($jsonEncodeQuotation);
+
+        if ($isNew === FALSE) {
+            $newQuotation->setIdQuotation($quotationObject->Id);
+        }
+        $newQuotation->setAmount($quotationObject->Monto);
+        $newQuotation->setFileURL($quotationObject->IdArchivoAdjunto);
+        $newQuotation->setProviderId($quotationObject->IdProveedor);
+        $newQuotation->setAssets($quotationObject->Assets);       
+        return $newQuotation;
+    }
+    
     public function convertAssetFromPost($asset, $isNew) {
         $newAsset = new Asset();
         $jsonEncodeAsset = json_encode($asset);

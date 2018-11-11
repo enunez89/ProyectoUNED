@@ -297,4 +297,42 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+    
+    public function insertQuotation(Quotation $quotation) {        
+        try {
+        $idProvider = $quotation->getProviderId();
+        $urlFile = $quotation->getFileURL();
+        $amount = $quotation->getAmount();
+        $query = "INSERT INTO cotizacion (IdProveedor,IdArchivoAdjunto,Monto) VALUES ($idProvider,$urlFile,$amount)";
+        Mysql::open();
+        Mysql::execute($query);
+        $resultado = Mysql::last_id();
+        Mysql::close();
+            return $resultado;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+     public function insertMultipleAssetsOnQuotation(Quotation $quotation) {        
+        try {
+        $idQuotation = $quotation->getIdQuotation();
+        $assets = $quotation->getAssets();
+        $query = "INSERT INTO cotizacionactivo (IdCotizacion,IdActivo) VALUES ";
+        $longitud = count($assets);
+        for($i=0; $i<$longitud; $i++){
+            if($i + 1 == $longitud){
+                $query .= "($idQuotation,$assets[$i]);"; 
+            }else{
+                $query .= "($idQuotation,$assets[$i]),";    
+            }                  
+        }
+        Mysql::open();
+        Mysql::execute($query);
+        Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
 }

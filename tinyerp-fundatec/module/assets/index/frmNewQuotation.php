@@ -18,11 +18,11 @@
         <div class="row">
             <div class="form-group col-lg-4">
                 <label for="amount">Monto</label>
-                <input type="text" class="form-control requerido money" name="amount" id="amount" required="required" placeholder="Monto">
+                <input type="text" class="form-control requerido money" name="amount" id="txtAmount" required="required" placeholder="Monto">
             </div>
             <div class="form-group col-lg-4">
                 <label for="provider">Proveedor</label>
-                <select class="form-control requeridoCombo" id="provider" name="provider">
+                <select class="form-control requeridoCombo" id="ddlProvider" name="provider">
                     <option value="0">Seleccione</option>
                 </select>
             </div>

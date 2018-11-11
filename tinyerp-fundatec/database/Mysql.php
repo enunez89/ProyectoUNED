@@ -69,6 +69,10 @@ class Mysql implements IConexion {
         return mysqli_query(self::$con, $query,$procedure_params);
     }
     
+    public static function last_id() {
+        return mysqli_insert_id(self::$con);
+    }
+    
     /**
      * Funcion para obtener una fila con los resultados de una consulta
      * resultset sql

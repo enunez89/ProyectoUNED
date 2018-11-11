@@ -2,10 +2,11 @@ var quotationManagement = {
     controlsId: {
         mainTable: "#QuotationsMainTable",
         addQuotationBtn: "#newQuotation",
-        ddlProvider:"#provider",
+        ddlProvider:"#ddlProvider",
         tableAssignedAssets: "#AssetsAssignedTable",
         tableAssetsSearchResults:"#AssetsSearchResult",
-        codeAsset :"#codeAsset"
+        codeAsset :"#codeAsset",
+        txtAmount :"#txtAmount"
     },
     messages: {
         quotationSavedSuccess: "Cotización de activo guardado correctamente.",
@@ -166,9 +167,27 @@ var quotationManagement = {
                     });
                 });
             }
+            return idsEncontrados;
         },
         fnSaveNewQuotation: function(){
-            
+            var idsEncontrados = [];
+             var quotation = {
+                    Id: 0,
+                    Monto: $(quotationManagement.controlsId.txtAmount).maskMoney('unmasked')[0],
+                    IdProveedor: $(quotationManagement.controlsId.ddlProvider).val(),
+                    IdArchivoAdjunto : 5,
+                    Assets: quotationManagement.actions.fnGetIdsFromTableAssignedAssets(idsEncontrados)
+                }
+
+                //formamos los parametros a enviar
+                var parameters = {'quotation': quotation, 'action': "createQuotation"};
+                var fnProcess = function (data) {
+                    console.log(data);
+                    alertify.success(quotationManagement.messages.quotationSavedSuccess);
+                    //$(assetManagement.actions.fnRedirectToAssetsIndex);
+                }
+                //se envia a guardar
+                executeAjax('index.php', parameters, fnProcess);
         }
     }    
 };

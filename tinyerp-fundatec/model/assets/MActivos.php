@@ -287,11 +287,6 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> b6925497ca2ba726d709775a953fe9377030bf0f
      public function getAllAssetsByCodePlateDescription($searchedValue) {
         Mysql::open();
         $query = "CALL pr_SearchAssetByCodePlateDescription('$searchedValue');";
@@ -372,8 +367,6 @@ class MActivos {
         }
     }
     
-<<<<<<< HEAD
-=======
     public function deleteQuotationById($idCotizacion) {
         Mysql::open();
 
@@ -388,5 +381,4 @@ class MActivos {
         }
     }
     
->>>>>>> b6925497ca2ba726d709775a953fe9377030bf0f
 }

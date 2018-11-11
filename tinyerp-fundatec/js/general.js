@@ -270,7 +270,11 @@ function fnRedirectToAction(action) {
     /*
      * Función que redirecciona a una acción hacia el controller de activos.
      */
-    window.location.href = "index.php?action='" + action + "'";
+    if (action != '') {
+        window.location.href = "index.php?action=" + action;
+    } else {
+        window.location.href = "index.php";
+    }
 }
 
 /*

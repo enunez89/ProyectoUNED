@@ -24,9 +24,7 @@ var quotationManagement = {
         $(quotationManagement.actions.fnSetIdAssetForQuotationActions(  addQuotationButton,
                                                                     assetManagement.actions.fnGetAssetIdFromURL())
                                                                 );
-//        $(assetManagement.actions.fnFillProvidersAssest());
-//        //asigna valores para el modal de eliminar
-//        $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
+       $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
        $(assetManagement.actions.fnFormatMoney());  
     },
     fnAdditionInitializer: function () {
@@ -81,7 +79,7 @@ var quotationManagement = {
                 row += '<td>' + resultRow.NombreProveedor + '</td>';
                 row += '<td>' + assetManagement.actions.fnMaskMoneyToText(resultRow.Monto) + '</td>';
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editQuotationForm&IdCotizacion='+resultRow.IdCotizacion+'&idAsset='+idAsset+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="quotationManagement.actions.fnDeleteQuotation();" data-idtodelete="'+resultRow.IdCotizacion+'" data-idAsset="'+resultRow.IdCotizacion+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="quotationManagement.actions.fnDeleteQuotation();" data-idtodelete="'+resultRow.IdCotizacion+'" data-idAsset="'+idAsset+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
             });
@@ -264,6 +262,18 @@ var quotationManagement = {
                 }
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
+        },
+        fnDeleteQuotation: function(){
+            
+           var IdCotizacion = $("#valueToDelete").val();
+           var proccessCallback = function (result)
+           {
+                alertify.success(quotationManagement.messages.quotationDeletedSuccess);
+                window.location.reload();
+           };
+           //llamamos la funcion ajax
+           var parameters = {'action': "deleteQuotation", 'IdCotizacion': IdCotizacion};
+           executeAjax('index.php', parameters, proccessCallback);
         }
     }    
 };

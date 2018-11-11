@@ -287,7 +287,11 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> b6925497ca2ba726d709775a953fe9377030bf0f
      public function getAllAssetsByCodePlateDescription($searchedValue) {
         Mysql::open();
         $query = "CALL pr_SearchAssetByCodePlateDescription('$searchedValue');";
@@ -368,4 +372,21 @@ class MActivos {
         }
     }
     
+<<<<<<< HEAD
+=======
+    public function deleteQuotationById($idCotizacion) {
+        Mysql::open();
+
+         try {
+            Mysql::open();
+            $sql = "CALL pr_DeleteQuotationById($idCotizacion);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+>>>>>>> b6925497ca2ba726d709775a953fe9377030bf0f
 }

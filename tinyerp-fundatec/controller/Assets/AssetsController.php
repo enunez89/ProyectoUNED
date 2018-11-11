@@ -316,6 +316,13 @@ class AssetsController extends controller {
                     
                     break;
                 }
+                case 'deleteQuotation': {
+                    $id = (int) $_POST["IdCotizacion"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->deleteQuotationById($id);
+                    echo ($databaseResult);
+                    break;
+                }
                 
             default :
                 echo $this->showAssetsIndex();

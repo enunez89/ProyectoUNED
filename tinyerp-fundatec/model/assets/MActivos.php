@@ -287,5 +287,89 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+<<<<<<< HEAD
 
+=======
+    
+     public function getAllAssetsByCodePlateDescription($searchedValue) {
+        Mysql::open();
+        $query = "CALL pr_SearchAssetByCodePlateDescription('$searchedValue');";
+        $assets = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($assets, $row);
+        }
+        Mysql::close();
+        return json_encode($assets);
+    }
+    
+    public function insertQuotation(Quotation $quotation) {        
+        try {
+        $idProvider = $quotation->getProviderId();
+        $urlFile = $quotation->getFileURL();
+        $amount = $quotation->getAmount();
+        $query = "INSERT INTO cotizacion (IdProveedor,IdArchivoAdjunto,Monto) VALUES ($idProvider,$urlFile,$amount)";
+        Mysql::open();
+        Mysql::execute($query);
+        $resultado = Mysql::last_id();
+        Mysql::close();
+            return $resultado;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+     public function insertMultipleAssetsOnQuotation(Quotation $quotation) {        
+        try {
+        $idQuotation = $quotation->getIdQuotation();
+        $assets = $quotation->getAssets();
+        $query = "INSERT INTO cotizacionactivo (IdCotizacion,IdActivo) VALUES ";
+        $longitud = count($assets);
+        for($i=0; $i<$longitud; $i++){
+            if($i + 1 == $longitud){
+                $query .= "($idQuotation,$assets[$i]);"; 
+            }else{
+                $query .= "($idQuotation,$assets[$i]),";    
+            }                  
+        }
+        Mysql::open();
+        Mysql::execute($query);
+        Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+    public function getQuotationById($id) {
+        Mysql::open();
+
+        $query = "CALL pr_GetQuotationById($id);";
+        $result = Mysql::query($query);
+        $asset = array();
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($asset, $row);
+        }
+        Mysql::close();
+        return json_encode($asset);
+    }
+    
+     public function editQuotation(Quotation $quotation) {
+        try {
+            $id = $quotation->getIdQuotation();
+            $amount = $quotation->getAmount();
+            $urlFile = $quotation->getFileURL();
+            $idProvider = $quotation->getProviderId();
+
+            Mysql::open();
+            $sql = "CALL pr_EditQuotation($id, $idProvider, $urlFile, $amount);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+>>>>>>> 7fd406f42662d7274fdc99cc3cfc21942ed8d6b5
 }

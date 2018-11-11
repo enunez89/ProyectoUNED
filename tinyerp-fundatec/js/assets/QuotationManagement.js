@@ -1,14 +1,21 @@
 var quotationManagement = {
     controlsId: {
         mainTable: "#QuotationsMainTable",
-        addQuotationBtn: "#newQuotation"
+        addQuotationBtn: "#newQuotation",
+        ddlProvider:"#ddlProvider",
+        tableAssignedAssets: "#AssetsAssignedTable",
+        tableAssetsSearchResults:"#AssetsSearchResult",
+        codeAsset :"#codeAsset",
+        txtAmount :"#txtAmount",
+        quotationIndexAction: "consultQuotationForm",
+        btnReturnToQuotationIndex : "#btnReturnToQuotationIndex"
     },
     messages: {
         quotationSavedSuccess: "Cotización de activo guardado correctamente.",
         quotationDeletedSuccess: "Cotización de activo eliminada correctamente.",
         quotationUpdatedSuccess: "Cotización de activo editada correctamente."
     },
-     fnIndexInitializer: function () {
+    fnIndexInitializer: function () {
         
         //carga la tabla de activos
         $(quotationManagement.actions.fnLoadExistingQuotations());
@@ -22,6 +29,28 @@ var quotationManagement = {
 //        $(deleteModalManagement.actions.fnAssignValueToDeleteOnOpenDeleteDialog());
        $(assetManagement.actions.fnFormatMoney());  
     },
+    fnAdditionInitializer: function () {
+                //llenamos el combo de proveedores de activos
+        $(quotationManagement.actions.fnFillProvidersQuotation());
+        $(assetManagement.actions.fnFormatMoneyEdit());
+        
+        var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+        idAsset = idAsset.selector;
+         var buttonToIndex = $(quotationManagement.controlsId.btnReturnToQuotationIndex);
+         buttonToIndex = buttonToIndex.selector;
+         $(quotationManagement.actions.fnSetIdAssetForQuotationActions(buttonToIndex,idAsset));
+    },
+    fnEditionInitializer: function () {      
+        $(quotationManagement.actions.fnFillProvidersQuotation());
+        $(quotationManagement.actions.fnGetQuotationForEdition());
+        $(assetManagement.actions.fnFormatMoneyEdit());
+
+        var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+        idAsset = idAsset.selector;
+         var buttonToIndex = $(quotationManagement.controlsId.btnReturnToQuotationIndex);
+         buttonToIndex = buttonToIndex.selector;
+         $(quotationManagement.actions.fnSetIdAssetForQuotationActions(buttonToIndex,idAsset));
+     },
     actions: {
         fnLoadExistingQuotations: function () {
             /*
@@ -44,13 +73,14 @@ var quotationManagement = {
             * funcion para cargar el resultado del ajax en tabla HTML
             */
             var table = $(quotationManagement.controlsId.mainTable);
-
+            var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+            idAsset = idAsset.selector;
             $.each(result, function (i, resultRow) {
                 var row = '<tr>';
                 row += '<td>' + resultRow.IdCotizacion + '</td>';
-                row += '<td>' + assetManagement.actions.fnMaskMoneyToText(resultRow.Monto) + '</td>';
                 row += '<td>' + resultRow.NombreProveedor + '</td>';
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editAssetForm&IdActivo='+resultRow.IdCotizacion+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
+                row += '<td>' + assetManagement.actions.fnMaskMoneyToText(resultRow.Monto) + '</td>';
+                row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editQuotationForm&IdCotizacion='+resultRow.IdCotizacion+'&idAsset='+idAsset+'" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="quotationManagement.actions.fnDeleteQuotation();" data-idtodelete="'+resultRow.IdCotizacion+'" data-idAsset="'+resultRow.IdCotizacion+'" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
@@ -63,5 +93,177 @@ var quotationManagement = {
             var currentHrefModified = currentHref + "&idAsset=" + idAsset.toString();            
             $(targetButton).attr("href", currentHrefModified);
         },
-    }
+        fnFillProvidersQuotation: function () {
+            /* 
+             * funcion para cargar todos los proveedores
+             */
+            //definimos la funcion luego del llamado ajax
+            var proccessCallback = function (result)
+            {
+                //obtenemos el combo de categorias
+                var selectControl = $(quotationManagement.controlsId.ddlProvider);
+
+                //recorremos el resultado y agregamos las opciones al comobo
+                $.each(result, function (i, assetRow) {
+                    var option = new Option(assetRow.Nombre, assetRow.IdProveedor);
+                    selectControl.append(option);
+                });
+            };
+             //llamamos la funcion ajax
+            var parameters = {'action': "getAllProviders"};
+            executeAjax('index.php', parameters, proccessCallback);
+        },
+        fnFindAssetsByValue: function () {
+            /* 
+             * funcion para cargar todos los activos por criterios
+             */
+            //valor a buscar:
+             var valuetosearch = $(quotationManagement.controlsId.codeAsset).val();
+             
+            //definimos la funcion luego del llamado ajax
+            var proccessCallback = function (result)
+            {
+                //obtenemos el combo de categorias
+                var resultsTable = $(quotationManagement.controlsId.tableAssetsSearchResults);
+               
+                $.each(result, function (i, assetRow) {
+                var row = '<tr>';
+                row += '<td>' + assetRow.IdActivo + '</td>';
+                row += '<td>' + assetRow.Codigo + '</td>';
+                row += '<td>' + assetRow.DesActivo + '</td>';
+                row += '<td><input type="button" class="btn btn-primary" value="Asignar"';
+                row+=  'onclick="quotationManagement.actions.fnAssignAsset('+ assetRow.IdActivo +','.concat("'")+ assetRow.Codigo.concat("','")+ assetRow.DesActivo.concat("'")+ ');"></td>';
+                row += '</tr>';
+                resultsTable.append(row);
+            });
+            
+            };
+             //llamamos la funcion ajax
+            var parameters = {'action': "getAssetsToAssign", 'valuetosearch': valuetosearch};
+            executeAjax('index.php', parameters, proccessCallback);
+        },
+        fnAssignAsset: function(id,codigo,descripcion){
+            //alert("asignando: " +id +','+ codigo +','+descripcion);
+            var encontrado = quotationManagement.actions.fnValidateIfAssignedAssetExists(id);
+            if(!encontrado){
+            var assignedAssetsTable = $(quotationManagement.controlsId.tableAssignedAssets);
+            var row = '<tr>';
+            row += '<td>' + id + '</td>';
+            row += '<td>' + codigo + '</td>';
+            row += '<td>' + descripcion + '</td>';
+            row += '<td><input type="button" class="btn btn-danger" value="Desasignar"';
+            row+=  'onclick="quotationManagement.actions.fnUnassignAsset(this);"></td>';
+            row += '</tr>';
+            assignedAssetsTable.append(row);
+        }else{
+                 alertify.error("El activo ya se encuentra asignado");
+        }
+            
+        },
+        fnValidateIfAssignedAssetExists:function(id){
+           var idsEncontrados = [];
+            quotationManagement.actions.fnGetIdsFromTableAssignedAssets(idsEncontrados);
+            var resultado= $.inArray(id.toString(),idsEncontrados);
+            if (resultado != -1){
+                return true;
+            }else{
+                return false;
+            }    
+        },
+        fnUnassignAsset: function(btn){
+            //alert("asignando: " +id +','+ codigo +','+descripcion);
+           var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        },
+        fnGetIdsFromTableAssignedAssets: function(idsEncontrados){
+        var filas= $(quotationManagement.controlsId.tableAssignedAssets + " tr ");
+            if(filas.length > 1){
+                $.each(filas, function (index) {
+                    var columnas = $(this).children("td");
+                    $.each(columnas, function (indexcolumnas, elemento) {
+                        if(indexcolumnas == 0){
+                            idsEncontrados.push($(elemento).text());
+                        }
+                    });
+                });
+            }
+            return idsEncontrados;
+        },
+        fnSaveNewQuotation: function(){
+            var idsEncontrados = [];
+             var quotation = {
+                    Id: 0,
+                    Monto: $(quotationManagement.controlsId.txtAmount).maskMoney('unmasked')[0],
+                    IdProveedor: $(quotationManagement.controlsId.ddlProvider).val(),
+                    IdArchivoAdjunto : 5,
+                    Assets: quotationManagement.actions.fnGetIdsFromTableAssignedAssets(idsEncontrados)
+                }
+
+                //formamos los parametros a enviar
+                var parameters = {'quotation': quotation, 'action': "createQuotation"};
+                var fnProcess = function (data) {
+                    console.log(data);
+                    alertify.success(quotationManagement.messages.quotationSavedSuccess);
+                    var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+                    idAsset = idAsset.selector;
+                    var actionIndex = quotationManagement.controlsId.quotationIndexAction;
+                    $(quotationManagement.actions.fnRedirectToQuotationIndex(actionIndex,idAsset));
+                }
+                //se envia a guardar
+                executeAjax('index.php', parameters, fnProcess);
+        },
+        fnRedirectToQuotationIndex: function(action, idAsset){
+            window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());
+        },
+        fnGetQuotationForEdition: function(){
+             var urlParams = new URLSearchParams(window.location.search);
+             var IdCotizacion = urlParams.get('IdCotizacion');
+             
+            var proccessCallback = function (result)
+            {
+               $(quotationManagement.actions.fnPopulateQuotationForEdition(result));
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "getQuotationById", 'IdCotizacion': IdCotizacion};
+            executeAjax('index.php', parameters, proccessCallback);
+         },
+         fnPopulateQuotationForEdition: function(result){
+             var encabezado = result[0];            
+            $(quotationManagement.controlsId.txtAmount).val(encabezado.Monto).trigger('mask');;
+            $(quotationManagement.controlsId.ddlProvider).val(encabezado.IdProveedor);
+            
+             $.each(result, function (i, resultRow) {
+               quotationManagement.actions.fnAssignAsset(resultRow.IdActivo, resultRow.Codigo, resultRow.DesActivo);
+            });
+            
+             
+                         
+         },
+         fnEditQuotation: function(){
+            var idsEncontrados = [];
+             var urlParams = new URLSearchParams(window.location.search);
+             var IdCotizacion = urlParams.get('IdCotizacion');
+             
+             var quotation = {
+                    Id: IdCotizacion,
+                    Monto: $(quotationManagement.controlsId.txtAmount).maskMoney('unmasked')[0],
+                    IdProveedor: $(quotationManagement.controlsId.ddlProvider).val(),
+                    IdArchivoAdjunto : 0,
+                    Assets: quotationManagement.actions.fnGetIdsFromTableAssignedAssets(idsEncontrados)
+                }
+
+                //formamos los parametros a enviar
+                var parameters = {'quotation': quotation, 'action': "editQuotation"};
+                var fnProcess = function (data) {
+                    console.log(data);
+                    alertify.success(quotationManagement.messages.quotationUpdatedSuccess);
+                    var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+                    idAsset = idAsset.selector;
+                    var actionIndex = quotationManagement.controlsId.quotationIndexAction;
+                    $(quotationManagement.actions.fnRedirectToQuotationIndex(actionIndex,idAsset));
+                }
+                //se envia a guardar
+                executeAjax('index.php', parameters, fnProcess);
+        }
+    }    
 };

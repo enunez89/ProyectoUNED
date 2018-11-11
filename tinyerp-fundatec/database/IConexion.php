@@ -23,5 +23,6 @@ interface IConexion {
     
     public static function prepare($procedureCall,$types,$value);
   
+    public static  function last_id();
     
 }

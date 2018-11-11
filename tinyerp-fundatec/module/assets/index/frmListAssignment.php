@@ -1,9 +1,6 @@
-<h4 class="text-primary">
-GESTIÓN ASIGNACIONES
-</h4>
-<h5 class="text-primary">
-Lista de Asignaciones
-</h5>
+<div class="page-header">
+    <h1>Gestionar asignaciones de activos</h1>
+</div>
 
 <a href="index.php" class="btn btn-primary" >Volver</a>
 <a id="btnAssignment" href="index.php?action=newAssignmentForm" class="btn btn-primary btnMenuPrincipal" >Registrar Asignación</a>

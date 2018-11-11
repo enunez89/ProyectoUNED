@@ -16,9 +16,9 @@ $(document).ready(function () {
     assetManagement.fnIndexInitializer();
 });
 </script>      
-<h4 class="text-primary">
-GESTIÓN ACTIVOS
-</h4>
+<div class="page-header">
+    <h1>Gestionar activos</h1>
+</div>
     <a href="index.php?action=newAssetForm" class="btn btn-success" >Registrar activo</a>
     <a id="btnRepair" href="index.php?action=consultRepairForm" class="btn btn-primary btnMenuPrincipal disabled" >Reparación</a>
     <a id="btnQuotation" href="index.php?action=newQuotationForm" class="btn btn-primary btnMenuPrincipal disabled" >Cotización</a>

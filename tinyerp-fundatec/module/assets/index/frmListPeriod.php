@@ -1,12 +1,9 @@
-<h4 class="text-primary">
-GESTIÓN PERIODO TOMA FISICA
-</h4>
-<h5 class="text-primary">
-Lista de Periodos de Toma Física
-</h5>
+<div class="page-header">
+    <h1>Gestionar periodos de toma física</h1>
+</div>
 
 <a href="index.php" class="btn btn-primary" >Volver</a>
-<a id="btnPeriod" href="index.php?action=newPeriodForm" class="btn btn-primary btnMenuPrincipal" >Registrar Periódo</a>
+<a id="btnPeriod" href="index.php?action=newPeriodForm" class="btn btn-primary btnMenuPrincipal" >Registrar Periodo</a>
 <hr/>
         
 <table class="table" id="PeriodMainTable">

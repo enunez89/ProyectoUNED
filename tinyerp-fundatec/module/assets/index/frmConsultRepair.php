@@ -10,12 +10,9 @@ $(document).ready(function () {
 });
 </script>
 
-<h4 class="text-primary">
-GESTIÓN ACTIVOS
-</h4>
-<h5 class="text-primary">
-Reparaciones
-</h5>
+<div class="page-header">
+    <h1>Gestionar reparaciones de un activo</h1>
+</div>
    
 <a href="index.php" class="btn btn-primary" >Volver</a>
 <a id="newRepair" href="index.php?action=newRepairForm" class="btn btn-success" >Registrar reparación</a>

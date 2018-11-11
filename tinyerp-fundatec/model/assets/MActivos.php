@@ -36,7 +36,8 @@ class MActivos {
                 Sesion::setAttr("imageProfile", $utilitiesAux->getProfileImageUrl() . "/" . $result->validateUserResult->ImageProfile);
                 Sesion::setAttr("idUsuarioLocal", $result->validateUserResult->UserID);
                 Sesion::setAttr("idUsuarioGlobal", $result->validateUserResult->UserID);
-                return true;}
+                return true;
+            }
         } catch (Exception $e) {
             print "Caught exception: " . $e->getMessage() . "\n";
             return false;
@@ -54,8 +55,8 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
-    
-     public function getAssetById($id) {
+
+    public function getAssetById($id) {
         Mysql::open();
 
         $query = "CALL pr_GetAssetById($id);";
@@ -67,8 +68,8 @@ class MActivos {
         Mysql::close();
         return json_encode($asset);
     }
-    
-    public function getAllCategoryAssest(){
+
+    public function getAllCategoryAssest() {
         /**
          * Método que obtiene de base de datos el catalogo de categorias de activos
          */
@@ -81,10 +82,9 @@ class MActivos {
         }
         Mysql::close();
         return json_encode($categories);
-        
     }
-    
-    public function getAllProviders(){
+
+    public function getAllProviders() {
         /**
          * Método que obtiene de base de datos el catalogo de proveedores de activos
          */
@@ -97,22 +97,23 @@ class MActivos {
         }
         Mysql::close();
         return json_encode($providers);
-        
     }
-    
+
     public function insertAsset(Asset $asset) {
         /**
          * Método que guarda la información de un activo en base de datos.
-         */ 
-       $utilitiesAux = new Utilities();
+         */
+        $utilitiesAux = new Utilities();
         try {
-            
-            $rutaArchivos = '../../module/assets/index/uploadFiles/';
+            /* //obtenemos la ruta fisica del archivo
+              $target_dir = "uploadFiles/";
+              $target_file = $target_dir . basename($asset->getFileURLWarranty()); */
+
             //obtenemos los parametros del sp
             $codigo = $asset->getCode();
             $codCategoria = $asset->getCodCategory();
             $marca = $asset->getBrand();
-            $precio =  $asset->getPrice();
+            $precio = $asset->getPrice();
             $idProveedor = $asset->getIdProvider();
             $codEstado = $asset->getCodState();
             $numSerie = $asset->getSerialNumber();
@@ -136,19 +137,18 @@ class MActivos {
             return -1;
         }
     }
-    
-     public function editAsset(Asset $asset) {
+
+    public function editAsset(Asset $asset) {
         /**
          * Método que guarda la información de un activo en base de datos.
-         */ 
-        
+         */
         try {
             //obtenemos los parametros del sp
             $idActivo = $asset->getId();
             $codigo = $asset->getCode();
             $codCategoria = $asset->getCodCategory();
             $marca = $asset->getBrand();
-            $precio =  $asset->getPrice();
+            $precio = $asset->getPrice();
             $idProveedor = $asset->getIdProvider();
             $codEstado = $asset->getCodState();
             $numSerie = $asset->getSerialNumber();
@@ -156,11 +156,16 @@ class MActivos {
             $descripcion = $asset->getDescription();
             $fechaAdquisicion = $asset->getAcquisitionDate();
             $idGarantia = $asset->getIdWarranty();
+            $fechaVencimientoGarantia = $asset->getExpirationDateWarranty();
+            $condicionesGarantia = $asset->getTermsWarranty();
+            $urlArchivoGarantia = $asset->getFileURLWarranty();
+            $extensionArchivoGarantia = $asset->getFileTypeWarranty();
 
             Mysql::open();
             $sql = "CALL pr_EditAssest($idActivo,'$codigo', $codCategoria, '$marca', "
                     . "$precio, $idProveedor, $codEstado, '$numSerie', '$numPlaca', "
-                    . "'$descripcion', '$fechaAdquisicion', $idGarantia); ";
+                    . "'$descripcion', '$fechaAdquisicion', $idGarantia, '$fechaVencimientoGarantia', "
+                    . "'$condicionesGarantia', '$urlArchivoGarantia', '$extensionArchivoGarantia'); ";
             Mysql::execute($sql);
             Mysql::close();
             return 1;
@@ -168,12 +173,11 @@ class MActivos {
             return -1;
         }
     }
-    
-     public function updateStateAsset($idActivo, $codEstado) {
+
+    public function updateStateAsset($idActivo, $codEstado) {
         /**
          * Método que guarda la información de un activo en base de datos.
-         */ 
-        
+         */
         try {
             Mysql::open();
             $sql = "CALL pr_ChangeStateAsset($idActivo,$codEstado); ";
@@ -184,8 +188,8 @@ class MActivos {
             return -1;
         }
     }
-    
-     public function getAllRepairsByAssetId($idAsset) {
+
+    public function getAllRepairsByAssetId($idAsset) {
         Mysql::open();
         $query = "CALL pr_GetAllRepairsByAssetId($idAsset);";
         $assets = array();
@@ -196,12 +200,11 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
-    
+
     public function insertRepair(Repair $repair) {
         /**
          * Método que guarda la información de un activo en base de datos.
-         */ 
-        
+         */
         try {
             //obtenemos los parametros del sp
             $assetId = $repair->getAssetId();
@@ -211,7 +214,7 @@ class MActivos {
             $coverByWarranty = $repair->getCoverByWarranty();
             $attachementId = $repair->getAttachementId();
 
-            Mysql::open();          
+            Mysql::open();
             $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
                     . ", '$devolutionDate', $coverByWarranty, $attachementId);";
             Mysql::execute($sql);
@@ -221,12 +224,11 @@ class MActivos {
             return -1;
         }
     }
-    
+
     public function editRepair(Repair $repair) {
         /**
          * Método que obtiene la información de una reparacion en base de datos.
-         */ 
-        
+         */
         try {
             $repairId = $repair->getRepairId();
             $assetId = $repair->getAssetId();
@@ -246,8 +248,8 @@ class MActivos {
             return -1;
         }
     }
-    
-     public function getRepairById($id) {
+
+    public function getRepairById($id) {
         Mysql::open();
 
         $query = "CALL pr_GetRepairById($id);";
@@ -259,11 +261,11 @@ class MActivos {
         Mysql::close();
         return json_encode($asset);
     }
-    
+
     public function deleteRepairById($repairId) {
         Mysql::open();
 
-         try {
+        try {
             Mysql::open();
             $sql = "CALL pr_deleteRepairById($repairId);";
             Mysql::execute($sql);
@@ -273,8 +275,8 @@ class MActivos {
             return -1;
         }
     }
-    
-     public function getAllQuotationsByAssetId($idAsset) {
+
+    public function getAllQuotationsByAssetId($idAsset) {
         Mysql::open();
         $query = "CALL pr_GetAllQuotationByAssetId($idAsset);";
         $assets = array();
@@ -285,6 +287,9 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+<<<<<<< HEAD
+
+=======
     
      public function getAllAssetsByCodePlateDescription($searchedValue) {
         Mysql::open();
@@ -366,6 +371,7 @@ class MActivos {
         }
     }
     
+<<<<<<< HEAD
     public function deleteQuotationById($idCotizacion) {
         Mysql::open();
 
@@ -380,4 +386,7 @@ class MActivos {
         }
     }
     
+=======
+>>>>>>> 7fd406f42662d7274fdc99cc3cfc21942ed8d6b5
+>>>>>>> 31ad5651a34949b6138432765d7223088000ac6f
 }

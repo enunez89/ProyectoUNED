@@ -17,7 +17,9 @@ var assetManagement = {
         txtWarrantyTerms: "#terms",
         dtpWarrantyExpiration: "#dtpExpiration",
         warrantyFile: "#warrantyFile",
-        moneyField: ".money"
+        moneyField: ".money",
+        hddAcquisition: "#hddAcquisition",
+        hddIdGarantia: "#hddIdGarantia",
     },
     messages: {
         assetSavedSuccess: "Activo guardado correctamente.",
@@ -47,7 +49,7 @@ var assetManagement = {
         //Carga el activo por Id (URL)
         $(assetManagement.actions.fnGetAssetForEdition());
         //formato de dtp
-        $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
+        //$(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
         //mascaraDeMontos
         $(assetManagement.actions.fnFormatMoneyEdit());
     },
@@ -127,9 +129,6 @@ var assetManagement = {
             //validamos los campos requeridos
             if (assetManagement.actions.fnValidateFrmNewAsset()) {
 
-
-
-console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(), "YYYY/MM/DD"));
                 //obtenemoos los daos del activoa guardar
                 var asset = {
                     Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
@@ -140,14 +139,15 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
                     NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
                     NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
                     DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                    FechaAdqusicion: assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(), "YYYY/MM/DD"),
-                    FechaVencimientoGarantia: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
+                    FechaAdqusicion: fnGetDateFormatDB($(assetManagement.controlsId.dtpAcquisition).val()),
+                    FechaVencimientoGarantia: fnGetDateFormatDB($(assetManagement.controlsId.dtpWarrantyExpiration).val()),
                     CondicionesGarantia: $(assetManagement.controlsId.txtWarrantyTerms).val(),
                     NomArchivoGarantia: $(fileManagement.fnControlsId.hddFileName).val(),
-                    TipoArchivoGarantia: $(fileManagement.fnControlsId.hddFileType).val()                    
+                    TipoArchivoGarantia: $(fileManagement.fnControlsId.hddFileType).val(),
+                    IdGarantia: '0'
                 }
-                
-                
+
+
 
 
                 //formamos los parametros a enviar
@@ -155,7 +155,10 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
                 var fnProcess = function (data) {
                     console.log(data);
                     alertify.success(assetManagement.messages.assetSavedSuccess);
-                    //$(assetManagement.actions.fnRedirectToAssetsIndex);
+                    //assetManagement.actions.fnRedirectToAssetsIndex
+                    //redirecciona a la pantalla de crear un nuevo activo por si 
+                    //se quiere ingresar otro activo
+                    fnRedirectToAction("newAssetForm");
                 }
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
@@ -176,42 +179,10 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
         },
         fnValidateFrmEditAsset: function () {
             /*
-             * Realiza la validación de los campos al crear un nuevo activo
+             * Realiza la validación de los campos al editar activo
              * @param {type} result
              * @returns {undefined}
              */
-
-            if (assetManagement.actions.fnValidateFrmEditAsset()) {
-
-                //obtenemos los datos de la garantia
-                var warranty = {
-                    FechaVencimiento: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
-                    Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),
-                }
-                //obtenemoos los daos del activoa guardar
-                var asset = {
-                    Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
-                    CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
-                    Marca: $(assetManagement.controlsId.txtBrand).val(),
-                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).val(),
-                    IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
-                    NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
-                    NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
-                    DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                    FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisition).val(),
-                    Garantia: warranty
-                }
-                console.log(asset.FechaAdqusicion);
-                //formamos los parametros a enviar
-                var parameters = {'asset': asset, 'action': "createAsset"};
-                var fnProcess = function (data) {
-                    console.log(data);
-                    alertify.success(assetManagement.messages.assetSaveSuccess);
-
-                }
-                //se envia a guardar
-                executeAjax('index.php', parameters, fnProcess);
-            }
             return fnRequiredFields(assetManagement.controlsId.frmEditAsset);
         },
         fnGetAssetForEdition: function () {
@@ -238,8 +209,21 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
             var fechaEdicion = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaAdqusicion, "DD/MM/YYYY");
             $(assetManagement.controlsId.dtpAcquisition).datepicker('setDate', fechaEdicion);
             //formato de dtp
-            $(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
+            //$(assetManagement.actions.fnFormatDatetimePickerToAlternativeFieldAssets());
             $(assetManagement.controlsId.txtDescription).val(result.DesActivo);
+
+            var expirationDate = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaVencimiento, "DD/MM/YYYY");
+            $(assetManagement.controlsId.dtpWarrantyExpiration).datepicker('setDate', expirationDate);
+
+            $(assetManagement.controlsId.txtWarrantyTerms).val(result.Condiciones);
+
+            //validamos si existe archivo
+            if (result.URL !== '' && result.Extension !== '') {
+                //enviamos a setear el href del boton para descargar el archivo
+                fileManagement.fnDownloadFile(result.URL, result.Extension);
+            }
+            $(assetManagement.controlsId.hddIdGarantia).val(result.IdGarantia);
+
 
         },
         fnSaveEditedAsset: function () {
@@ -250,44 +234,44 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
              */
 
             //validamos los campos requeridos
-            // if (assetManagement.actions.fnValidateFrmEditAsset()) {
+            if (assetManagement.actions.fnValidateFrmEditAsset()) {
 
-            //obtenemos los datos de la garantia
-            var warranty = {
-                FechaVencimiento: $(assetManagement.controlsId.dtpWarrantyExpiration).val(),
-                Condiciones: $(assetManagement.controlsId.txtWarrantyTerms).val(),
-            }
 
-            var urlParams = new URLSearchParams(window.location.search);
-            var assetId = urlParams.get('IdActivo');
-            //obtenemoos los daos del activoa guardar
+                var urlParams = new URLSearchParams(window.location.search);
+                var assetId = urlParams.get('IdActivo');
+                //obtenemoos los daos del activoa guardar
 //                 var fechaFormateada = assetManagement.actions.fnFormatStringDateToCustomFormat($(assetManagement.controlsId.dtpAcquisition).val(),"YYYY-DD-MM");
 //                
-            var asset = {
-                IdActivo: assetId,
-                Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
-                CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
-                Marca: $(assetManagement.controlsId.txtBrand).val(),
-                PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).maskMoney('unmasked')[0],
-                IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
-                NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
-                NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
-                DesActivo: $(assetManagement.controlsId.txtDescription).val(),
-                FechaAdqusicion: $(assetManagement.controlsId.dtpAcquisitionToSave).val(),
-                Garantia: warranty
-            };
+                var asset = {
+                    IdActivo: assetId,
+                    Codigo: $(assetManagement.controlsId.txtCode).val().trim(),
+                    CodCategoria: $(assetManagement.controlsId.ddlCodCategory).val(),
+                    Marca: $(assetManagement.controlsId.txtBrand).val(),
+                    PrecioAdquisicion: $(assetManagement.controlsId.txtPrice).maskMoney('unmasked')[0],
+                    IdProveedor: $(assetManagement.controlsId.ddlProvider).val(),
+                    NumeroSerie: $(assetManagement.controlsId.txtSerialNum).val(),
+                    NumeroPlaca: $(assetManagement.controlsId.txtPlateNum).val(),
+                    DesActivo: $(assetManagement.controlsId.txtDescription).val(),
+                    FechaAdqusicion: fnGetDateFormatDB($(assetManagement.controlsId.dtpAcquisition).val()),
+                    FechaVencimientoGarantia: fnGetDateFormatDB($(assetManagement.controlsId.dtpWarrantyExpiration).val()),
+                    CondicionesGarantia: $(assetManagement.controlsId.txtWarrantyTerms).val(),
+                    NomArchivoGarantia: $(fileManagement.fnControlsId.hddFileName).val(),
+                    TipoArchivoGarantia: $(fileManagement.fnControlsId.hddFileType).val(),
+                    IdGarantia: $(assetManagement.controlsId.hddIdGarantia).val(),
+                };
 
 
-            //formamos los parametros a enviar
-            var parameters = {'asset': asset, 'action': "editAsset"};
-            var fnProcess = function (data) {
-                console.log(data);
-                alertify.success(assetManagement.messages.assetUpdatedSuccess);
-                $(assetManagement.actions.fnRedirectToAssetsIndex);
+                //formamos los parametros a enviar
+                var parameters = {'asset': asset, 'action': "editAsset"};
+                var fnProcess = function (data) {
+                    console.log(data);
+                    alertify.success(assetManagement.messages.assetUpdatedSuccess);
+                    //redirecciona a la pantalla principal
+                    fnRedirectToAction("");
+                }
+                //se envia a guardar
+                executeAjax('index.php', parameters, fnProcess);
             }
-            //se envia a guardar
-            executeAjax('index.php', parameters, fnProcess);
-            // }
         },
 
         /////////////////ELIMINAR//////////////////////
@@ -296,7 +280,9 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
             var proccessCallback = function (result)
             {
                 alertify.success(assetManagement.messages.assetDeletedSuccess);
-                $(assetManagement.actions.fnRedirectToAssetsIndex);
+                //$(assetManagement.actions.fnRedirectToAssetsIndex);
+                //redirecciona a la pantalla principal
+                fnRedirectToAction("");
             };
             //llamamos la funcion ajax
             var parameters = {'action': "deleteAsset", 'IdAsset': idAsset};
@@ -311,7 +297,7 @@ console.log(assetManagement.actions.fnFormatStringDateToCustomFormat($(assetMana
             });
         },
         fnRedirectToAssetsIndex: function () {
-            window.location.replace("/module/assets/index/index.php");
+            window.location.href = "index.php?action=newAssetForm";
         },
         fnFillCategoryAssest: function () {
             /*

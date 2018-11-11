@@ -24,7 +24,8 @@ var fileManagement = {
          */
         fileUpload: "#fileUpload",
         hddFileName: "#hddFileName",
-        hddFileType: "#hddFileType"
+        hddFileType: "#hddFileType",
+        btnDownload: "#btnDownload",
     },
 
     fnInitFileUpload: function () {
@@ -50,6 +51,15 @@ var fileManagement = {
                 });
             }
         };
+    },
+
+    fnDownloadFile(fileName, fileType) {
+        /*
+         * Asigna el href al boton de descarga para descargar el archivo
+         */
+
+        $(fileManagement.fnControlsId.btnDownload).removeClass('hidden');
+        $(fileManagement.fnControlsId.btnDownload).attr('href', "download.php?file=" + fileName + "&type=" + fileType);
     }
 
 }

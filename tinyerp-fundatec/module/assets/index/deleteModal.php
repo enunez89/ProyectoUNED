@@ -8,7 +8,7 @@ echo('<input type="hidden" id="valueToDelete"></input>
         <h5 class="modal-title" id="exampleModalLongTitle">Eliminar activo</h5>
       </div>
       <div class="modal-body">
-        ¿Desea eliminar el activo seleccionado?
+        ¿Desea eliminar el elemento seleccionado?
       </div>
       <div class="modal-footer">
           <button type="button" id="deleteButton" class="btn btn-danger">Eliminar</button>

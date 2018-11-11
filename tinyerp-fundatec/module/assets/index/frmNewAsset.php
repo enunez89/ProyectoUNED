@@ -14,93 +14,95 @@
     <h1>Agregar Activo</h1>
 </div>
 
-<fieldset class="form-group">
-    <legend>Información Activo</legend>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label for="code">Código</label>
-            <input type="text" class="form-control requerido" name="code" id="code" required="required" placeholder="Código">
+<div id="frmNewAsset">
+    <fieldset class="form-group">
+        <legend>Información Activo</legend>
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="code">Código</label>
+                <input type="text" class="form-control requerido" name="code" id="code" required="required" placeholder="Código">
+            </div>
+
+            <div class="form-group col-lg-6">
+                <label for="codCategory">Categoría</label>
+                <select class="form-control requeridoCombo" id="codCategory" name="codCategory">
+                    <option value="0">Seleccione</option>
+                </select>
+            </div>
         </div>
 
-        <div class="form-group col-lg-6">
-            <label for="codCategory">Categoría</label>
-            <select class="form-control requeridoCombo" id="codCategory" name="codCategory">
-                <option value="0">Seleccione</option>
-            </select>
-        </div>
-    </div>
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="brand">Marca</label>
+                <input type="text" class="form-control requerido" name="brand" id="brand" required="required" placeholder="Marca">
+            </div>
 
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label for="brand">Marca</label>
-            <input type="text" class="form-control requerido" name="brand" id="brand" required="required" placeholder="Marca">
+            <div class="form-group col-lg-6">
+                <label for="price">Precio Adquisición</label>
+                <input type="tel" class="form-control requerido money" name="price" id="price" required="required" placeholder="Precio Adquisición">
+            </div>
         </div>
 
-        <div class="form-group col-lg-6">
-            <label for="price">Precio Adquisición</label>
-            <input type="tel" class="form-control requerido money" name="price" id="price" required="required" placeholder="Precio Adquisición">
-        </div>
-    </div>
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="provider">Proveedor</label>
+                <select class="form-control requeridoCombo" id="provider" name="provider">
+                    <option value="0">Seleccione</option>
+                </select>
+            </div>
 
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label for="provider">Proveedor</label>
-            <select class="form-control requeridoCombo" id="provider" name="provider">
-                <option value="0">Seleccione</option>
-            </select>
-        </div>
-
-        <div class="form-group col-lg-6">
-            <label for="serialNum">Número Serie</label>
-            <input type="text" class="form-control" name="serialNum" id="serialNum" placeholder="Número Serie">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label for="plateNum">Número Placa</label>
-            <input type="text" class="form-control" name="plateNum" id="plateNum" placeholder="Número Placa">
+            <div class="form-group col-lg-6">
+                <label for="serialNum">Número Serie</label>
+                <input type="text" class="form-control" name="serialNum" id="serialNum" placeholder="Número Serie">
+            </div>
         </div>
 
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="plateNum">Número Placa</label>
+                <input type="text" class="form-control" name="plateNum" id="plateNum" placeholder="Número Placa">
+            </div>
 
-        <div class="form-group col-lg-6">
-            <label for="dtpAcquisition">Fecha Adquisición</label>
-            <input type="text" class="form-control date requerido" name="dtpAcquisition" id="dtpAcquisition">
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="form-group col-lg-12">
-            <label for="description">Descripción</label>
-            <textarea class="form-control requerido" rows="3" name="description" id="description"></textarea>
-        </div>
-    </div>
-
-</fieldset>
-
-<fieldset class="form-group">
-    <legend>Garantía del Activo</legend>
-
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label for="dtpExpiration">Fecha Vencimiento</label>
-            <input type="text" class="form-control date" name="dtpExpiration" id="dtpExpiration">
+            <div class="form-group col-lg-6">
+                <label for="dtpAcquisition">Fecha Adquisición</label>
+                <input type="text" class="form-control date requerido" name="dtpAcquisition" id="dtpAcquisition">
+                <input type="hidden" name="dtpAcquisition" id="hddAcquisition">
+            </div>
         </div>
 
-        <div class="form-group col-lg-6">
-            <label for="terms">Condiciones</label>
-            <textarea class="form-control" rows="3" name="terms" id="terms"></textarea>
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <label for="description">Descripción</label>
+                <textarea class="form-control requerido" rows="3" name="description" id="description"></textarea>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-12">
-            <?php
-            include ('fileUploadControl.php');
-            ?>
-        </div>
-    </div>
-</fieldset>
 
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend>Garantía del Activo</legend>
+
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="dtpExpiration">Fecha Vencimiento</label>
+                <input type="text" class="form-control date" name="dtpExpiration" id="dtpExpiration">
+            </div>
+
+            <div class="form-group col-lg-6">
+                <label for="terms">Condiciones</label>
+                <textarea class="form-control" rows="3" name="terms" id="terms"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-12">
+                <?php
+                include ('fileUploadControl.php');
+                ?>
+            </div>
+        </div>
+    </fieldset>
+</div>
 
 <div class="row">
     <div class="form-group col-lg-12">

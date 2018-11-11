@@ -252,6 +252,27 @@ function fnInitDatePicker() {
     });
 }
 
+
+function fnGetDateFormatDB(dateValue) {
+    /*
+     * Obtiene una fecha en formato yyyy/mm/dd
+     * dateValue Valor de la fecha
+     */
+
+    var arrDate = dateValue.split('/');
+
+    var dateFormated = arrDate[2] + '/' + arrDate[1] + '/' + arrDate[0];
+
+    return dateFormated;
+}
+
+function fnRedirectToAction(action) {
+    /*
+     * Función que redirecciona a una acción hacia el controller de activos.
+     */
+    window.location.href = "index.php?action='" + action + "'";
+}
+
 /*
  * Variable que cuenta con mensajes genéricos que se le muestran al usuario
  */
@@ -259,6 +280,7 @@ var genericMessages = {
     msjError: "Ha ocurrido un error, por favor comuniquese con el administrador.",
     msjRequiredFileds: "Existen campos requeridos.",
 }
+
 
 $(document).ready(function () {
     //se inicializa las fechas

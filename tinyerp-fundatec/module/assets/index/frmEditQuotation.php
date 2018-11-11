@@ -6,14 +6,14 @@
 <script>
     $(document).ready(function () {
     //se inicializa el forms
-        quotationManagement.fnAdditionInitializer();
+        quotationManagement.fnEditionInitializer();
+        
     });
 </script>
 
 <div class="page-header">
-    <h1>Agregar cotización</h1>
+    <h1>Editar cotización</h1>
 </div>
-
 <form class="form-group">  
         <div class="row">
             <div class="form-group col-lg-4">
@@ -89,7 +89,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(quotationManagement.actions.fnSaveNewQuotation());">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(quotationManagement.actions.fnEditQuotation());">
             <a href="index.php?action=consultQuotationForm" id="btnReturnToQuotationIndex" class="btn btn-default" >Volver</a>
         </div>
     </div>

@@ -292,6 +292,31 @@ class AssetsController extends controller {
                     }
                     break;
                 }
+                 case 'editQuotationForm': {
+                    $this->runView("frmEditQuotation", "assets/index");
+                    break;
+                }
+                case 'getQuotationById': {
+                    $id = (int) $_POST["IdCotizacion"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getQuotationById($id);
+                    echo ($databaseResult);
+                    break;
+                }
+                 case 'editQuotation': {
+                    $existingQuotation = $this->convertQuotationFromPost($_POST["quotation"], FALSE);
+                    $assetsModel = new MActivos();
+                     $databaseResult = $assetsModel->editQuotation($existingQuotation);
+                     if($databaseResult == 1){
+                        $databaseResult = $assetsModel->insertMultipleAssetsOnQuotation($existingQuotation);     
+                        echo($databaseResult);
+                     }else{
+                         echo(-1);//caso error al actualizar el encabezado
+                     }
+                    
+                    break;
+                }
+                
             default :
                 echo $this->showAssetsIndex();
                 break;

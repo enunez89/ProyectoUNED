@@ -335,4 +335,35 @@ class MActivos {
             return -1;
         }
     }
+    
+    public function getQuotationById($id) {
+        Mysql::open();
+
+        $query = "CALL pr_GetQuotationById($id);";
+        $result = Mysql::query($query);
+        $asset = array();
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($asset, $row);
+        }
+        Mysql::close();
+        return json_encode($asset);
+    }
+    
+     public function editQuotation(Quotation $quotation) {
+        try {
+            $id = $quotation->getIdQuotation();
+            $amount = $quotation->getAmount();
+            $urlFile = $quotation->getFileURL();
+            $idProvider = $quotation->getProviderId();
+
+            Mysql::open();
+            $sql = "CALL pr_EditQuotation($id, $idProvider, $urlFile, $amount);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
 }

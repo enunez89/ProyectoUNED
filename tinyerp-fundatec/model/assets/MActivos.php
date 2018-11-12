@@ -213,10 +213,12 @@ class MActivos {
             $devolutionDate = $repair->getDevolutionDate();
             $coverByWarranty = $repair->getCoverByWarranty();
             $attachementId = $repair->getAttachementId();
+            $fileURL = $repair->getFileURL();
+            $fileType = $repair->getFileType();
 
             Mysql::open();
             $sql = "CALL pr_InsertRepair($assetId, '$description', '$studioName'"
-                    . ", '$devolutionDate', $coverByWarranty, $attachementId);";
+                    . ", '$devolutionDate', $coverByWarranty, '$fileURL', '$fileType');";
             Mysql::execute($sql);
             Mysql::close();
             return 1;
@@ -237,10 +239,13 @@ class MActivos {
             $devolutionDate = $repair->getDevolutionDate();
             $coverByWarranty = $repair->getCoverByWarranty();
             $attachementId = $repair->getAttachementId();
+            $fileURL = $repair->getFileURL();
+            $fileType = $repair->getFileType();
 
             Mysql::open();
             $sql = "CALL pr_EditRepair($assetId, '$description', '$studioName'"
-                    . ", '$devolutionDate', $coverByWarranty, $attachementId, $repairId);";
+                    . ", '$devolutionDate', $coverByWarranty, $repairId"
+                    . ", '$fileURL', '$fileType');";
             Mysql::execute($sql);
             Mysql::close();
             return 1;

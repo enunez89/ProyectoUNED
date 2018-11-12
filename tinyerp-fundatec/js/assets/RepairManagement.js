@@ -102,7 +102,9 @@ var repairsManagement = {
                     StudioName: $(repairsManagement.controlsId.txtStudioName).val(),
                     DevolutionDate: $(repairsManagement.controlsId.dtpDevolutionToSave).val(),
                     CoverByWarranty: coveredByWarranty,
-                    Description: $(repairsManagement.controlsId.txtDescription).val()
+                    Description: $(repairsManagement.controlsId.txtDescription).val(),
+                    FileName: $(fileManagement.fnControlsId.hddFileName).val(),
+                    FileType: $(fileManagement.fnControlsId.hddFileType).val()
                 };
                 
                 
@@ -139,6 +141,12 @@ var repairsManagement = {
             }else{
                 $(repairsManagement.controlsId.radioCovertFalse).prop("checked", true);
             }
+            
+             //validamos si existe archivo
+            if (result.URL !== '' && result.Extension !== '') {
+                //enviamos a setear el href del boton para descargar el archivo
+                fileManagement.fnDownloadFile(result.URL, result.Extension);
+            }
              
          },
         fnSaveEditedRepair: function () {
@@ -167,7 +175,9 @@ var repairsManagement = {
                     StudioName: $(repairsManagement.controlsId.txtStudioName).val(),
                     DevolutionDate: $(repairsManagement.controlsId.dtpDevolutionToSave).val(),
                     CoverByWarranty: coveredByWarranty,
-                    Description: $(repairsManagement.controlsId.txtDescription).val()
+                    Description: $(repairsManagement.controlsId.txtDescription).val(),
+                    FileName: $(fileManagement.fnControlsId.hddFileName).val(),
+                    FileType: $(fileManagement.fnControlsId.hddFileType).val()
                 };                
                 //formamos los parametros a enviar
             var parameters = {'repair': repair, 'action': "editRepair"};
@@ -197,11 +207,12 @@ var repairsManagement = {
         /////////////////UTILITARIOS///////////
         fnSetIdAssetForRepairActions: function(targetButton, idAsset){
             var currentHref = $(targetButton).attr("href");
-            var currentHrefModified = currentHref + "&idAsset=" + idAsset.toString();            
+            var currentHrefModified = currentHref + "&idAsset=" + idAsset;            
             $(targetButton).attr("href", currentHrefModified);
         },
         fnRedirectToRepairsIndex: function(action, idAsset){
-            window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());
+           // window.location.replace("/module/assets/index/index.php?action="+action+"&idAsset="+idAsset.toString());
+            window.location.href = "index.php?action=" +action+"&idAsset="+idAsset.toString();
         },
         fnFormatDatetimePickerToAlternativeFieldRepairs: function(){
          $(repairsManagement.controlsId.dtpDevolutionToShow).datepicker({ 

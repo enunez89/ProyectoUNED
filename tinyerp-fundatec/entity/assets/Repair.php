@@ -15,6 +15,8 @@ class Repair {
     public $CoverByWarranty;
     public $AttachementId;
     public $AssetId;
+    public $FileURL;
+    public $FileType;
 
     function __construct() {
         
@@ -70,4 +72,22 @@ class Repair {
     public function setAssetId($val) {
         $this->AssetId = $val;
     }
+
+    public function getFileURL() {
+        return $this->FileURL;
+    }
+
+    public function getFileType() {
+        return $this->FileType;
+    }
+
+    public function setFileURL($FileURL) {
+        $this->FileURL = $FileURL;
+    }
+
+    public function setFileType($FileType) {
+        $this->FileType = $FileType;
+    }
+
+
 }

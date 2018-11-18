@@ -117,7 +117,7 @@
     <div class="row">
         <div class="form-group col-lg-12">
             <input type="button" class="btn btn-primary" value="Guardar" onclick="$(assetManagement.actions.fnSaveEditedAsset());">
-            <a href="index.php" class="btn btn-default">Cancelar</a>
+            <a href="index.php" class="btn btn-default">Volver</a>
         </div>
     </div>
 </div>

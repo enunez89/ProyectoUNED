@@ -21,7 +21,7 @@ $(document).ready(function () {
 </div>
     <a href="index.php?action=newAssetForm" class="btn btn-success" >Registrar activo</a>
     <a id="btnRepair" href="index.php?action=consultRepairForm" class="btn btn-primary btnMenuPrincipal disabled" >Reparación</a>
-    <a id="btnQuotation" href="index.php?action=newQuotationForm" class="btn btn-primary btnMenuPrincipal disabled" >Cotización</a>
+    <a id="btnQuotation" href="index.php?action=consultQuotationForm" class="btn btn-primary btnMenuPrincipal" >Cotización</a>
     <a id="btnAssignment" href="index.php?action=listAssignment" class="btn btn-primary btnMenuPrincipal" >Asignación</a>
     <a id="btnPhysicalInventory" href="index.php?action=newPhysicalInventoryForm" class="btn btn-primary btnMenuPrincipal" >Toma física</a>
     <hr/>

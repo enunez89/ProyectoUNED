@@ -3,7 +3,7 @@
 </div>
 
 <a href="index.php" class="btn btn-primary" >Volver</a>
-<a id="btnPeriod" href="index.php?action=newPeriodForm" class="btn btn-primary btnMenuPrincipal" >Registrar Periodo</a>
+<a id="btnPeriod" href="index.php?action=newPeriodForm" class="btn btn-success btnMenuPrincipal" >Registrar Periodo</a>
 <hr/>
         
 <table class="table" id="PeriodMainTable">

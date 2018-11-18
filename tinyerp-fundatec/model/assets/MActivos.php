@@ -276,9 +276,9 @@ class MActivos {
         }
     }
 
-    public function getAllQuotationsByAssetId($idAsset) {
+    public function getAllQuotations() {
         Mysql::open();
-        $query = "CALL pr_GetAllQuotationByAssetId($idAsset);";
+        $query = "CALL pr_GetAllQuotation();";
         $assets = array();
         $result = Mysql::query($query);
         while ($row = Mysql::get_row_array($result)) {

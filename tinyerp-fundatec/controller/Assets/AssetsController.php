@@ -139,9 +139,8 @@ class AssetsController extends controller {
                     break;
                 }
             case 'requestQuotations': {
-                    $id = (int) $_POST["IdAsset"];
                     $assetsModel = new MActivos();
-                    $databaseResult = $assetsModel->getAllQuotationsByAssetId($id);
+                    $databaseResult = $assetsModel->getAllQuotations();
                     echo ($databaseResult);
                     break;
                 }

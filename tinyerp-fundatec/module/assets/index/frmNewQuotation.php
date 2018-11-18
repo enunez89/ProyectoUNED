@@ -27,7 +27,7 @@
                 </select>
             </div>
         </div>
-    
+    <br/>
     <fieldset class="form-group">
         <legend>Activos cotizados</legend>
         <div class="row">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </fieldset>
-
+    <hr/>
     <fieldset class="form-group">
         <legend>Buscar activo</legend>
 
@@ -76,7 +76,7 @@
             </div>
         </div>
     </fieldset>
-
+<hr/>
     <fieldset class="form-group">
         <div class="row">
             <div class="form-group col-lg-12">

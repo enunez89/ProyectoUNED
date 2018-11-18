@@ -387,6 +387,8 @@ class AssetsController extends controller {
         $newRepair->setDescription($repairObject->Description);
         $newRepair->setCoverByWarranty($repairObject->CoverByWarranty);
         $newRepair->setAttachementId(0);
+        $newRepair->setFileURL($repairObject->FileName);
+        $newRepair->setFileType($repairObject->FileType);
         //echo($newRepair);
         return $newRepair;
     }

@@ -1,12 +1,15 @@
+<link href="../../../css/dropzone.css" rel="stylesheet" type="text/css"/>
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/RepairManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/jquery.maskMoney.js"></script>
 <script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
 <script type="text/javascript" src="../../../js/assets/moment.js"></script>
+<script src="../../../js/assets/dropzone.js" type="text/javascript"></script>
+<script src="../../../js/assets/FileManagement.js" type="text/javascript"></script>
 <script>
     $(document).ready(function () {
-    //se inicializa el forms
+        //se inicializa el forms
         repairsManagement.fnAdditionInitializer();
     });
 </script>
@@ -15,7 +18,7 @@
     <h1>Agregar Reparación</h1>
 </div>
 
-<form class="form-group">
+<div class="form-group">
     <fieldset class="form-group">
         <div class="row">
             <div class="form-group col-lg-4">
@@ -47,19 +50,21 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row">            
             <div class="form-group col-lg-12">
-                <input type="file" class="custom-file-input" id="warrantyFile">
-                <label class="custom-file-label" for="warrantyFile">Elija un archivo</label>                            
+                <label>Cargar Archivo</label>
+                <?php
+                include ('fileUploadControl.php');
+                ?>
             </div>
         </div>
 
     </fieldset>
+</div>
 
-
-    <div class="row">
-        <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(repairsManagement.actions.fnSaveNewRepair());">
-            <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
-        </div>
+<div class="row">
+    <div class="form-group col-lg-12">
+        <input type="button" class="btn btn-primary" value="Guardar" onclick="$(repairsManagement.actions.fnSaveNewRepair());">
+        <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
     </div>
+</div>

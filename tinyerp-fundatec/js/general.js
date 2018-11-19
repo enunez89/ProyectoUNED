@@ -258,12 +258,15 @@ function fnGetDateFormatDB(dateValue) {
      * Obtiene una fecha en formato yyyy/mm/dd
      * dateValue Valor de la fecha
      */
-
+if(dateValue != ""){
     var arrDate = dateValue.split('/');
 
     var dateFormated = arrDate[2] + '/' + arrDate[1] + '/' + arrDate[0];
 
     return dateFormated;
+    }else{
+        return "";
+    }
 }
 
 function fnRedirectToAction(action) {

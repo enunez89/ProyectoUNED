@@ -361,7 +361,7 @@ class AssetsController extends controller {
         $newAsset->setPlateNumber($assetObject->NumeroPlaca);
         $newAsset->setDescription($assetObject->DesActivo);
         $newAsset->setAcquisitionDate($assetObject->FechaAdqusicion);
-        if ($assetObject->IdGarantia != '0') {
+        if ($assetObject->IdGarantia != '') {
             $newAsset->setIdWarranty($assetObject->IdGarantia);
         } else {
             $newAsset->setIdWarranty(0);

@@ -13,7 +13,7 @@
         repairsManagement.fnAdditionInitializer();
     });
 </script>
-
+<form id ="frmNewRepair">
 <div class="page-header">
     <h1>Agregar Reparación</h1>
 </div>
@@ -35,10 +35,10 @@
             <div class="form-group col-lg-4">
                 <label>Cubierto por garantía</label>
                 <div class="radio">
-                    <label><input id="chkCovertTrue" type="radio" name="covert" value="1">Si</label>
+                    <label><input id="chkCovertTrue" class="rdbListRequerido" type="radio" name="covert" value="1">Si</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio" name="covert" value="0">No</label>
+                    <label><input type="radio" name="covert" checked  value="0">No</label>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="row">
             <div class="form-group col-lg-12">
                 <label for="descRepair">Descripción</label>
-                <textarea class="form-control" rows="3" name="descRepair" id="descRepair"></textarea>
+                <textarea class="form-control requerido" rows="3" name="descRepair" id="descRepair"></textarea>
             </div>
         </div>
 
@@ -68,3 +68,4 @@
         <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
     </div>
 </div>
+</form>

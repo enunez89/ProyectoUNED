@@ -193,6 +193,8 @@ function fnRequiredFields(frmName, showAlert) {
                 hasError = false;
             }
         }
+        
+      
 
 
         if (hasError == false) {

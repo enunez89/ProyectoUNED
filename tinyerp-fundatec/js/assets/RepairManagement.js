@@ -9,7 +9,9 @@ var repairsManagement = {
         txtDescription: "#descRepair",
         addRepairBtn:"#newRepair",
         repairIndexAction: "consultRepairForm",
-        btnReturnToRepairIndex: "#btnReturnToRepairIndex"
+        btnReturnToRepairIndex: "#btnReturnToRepairIndex",
+        frmNewRepair:"#frmNewRepair",
+        frmExistingRepair:"#frmExistingRepair"
     },
     messages:{
         repairSavedSuccess: "Reparación guardada correctamente.",
@@ -40,6 +42,12 @@ var repairsManagement = {
         $(repairsManagement.actions.fnGetRepairForEdition());
           //datePickers
         $(repairsManagement.actions.fnFormatDatetimePickerToAlternativeFieldRepairs());
+        
+        var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+        idAsset = idAsset.selector;
+         var buttonToIndex = $(repairsManagement.controlsId.btnReturnToRepairIndex);
+         buttonToIndex = buttonToIndex.selector;
+         $(repairsManagement.actions.fnSetIdAssetForRepairActions(buttonToIndex,idAsset));
      },
      actions: {
         /////////////////CONSULTA///////////////
@@ -89,34 +97,35 @@ var repairsManagement = {
              */
 
             //validamos los campos requeridos
-            //if (assetManagement.actions.fnValidateFrmNewAsset()) {
-            var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
-            idAsset = idAsset.selector;
-            var coveredByWarranty = 0;
-             if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
-                 coveredByWarranty = 1; 
-             }         
-                //obtenemoos los daos del activoa guardar
-                var repair = {
-                    AssetId: idAsset,
-                    StudioName: $(repairsManagement.controlsId.txtStudioName).val(),
-                    DevolutionDate: $(repairsManagement.controlsId.dtpDevolutionToSave).val(),
-                    CoverByWarranty: coveredByWarranty,
-                    Description: $(repairsManagement.controlsId.txtDescription).val(),
-                    FileName: $(fileManagement.fnControlsId.hddFileName).val(),
-                    FileType: $(fileManagement.fnControlsId.hddFileType).val()
-                };
-                
-                
-                //formamos los parametros a enviar
-                var parameters = {'repair': repair, 'action': "createRepair"};
-                var fnProcess = function (data) {
-                    alertify.success(repairsManagement.messages.repairSavedSuccess);
-                    var actionIndex = repairsManagement.controlsId.repairIndexAction;
-                    $(repairsManagement.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
-                };
-                //se envia a guardar
-                executeAjax('index.php', parameters, fnProcess);
+            if (repairsManagement.actions.fnValidateFrmNewRepair()) {
+                var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
+                idAsset = idAsset.selector;
+                var coveredByWarranty = 0;
+                 if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
+                     coveredByWarranty = 1; 
+                 }         
+                    //obtenemoos los daos del activoa guardar
+                    var repair = {
+                        AssetId: idAsset,
+                        StudioName: $(repairsManagement.controlsId.txtStudioName).val(),
+                        DevolutionDate: fnGetDateFormatDB($(repairsManagement.controlsId.dtpDevolutionToShow).val()),
+                        CoverByWarranty: coveredByWarranty,
+                        Description: $(repairsManagement.controlsId.txtDescription).val(),
+                        FileName: $(fileManagement.fnControlsId.hddFileName).val(),
+                        FileType: $(fileManagement.fnControlsId.hddFileType).val()
+                    };
+
+
+                    //formamos los parametros a enviar
+                    var parameters = {'repair': repair, 'action': "createRepair"};
+                    var fnProcess = function () {
+                        alertify.success(repairsManagement.messages.repairSavedSuccess);
+                        var actionIndex = repairsManagement.controlsId.repairIndexAction;
+                        $(repairsManagement.actions.fnRedirectToRepairsIndex(actionIndex,idAsset));
+                    };
+                    //se envia a guardar
+                    executeAjax('index.php', parameters, fnProcess);
+                }
             },
         ////////////////EDITAR/////////////////
         fnGetRepairForEdition: function(){
@@ -163,7 +172,7 @@ var repairsManagement = {
                 var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
                 idAsset = idAsset.selector;
                   //obtenemoos los daos del activoa guardar
-                
+                  if (repairsManagement.actions.fnValidateFrmExistingRepair()) {
                 var coveredByWarranty = 0;
                 if($(repairsManagement.controlsId.radioCovert).is(':checked')) { 
                     coveredByWarranty = 1; 
@@ -189,6 +198,7 @@ var repairsManagement = {
             };
                 //se envia a guardar
             executeAjax('index.php', parameters, fnProcess);
+                  }
         },
         /////////////////ELIMINAR//////////////////////
         fnDeleteRepair: function(){
@@ -220,7 +230,25 @@ var repairsManagement = {
             altField  : '#dtpDevolutionToSave',
             altFormat : 'yy/mm/dd'
          });
-     }
+     },
+      fnValidateFrmNewRepair: function () {
+            /*
+             * Realiza la validación de los campos al crear un nuevo activo
+             * @param {type} result
+             * @returns {undefined}
+             */
+
+            return fnRequiredFields(repairsManagement.controlsId.frmNewRepair);
+        },        
+        fnValidateFrmExistingRepair: function () {
+            /*
+             * Realiza la validación de los campos al crear un nuevo activo
+             * @param {type} result
+             * @returns {undefined}
+             */
+
+            return fnRequiredFields(repairsManagement.controlsId.frmExistingRepair);
+        }
 
     }
 };

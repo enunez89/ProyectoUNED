@@ -13,7 +13,7 @@
         $(repairsManagement.fnEditionInitializer());
     });
 </script>
-
+<form id="frmExistingRepair">
 <div class="page-header">
     <h1>Editar Reparación</h1>
 </div>
@@ -46,7 +46,7 @@
         <div class="row">
             <div class="form-group col-lg-12">
                 <label for="descRepair">Descripción</label>
-                <textarea class="form-control" rows="3" name="descRepair" id="descRepair"></textarea>
+                <textarea class="form-control requerido" rows="3" name="descRepair" id="descRepair"></textarea>
             </div>
         </div>
 
@@ -74,3 +74,4 @@
         <a href="index.php?action=consultRepairForm" id="btnReturnToRepairIndex" class="btn btn-default" >Volver</a>
     </div>
 </div>
+    </form>

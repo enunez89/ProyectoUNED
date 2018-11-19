@@ -17,6 +17,7 @@ class Quotation {
     public $FileURL;
     public $Amount;
     public $Assets;
+    public $DueDate;
     
      function __construct() {
         
@@ -42,8 +43,16 @@ class Quotation {
         $this->Assets = $value;
     }
     
+    public function setDueDate($value) {
+        $this->DueDate = $value;
+    }
+    
     public function getIdQuotation() {
         return $this->IdQuotation;
+    }
+    
+     public function getDueDate() {
+        return $this->DueDate;
     }
     
      public function getProviderId() {

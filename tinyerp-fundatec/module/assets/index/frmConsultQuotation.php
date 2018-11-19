@@ -25,6 +25,7 @@ $(document).ready(function () {
             <th scope="col" >Id de cotización</th>
             <th scope="col">Proveedor</th>
             <th scope="col">Monto</th>
+            <th scope="col">Fecha vencimiento</th>
             <th scope="col">Editar</th>
             <th scope="col">Eliminar</th>
         </tr>

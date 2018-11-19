@@ -194,6 +194,26 @@ function fnRequiredFields(frmName, showAlert) {
             }
         }
         
+        var validarTabla = false;
+        var tablaRequerido = true;
+        var controlTabla = "";
+        $(frmName + " .tablaRequerido").each(function () {
+            var numeroDeFilas = $(this).find("tbody tr").length;
+            validarTabla = true;
+            controlTabla = $(this);
+            if (numeroDeFilas > 0) {
+                tablaRequerido = false;
+            }
+        });
+        if (validarTabla) {
+            if (tablaRequerido) {
+                var nombreEtiqueta = $("#leyendaParaTabla").text();
+                controlTabla.parent().parent().parent().after('<span class="text-danger validationMessajeFor">Debe agregar al menos un elemento a los ' + nombreEtiqueta + '</span>');
+                hasError = false;
+                //alert("tabla lenght ");
+            }
+        }
+        
       
 
 

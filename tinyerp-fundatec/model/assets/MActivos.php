@@ -308,8 +308,10 @@ class MActivos {
         try {
         $idProvider = $quotation->getProviderId();
         $urlFile = $quotation->getFileURL();
+        $urlEvaluadoFile = $urlFile == "0" ? "NULL" : $urlFile;
         $amount = $quotation->getAmount();
-        $query = "INSERT INTO cotizacion (IdProveedor,IdArchivoAdjunto,Monto) VALUES ($idProvider,$urlFile,$amount)";
+        $fechaVencimiento = $quotation->getDueDate();
+        $query = "INSERT INTO cotizacion (IdProveedor,IdArchivoAdjunto,Monto,FechaVencimiento) VALUES ($idProvider,$urlEvaluadoFile,$amount,'$fechaVencimiento')";
         Mysql::open();
         Mysql::execute($query);
         $resultado = Mysql::last_id();
@@ -361,9 +363,9 @@ class MActivos {
             $amount = $quotation->getAmount();
             $urlFile = $quotation->getFileURL();
             $idProvider = $quotation->getProviderId();
-
+            $fechaVencimiento = $quotation->getDueDate();
             Mysql::open();
-            $sql = "CALL pr_EditQuotation($id, $idProvider, $urlFile, $amount);";
+            $sql = "CALL pr_EditQuotation($id, $idProvider, $urlFile, $amount,'$fechaVencimiento');";
             Mysql::execute($sql);
             Mysql::close();
             return 1;

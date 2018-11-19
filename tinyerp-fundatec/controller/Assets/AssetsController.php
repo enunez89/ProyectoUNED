@@ -341,6 +341,7 @@ class AssetsController extends controller {
         $newQuotation->setFileURL($quotationObject->IdArchivoAdjunto);
         $newQuotation->setProviderId($quotationObject->IdProveedor);
         $newQuotation->setAssets($quotationObject->Assets);       
+        $newQuotation->setDueDate($quotationObject->FechaVencimiento);  
         return $newQuotation;
     }
     

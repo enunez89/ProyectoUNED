@@ -388,4 +388,34 @@ class MActivos {
         }
     }
     
+     public function getAllPeriods() {
+        /**
+         * Método que obtiene de base de datos el catalogo de proveedores de activos
+         */
+        Mysql::open();
+        $query = "CALL pr_GetAllPeriods();";
+        $periods = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($periods, $row);
+        }
+        Mysql::close();
+        return json_encode($periods);
+    }
+    
+     public function getAllPeriodStates() {
+        /**
+         * Método que obtiene de base de datos el catalogo de proveedores de activos
+         */
+        Mysql::open();
+        $query = "CALL pr_GetAllPeriodStates();";
+        $periodStates = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($periodStates, $row);
+        }
+        Mysql::close();
+        return json_encode($periodStates);
+    }
+    
 }

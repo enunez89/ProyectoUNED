@@ -323,6 +323,13 @@ class AssetsController extends controller {
                     break;
                 }
                 
+                case 'getAllPeriods': {
+                    $assetsModel = new MActivos();
+                    $getPeriodsResp = $assetsModel->getAllPeriods();
+                    echo ($getPeriodsResp);
+                    break;
+                }
+                
             default :
                 echo $this->showAssetsIndex();
                 break;

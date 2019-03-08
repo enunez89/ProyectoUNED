@@ -1,8 +1,11 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
 <script type="text/javascript" src="../../../js/assets/moment.js"></script>
+<script type="text/javascript" src="../../../js/assets/PeriodsManagement.js"></script>
+<script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
 <script>
     $(document).ready(function () {
+         $(periodsManagement.fnAdditionInitializer());
     });
 </script> 
 <div class="page-header">
@@ -18,9 +21,6 @@
         <div class="form-group col-lg-6">
             <label for="stade">Estado</label>
             <select class="form-control requeridoCombo" id="stade" name="stade">
-                <option value="0">Seleccione</option>
-                <option value="1">En Proceso</option>
-                <option value="2">Cerrado</option>
             </select>
         </div>
         
@@ -42,7 +42,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(periodsManagement.actions.fnSavePeriod());">
             <a href="index.php?action=newPhysicalInventoryForm" class="btn btn-default">Volver</a>
         </div>
     </div>

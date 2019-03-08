@@ -11,6 +11,7 @@ require_once '../../../controller/Assets/AssetsController.php';
 require_once '../../../entity/assets/Asset.php';
 require_once '../../../entity/assets/Repair.php';
 require_once '../../../entity/assets/Quotation.php';
+require_once '../../../entity/assets/Period.php';
 
 $assetsController = new AssetsController();
 $assetsController->procesar();

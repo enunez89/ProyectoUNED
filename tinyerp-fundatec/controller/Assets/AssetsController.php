@@ -330,6 +330,24 @@ class AssetsController extends controller {
                     break;
                 }
                 
+                case 'getAllPeriodStates': {
+                    $assetsModel = new MActivos();
+                    $getPeriodsResp = $assetsModel->getAllPeriodStates();
+                    echo ($getPeriodsResp);
+                    break;
+                }
+                case 'createPeriod': {
+                    $newPeriod = $this->convertPeriodFromPost($_POST["period"], TRUE);
+                    //enviamos a guardar
+                    $assetsModel = new MActivos();
+                    $insertPeriodResponse = $assetsModel->insertPeriod($newPeriod);
+                    echo($insertPeriodResponse);
+                    break;
+                }
+                case 'frmListPeriod': {
+                    $this->runView("frmListPeriod", "assets/index");
+                    break;
+                }
             default :
                 echo $this->showAssetsIndex();
                 break;
@@ -401,6 +419,20 @@ class AssetsController extends controller {
         return $newRepair;
     }
 
+    public function convertPeriodFromPost($period, $isNew) {
+        $jsonEncode = json_encode($period);
+        $periodObject = json_decode($jsonEncode);
+
+        $newPeriod = new Period();
+        if ($isNew === FALSE) {
+            $newPeriod->setIdPeriod($periodObject->IdPeriod);
+        }
+        $newPeriod->setDescription($periodObject->Description);
+        $newPeriod->setEndDate($periodObject->EndDate);
+        $newPeriod->setStartDate($periodObject->StartDate);
+        $newPeriod->setStateCode($periodObject->StateCode);
+        return $newPeriod;
+    }
     protected function showAssetsIndex() {
         //$indexModelAux = new indexModel();
         // $this->CashRegister = $indexModelAux->getCashRegisterByUser();

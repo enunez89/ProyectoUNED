@@ -418,4 +418,26 @@ class MActivos {
         return json_encode($periodStates);
     }
     
+     public function insertPeriod(Period $period) {
+        /**
+         * Método que guarda la información de un activo en base de datos.
+         */
+        try {
+            //obtenemos los parametros del sp
+            $description = $period->getDescription();
+            $endDate = $period->getEndDate();
+            $startDate = $period->getStartDate();
+            $stateCode = $period->getStateCode();
+
+            Mysql::open();
+            $sql = "CALL pr_InsertPeriod('$startDate', '$endDate', $stateCode, '$description'); ";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+
+    
 }

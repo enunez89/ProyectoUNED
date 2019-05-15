@@ -357,6 +357,19 @@ class MActivos {
         return json_encode($asset);
     }
     
+        public function getPeriodById($id) {
+        Mysql::open();
+
+        $query = "CALL pr_GetPeriodById($id);";
+        $result = Mysql::query($query);
+        $asset = array();
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($asset, $row);
+        }
+        Mysql::close();
+        return json_encode($asset);
+    }
+    
      public function editQuotation(Quotation $quotation) {
         try {
             $id = $quotation->getIdQuotation();
@@ -438,6 +451,36 @@ class MActivos {
             return -1;
         }
     }
+    public function editPeriod(Period $period) {
+        try {
+            $id = $period->getIdPeriod();
+            $description = $period->getDescription();
+            $startDate = $period->getStartDate();
+            $endDate = $period->getEndDate();
+            $stateCode = $period->getStateCode();
+            Mysql::open();
+            $sql = "CALL pr_EditPeriod($id, '$description', '$startDate', '$endDate', $stateCode);";
+            Mysql::execute($sql);
+            Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+//     public function deletePeriodById($idPeriodo) {
+//        Mysql::open();
+//
+//         try {
+//            Mysql::open();
+//            $sql = "CALL pr_DeletePeriodById($idPeriodo);";
+//            Mysql::execute($sql);
+//            Mysql::close();
+//            return 1;
+//        } catch (Exception $exc) {
+//            return -1;
+//        }
+//    }
 
     
 }

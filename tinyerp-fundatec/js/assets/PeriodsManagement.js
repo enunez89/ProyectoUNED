@@ -2,9 +2,11 @@ var periodsManagement = {
     controlsId : {
         ddlStates : "#stade",
         frmNewPeriod : "#frmNewPeriod",
+        frmEditPeriod: "#frmEditPeriod",
         txtDescription: "#description",
         dtpBegin: "#dtpBegin",
-        dtpEnd: "#dtpEnd"
+        dtpEnd: "#dtpEnd",
+        periodIndexAction: "newPhysicalInventoryForm"
     },
      messages: {
         periodSavedSuccess: "Periodo guardado correctamente.",
@@ -20,6 +22,14 @@ var periodsManagement = {
 
         //llenamos el combo de estados de los periodos
         $(periodsManagement.actions.fnFillPeriodStates());
+    },
+    fnEditionInitializer: function () {
+
+        //llenamos el combo de estados de los periodos
+        $(periodsManagement.actions.fnFillPeriodStates());
+        
+        //Se carga el objeto al formulario
+         $(periodsManagement.actions.fnGetPeriodForEdition());
     },
     actions: {
         /////////////////CONSULTA//////////////////////
@@ -50,7 +60,7 @@ var periodsManagement = {
                 row += '<td>' + assetManagement.actions.fnFormatStringDateToCustomFormat(periodRow.FechaFinal,"DD/MM/YYYY") + '</td>'; 
                 row += '<td>' + periodRow.Estado + '</td>';
                 row += '<td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="index.php?action=editPeriodForm&IdPeriodo=' + periodRow.IdPeriodo + '" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span> </a></p></td>'
-                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="assetManagement.actions.fnDeleteAsset();" data-idtodelete="' + periodRow.IdPeriodo + '" data-idAsset="' + periodRow.IdPeriodo + '" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
+//                row += '<td><p data-placement="top" data-toggle="tooltip" title="Eliminar"><button class="btn btn-danger btn-xs" data-target="#modalEliminar" data-functiondelete="assetManagement.actions.fnDeleteAsset();" data-idtodelete="' + periodRow.IdPeriodo + '" data-idAsset="' + periodRow.IdPeriodo + '" data-title="Eliminar" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button></p></td>';
                 row += '</tr>';
                 table.append(row);
             });
@@ -88,6 +98,15 @@ var periodsManagement = {
 
             return fnRequiredFields(periodsManagement.controlsId.frmNewPeriod);
         },
+        fnValidateFrmEditPeriod: function () {
+            /*
+             * Realiza la validación de los campos al crear un nuevo periodo
+             * @param {type} result
+             * @returns {undefined}
+             */
+
+            return fnRequiredFields(periodsManagement.controlsId.frmEditPeriod);
+        },
         fnSavePeriod: function () {
             if(periodsManagement.actions.fnValidateFrmNewPeriod()){
                 
@@ -110,6 +129,55 @@ var periodsManagement = {
                 //se envia a guardar
                 executeAjax('index.php', parameters, fnProcess);
             }
+        },
+        fnGetPeriodForEdition: function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var periodId = urlParams.get('IdPeriodo');
+
+            var proccessCallback = function (result)
+            {
+                $(periodsManagement.actions.fnPopulatePeriodForEdition(result));
+            };
+            //llamamos la funcion ajax
+            var parameters = {'action': "getPeriodById", 'IdPeriodo': periodId};
+            executeAjax('index.php', parameters, proccessCallback);
+        },
+        fnPopulatePeriodForEdition: function (result) {
+            result = result[0];
+            $(periodsManagement.controlsId.txtDescription).val(result.Descripcion);
+            $(periodsManagement.controlsId.ddlStates).val(result.CodEstadoPeriodo);        
+            var fechaInicio = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaInicio, "DD/MM/YYYY");
+            $(periodsManagement.controlsId.dtpBegin).datepicker('setDate', fechaInicio);
+            var fechaFin = assetManagement.actions.fnFormatStringDateToCustomFormat(result.FechaFinal, "DD/MM/YYYY");
+            $(periodsManagement.controlsId.dtpEnd).datepicker('setDate', fechaFin);
+
+        },
+        fnEditPeriod: function(){
+            var urlParams = new URLSearchParams(window.location.search);
+            var IdPeriodo = urlParams.get('IdPeriodo');
+            if (periodsManagement.actions.fnValidateFrmEditPeriod()) { 
+            var period = {
+                IdPeriod: IdPeriodo,
+                Description: $(periodsManagement.controlsId.txtDescription).val(),
+                StateCode: $(periodsManagement.controlsId.ddlStates).val(),
+                StartDate: fnGetDateFormatDB($(periodsManagement.controlsId.dtpBegin).val()),
+                EndDate: fnGetDateFormatDB($(periodsManagement.controlsId.dtpBegin).val())
+            }
+
+                //formamos los parametros a enviar
+                var parameters = {'period': period, 'action': "editPeriod"};
+                var fnProcess = function (data) {
+                    console.log(data);
+                    alertify.success(periodsManagement.messages.periodUpdatedSuccess);
+                    var actionIndex = periodsManagement.controlsId.periodIndexAction;
+                    $(periodsManagement.actions.fnRedirectToPeriodIndex(actionIndex));
+                }
+                //se envia a guardar
+                executeAjax('index.php', parameters, fnProcess);
+            }
+        },
+         fnRedirectToPeriodIndex: function(action){
+            window.location.replace("/module/assets/index/index.php?action="+action);
         }
     }
 };

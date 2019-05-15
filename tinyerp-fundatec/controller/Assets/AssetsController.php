@@ -271,6 +271,10 @@ class AssetsController extends controller {
                     $this->runView("frmNewPeriod", "assets/index");
                     break;
                 }
+            case 'editPeriodForm': {
+                    $this->runView("frmEditPeriod", "assets/index");
+                    break;
+                }
             case 'getAssetsToAssign': {
                     $valuetosearch = $_POST["valuetosearch"];
                     $assetsModel = new MActivos();
@@ -348,12 +352,26 @@ class AssetsController extends controller {
                     $this->runView("frmListPeriod", "assets/index");
                     break;
                 }
+                 case 'getPeriodById': {
+                    $id = (int) $_POST["IdPeriodo"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getPeriodById($id);
+                    echo ($databaseResult);
+                    break;
+                }
+                case 'editPeriod': {
+                    $existingPeriod = $this->convertPeriodFromPost($_POST["period"], FALSE);
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->editPeriod($existingPeriod);                    
+                     echo ($databaseResult);
+                    break;
+                }
             default :
                 echo $this->showAssetsIndex();
                 break;
         }
     }
-
+    
     public function convertQuotationFromPost($quotation, $isNew) {
         $newQuotation = new Quotation();
         $jsonEncodeQuotation = json_encode($quotation);

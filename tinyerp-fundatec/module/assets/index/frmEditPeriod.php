@@ -1,18 +1,18 @@
 <script src="../../../js/general.js" type="text/javascript"></script>
-<script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
 <script type="text/javascript" src="../../../js/assets/moment.js"></script>
 <script type="text/javascript" src="../../../js/assets/PeriodsManagement.js"></script>
 <script type="text/javascript" src="../../../js/assets/AssetsManagement.js"></script>
+<script type="text/javascript" src="../../../js/assets/URLSearchParams.js"></script>
 <script>
     $(document).ready(function () {
-         $(periodsManagement.fnAdditionInitializer());
+         $(periodsManagement.fnEditionInitializer());
     });
-</script> 
+</script>
 <div class="page-header">
-    <h1>Agregar Periodo</h1>
+    <h1>Editar Periodo</h1>
 </div>
 
-<form id="frmNewPeriod" class="form-group">
+<form id="frmEditPeriod" class="form-group">
     <div class="row">
         <div class="form-group col-lg-6">
             <label for="description">Descripción</label>
@@ -42,7 +42,7 @@
 
     <div class="row">
         <div class="form-group col-lg-12">
-            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(periodsManagement.actions.fnSavePeriod());">
+            <input type="button" class="btn btn-primary" value="Guardar" onclick="$(periodsManagement.actions.fnEditPeriod());">
             <a href="index.php?action=newPhysicalInventoryForm" class="btn btn-default">Volver</a>
         </div>
     </div>

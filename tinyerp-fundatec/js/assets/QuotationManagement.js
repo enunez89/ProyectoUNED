@@ -127,7 +127,7 @@ var quotationManagement = {
             {
                 //obtenemos el combo de categorias
                 var resultsTable = $(quotationManagement.controlsId.tableAssetsSearchResults);
-               
+               resultsTable.find("tbody").empty();
                 $.each(result, function (i, assetRow) {
                 var row = '<tr>';
                 row += '<td>' + assetRow.IdActivo + '</td>';

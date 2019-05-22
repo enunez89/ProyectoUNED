@@ -68,13 +68,28 @@ class MActivos {
         Mysql::close();
         return json_encode($asset);
     }
-
+    
     public function getAllCategoryAssest() {
         /**
          * Método que obtiene de base de datos el catalogo de categorias de activos
          */
         Mysql::open();
         $query = "CALL pr_GetAllCategoryAssest();";
+        $categories = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($categories, $row);
+        }
+        Mysql::close();
+        return json_encode($categories);
+    }
+    
+     public function getAllCategoriesAssignement() {
+        /**
+         * Método que obtiene de base de datos el catalogo de categorias de activos
+         */
+        Mysql::open();
+        $query = "CALL pr_GetAllCategoriesAssignement();";
         $categories = array();
         $result = Mysql::query($query);
         while ($row = Mysql::get_row_array($result)) {
@@ -292,6 +307,17 @@ class MActivos {
         Mysql::close();
         return json_encode($assets);
     }
+     public function getAllAssignments() {
+        Mysql::open();
+        $query = "CALL pr_GetAllAssignments();";
+        $assets = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($assets, $row);
+        }
+        Mysql::close();
+        return json_encode($assets);
+    }
      public function getAllAssetsByCodePlateDescription($searchedValue) {
         Mysql::open();
         $query = "CALL pr_SearchAssetByCodePlateDescription('$searchedValue');";
@@ -321,7 +347,7 @@ class MActivos {
             return -1;
         }
     }
-    
+        
      public function insertMultipleAssetsOnQuotation(Quotation $quotation) {        
         try {
         $idQuotation = $quotation->getIdQuotation();
@@ -357,7 +383,7 @@ class MActivos {
         return json_encode($asset);
     }
     
-        public function getPeriodById($id) {
+    public function getPeriodById($id) {
         Mysql::open();
 
         $query = "CALL pr_GetPeriodById($id);";
@@ -468,19 +494,65 @@ class MActivos {
         }
     }
     
-//     public function deletePeriodById($idPeriodo) {
-//        Mysql::open();
-//
-//         try {
-//            Mysql::open();
-//            $sql = "CALL pr_DeletePeriodById($idPeriodo);";
-//            Mysql::execute($sql);
-//            Mysql::close();
-//            return 1;
-//        } catch (Exception $exc) {
-//            return -1;
-//        }
-//    }
-
+     public function findResponsableById($id) {
+        Mysql::open();
+        $query = "CALL pr_FindResponsableById('$id');";
+        $responsables = array();
+        $result = Mysql::query($query);
+        while ($row = Mysql::get_row_array($result)) {
+            array_push($responsables, $row);
+        }
+        Mysql::close();
+        $prueba = 0;
+        if(empty($responsables)){
+            $prueba = null;
+        }else{
+            $prueba = $responsables[0];            
+        }
+            
+        return json_encode($prueba);
+    }
+    
+        public function insertAssignment(Assignment $assignment) {        
+        try {
+        
+        $assignmentDate = $assignment->getAssignmentDate();
+        $assignmentDevolutionDate = $assignment->getDevolutionDate();
+        $stateCode = $assignment->getStateCode();
+        $responsableId = $assignment->getIdResponsable();
+        
+        $query = "INSERT INTO asignacion (FechaAsignacion,CodEstadoAsignacion,FechaDevolucion,BoletaSolicitud,IdResponsable) "
+                . "VALUES ('$assignmentDate',$stateCode,'$assignmentDevolutionDate',NULL,'$responsableId')";
+        Mysql::open();
+        Mysql::execute($query);
+        $resultado = Mysql::last_id();
+        Mysql::close();
+            return $resultado;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
+    
+    public function insertMultipleAssetsOnAssignment(Assignment $assignment) {        
+        try {
+        $idAssignment = $assignment->getId();
+        $assets = $assignment->getAssets();
+        $query = "INSERT INTO asignacionactivo (IdAsignacion,IdActivo) VALUES ";
+        $longitud = count($assets);
+        for($i=0; $i<$longitud; $i++){
+            if($i + 1 == $longitud){
+                $query .= "($idAssignment,$assets[$i]);"; 
+            }else{
+                $query .= "($idAssignment,$assets[$i]),";    
+            }                  
+        }
+        Mysql::open();
+        Mysql::execute($query);
+        Mysql::close();
+            return 1;
+        } catch (Exception $exc) {
+            return -1;
+        }
+    }
     
 }

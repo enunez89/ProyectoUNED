@@ -35,22 +35,11 @@ var quotationManagement = {
         $(quotationManagement.actions.fnFillProvidersQuotation());
         $(assetManagement.actions.fnFormatMoneyEdit());
         
-//        var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
-//        idAsset = idAsset.selector;
-//         var buttonToIndex = $(quotationManagement.controlsId.btnReturnToQuotationIndex);
-//         buttonToIndex = buttonToIndex.selector;
-//         $(quotationManagement.actions.fnSetIdAssetForQuotationActions(buttonToIndex,idAsset));
     },
     fnEditionInitializer: function () {      
         $(quotationManagement.actions.fnFillProvidersQuotation());
         $(quotationManagement.actions.fnGetQuotationForEdition());
         $(assetManagement.actions.fnFormatMoneyEdit());
-
-//        var idAsset = $(assetManagement.actions.fnGetAssetIdFromURL());
-//        idAsset = idAsset.selector;
-//         var buttonToIndex = $(quotationManagement.controlsId.btnReturnToQuotationIndex);
-//         buttonToIndex = buttonToIndex.selector;
-//         $(quotationManagement.actions.fnSetIdAssetForQuotationActions(buttonToIndex,idAsset));
      },
     actions: {
         fnLoadExistingQuotations: function () {

@@ -58,6 +58,12 @@ class AssetsController extends controller {
                     echo ($getCategoryAssestResp);
                     break;
                 }
+            case 'getAllCategoriesAssignment': {
+                    $assetsModel = new MActivos();
+                    $getCategoriesResp = $assetsModel->getAllCategoriesAssignement();
+                    echo ($getCategoriesResp);
+                    break;
+                }
             case 'getAssetById': {
                     $id = (int) $_POST["IdAsset"];
                     $assetsModel = new MActivos();
@@ -141,6 +147,12 @@ class AssetsController extends controller {
             case 'requestQuotations': {
                     $assetsModel = new MActivos();
                     $databaseResult = $assetsModel->getAllQuotations();
+                    echo ($databaseResult);
+                    break;
+                }
+            case 'requestAssignments': {
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->getAllAssignments();
                     echo ($databaseResult);
                     break;
                 }
@@ -366,6 +378,27 @@ class AssetsController extends controller {
                      echo ($databaseResult);
                     break;
                 }
+                case 'findResponsableById': {
+                    $id = $_POST["Id"];
+                    $assetsModel = new MActivos();
+                    $databaseResult = $assetsModel->findResponsableById($id);
+                    echo ($databaseResult);
+                    break;
+                }
+                case 'createAssignment': {
+                    $newAssignment = $this->convertAssignmentFromPost($_POST["assignment"], TRUE);
+                    $assetsModel = new MActivos();
+                    $lastIdInserted = $assetsModel->insertAssignment($newAssignment);
+                    if($lastIdInserted != -1){
+                        $newAssignment->setId($lastIdInserted);
+                        $databaseResult = $assetsModel->insertMultipleAssetsOnAssignment($newAssignment);
+                        echo ($databaseResult);
+                    }else{
+                        echo ($lastIdInserted); 
+                    }
+                    break;
+                }
+                
             default :
                 echo $this->showAssetsIndex();
                 break;
@@ -386,6 +419,26 @@ class AssetsController extends controller {
         $newQuotation->setAssets($quotationObject->Assets);       
         $newQuotation->setDueDate($quotationObject->FechaVencimiento);  
         return $newQuotation;
+    }
+    
+    public function convertAssignmentFromPost($assignment, $isNew) {
+        $newAssignment = new Assignment();
+        $jsonEncodeAssignment = json_encode($assignment);
+        $assignmentObject = json_decode($jsonEncodeAssignment);
+
+        if ($isNew === FALSE) {
+            $newAssignment->setId($assignment->Id);
+        }
+        $responsableID =  $assignmentObject->IdentificacionResponsable;
+        $assetsModel = new MActivos();
+        $responsableIdFromDB = $assetsModel->findResponsableById($responsableID);
+        $b = json_decode($responsableIdFromDB);
+        $newAssignment->setIdResponsable($b->idresponsable);
+        $newAssignment->setStateCode($assignmentObject->Estado);
+        $newAssignment->setAssignmentDate($assignmentObject->FechaAsignacion);
+        $newAssignment->setDevolutionDate($assignmentObject->FechaVencimiento);
+        $newAssignment->setAssets($assignmentObject->Assets);
+        return $newAssignment;
     }
     
     public function convertAssetFromPost($asset, $isNew) {

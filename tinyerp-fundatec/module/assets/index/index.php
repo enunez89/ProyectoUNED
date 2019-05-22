@@ -12,6 +12,7 @@ require_once '../../../entity/assets/Asset.php';
 require_once '../../../entity/assets/Repair.php';
 require_once '../../../entity/assets/Quotation.php';
 require_once '../../../entity/assets/Period.php';
+require_once '../../../entity/assets/Assignment.php';
 
 $assetsController = new AssetsController();
 $assetsController->procesar();
